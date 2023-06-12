@@ -1,6 +1,8 @@
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { useState } from "react";
 
+import Colors from "../constants/Colors";
+
 const LoginScreen = () => {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
