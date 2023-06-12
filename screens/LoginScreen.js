@@ -1,7 +1,9 @@
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { useState } from "react";
+import { Ionicons } from "@expo/vector-icons";
 
 import Colors from "../constants/Colors";
+import Button from "../components/Button";
 
 const LoginScreen = () => {
    const [email, setEmail] = useState('');
@@ -9,6 +11,7 @@ const LoginScreen = () => {
 
    return (
       <View style={styles.container}>
+         <Ionicons name='ios-earth' size={100} color='blue' />
          <Text style={styles.title}>History Hunt</Text>
          <Text style={styles.loginText}>Log in to your account</Text>
          <View style={styles.inputContainer}>
@@ -20,6 +23,11 @@ const LoginScreen = () => {
                placeholder="Password"
                onChangeText={userPassword => setPassword(userPassword)}
                defaultValue={password} />
+         </View>
+         <Button title='Continue' />
+         <View>
+            <Text>Don't already have an account?</Text>
+            <Pressable><Text>Sign up here</Text></Pressable>
          </View>
       </View>
    )
