@@ -28,20 +28,28 @@ const styles = StyleSheet.create({
       flex: 1,
       alignItems: 'center',
       width: '100%',
+      borderColor: 'blue',
+      borderStyle: 'dashed',
+      borderWidth: 2
    },
    inputContainer: {
-      marginVertical: 20,
-
+      margin: 10,
+      width: 200,
+      borderColor: 'blue',
+      borderStyle: 'dashed',
+      borderWidth: 2
    },
    title: {
       fontSize: 30,
-      margin: 20
+      margin: 20,
    },
    loginText: {
       margin: 20,
+
    },
    textInput: {
       margin: 20,
+
    }
 })
 
