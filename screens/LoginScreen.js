@@ -1,6 +1,7 @@
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 import Colors from "../constants/Colors";
 import Button from "../components/Button";
@@ -8,6 +9,12 @@ import Button from "../components/Button";
 const LoginScreen = () => {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
+
+   const navigation = useNavigation()
+   const signUpHandler = () => {
+      navigation.navigate('SignupScreen')
+
+   }
 
    return (
       <View style={styles.container}>
@@ -27,7 +34,7 @@ const LoginScreen = () => {
          <Button title='Continue' />
          <View>
             <Text>Don't already have an account?</Text>
-            <Pressable><Text>Sign up here</Text></Pressable>
+            <Pressable onPress={signUpHandler}><Text>Sign up here</Text></Pressable>
          </View>
       </View>
    )
