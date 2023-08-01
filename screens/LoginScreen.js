@@ -5,22 +5,24 @@ import { useNavigation } from "@react-navigation/native";
 
 import Colors from "../constants/Colors";
 import Button from "../components/Button";
+import LoginForm from '../components/LoginForm'
 
 const LoginScreen = () => {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
 
    const navigation = useNavigation()
-   const signUpHandler = () => {
+   const navigateToSignup = () => {
       navigation.navigate('SignupScreen')
 
    }
-
+   // KEYBOAR TYPE I INPUT
    return (
       <View style={styles.container}>
          <Ionicons name='ios-earth' size={100} color='blue' />
          <Text style={styles.title}>History Hunt</Text>
          <Text style={styles.loginText}>Log in to your account</Text>
+
          <View style={styles.inputContainer}>
             <TextInput style={styles.textInput}
                placeholder="Email"
@@ -34,7 +36,7 @@ const LoginScreen = () => {
          <Button title='Continue' />
          <View>
             <Text>Don't already have an account?</Text>
-            <Pressable onPress={signUpHandler}><Text>Sign up here</Text></Pressable>
+            <Pressable onPress={navigateToSignup}><Text>Sign up here</Text></Pressable>
          </View>
       </View>
    )
