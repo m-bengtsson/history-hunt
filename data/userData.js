@@ -1,9 +1,9 @@
 const userData = [
    {
+      avatar: '',
       name: 'Matilda',
       email: 'matilda@hotmail.com',
       password: 'abc123',
-      friends: [],
       plannedHunts: [
          {
             name: 'First hunt',
