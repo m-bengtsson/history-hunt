@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import Colors from "../constants/Colors";
 import Button from "../components/Button";
-import LoginForm from '../components/LoginForm'
+//import LoginForm from '../components/LoginForm'
 
 const LoginScreen = () => {
    const [email, setEmail] = useState('');
@@ -16,6 +16,14 @@ const LoginScreen = () => {
       navigation.navigate('SignupScreen')
 
    }
+
+   const continueLogin = () => {
+      // Implment authentication
+      navigation.navigate('StartScreen')
+   }
+
+
+
    // KEYBOAR TYPE I INPUT
    return (
       <View style={styles.container}>
@@ -33,7 +41,7 @@ const LoginScreen = () => {
                onChangeText={userPassword => setPassword(userPassword)}
                defaultValue={password} />
          </View>
-         <Button title='Continue' />
+         <Button title='Continue' onPress={continueLogin} />
          <View>
             <Text>Don't already have an account?</Text>
             <Pressable onPress={navigateToSignup}><Text>Sign up here</Text></Pressable>

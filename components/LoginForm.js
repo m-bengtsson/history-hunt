@@ -1,6 +1,6 @@
 import { View, StyleSheet } from 'react/native';
 
-import Input from './Input';
+//import Input from './Input';
 
 const LoginForm = () => {
 
