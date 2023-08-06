@@ -1,13 +1,17 @@
 import { View, StyleSheet } from 'react-native';
+import { useState } from 'react';
+
 import Input from './Input.js';
 
 const AuthForm = () => {
+   const [enteredEmail, setEnteredEmail] = useState("");
+   const [enteredPassword, setEnteredPassword] = useState("");
 
-   const emailHandler = () => {
-      console.log('Email')
+   const emailHandler = (text) => {
+      console.log('Email', text)
    }
-   const passwordHandler = () => {
-      console.log('password')
+   const passwordHandler = (text) => {
+      console.log('password', text)
    }
 
    return (
@@ -21,7 +25,7 @@ const AuthForm = () => {
          <Input
             label='password'
             textInputConfig={{
-               keyboardType: 'password-address',
+               keyboardType: 'default',
                onChangeText: passwordHandler
             }} />
       </View>
