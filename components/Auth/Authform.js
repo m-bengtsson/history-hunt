@@ -1,18 +1,29 @@
 import { View, StyleSheet } from 'react-native';
 import Input from './Input.js';
 
-const Authform = () => {
+const AuthForm = () => {
 
    const emailHandler = () => {
       console.log('Email')
    }
+   const passwordHandler = () => {
+      console.log('password')
+   }
 
    return (
       <View style={styles.authContainer}>
-         <Input label='Email' textInputConfig={{
-            keyboardType: 'email-address',
-            onChangeText: emailHandler
-         }} />
+         <Input
+            label='Email'
+            textInputConfig={{
+               keyboardType: 'email-address',
+               onChangeText: emailHandler
+            }} />
+         <Input
+            label='password'
+            textInputConfig={{
+               keyboardType: 'password-address',
+               onChangeText: passwordHandler
+            }} />
       </View>
    )
 
@@ -32,5 +43,5 @@ const styles = StyleSheet.create({
       shadowRadius: 4,
    },
 })
-export default Authform;
+export default AuthForm;
 

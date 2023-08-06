@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 import Button from "../components/Button";
-import Authform from "../components/Auth/Authform";
+import AuthForm from "../components/Auth/AuthForm";
 
 const SignupScreen = () => {
    /* const navigate = useNavigation()
@@ -16,7 +16,7 @@ const SignupScreen = () => {
 
    return (
       <View style={styles.container}>
-         <Authform />
+         <AuthForm />
 
          {/*          <Text style={styles.title}>History Hunt</Text>
          <Text style={styles.loginText}>Sign Up</Text>

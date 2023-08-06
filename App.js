@@ -21,6 +21,7 @@ export default function App() {
             <Stack.Screen name='SignupScreen' component={SignupScreen} />
             <Stack.Screen name='StartScreen' component={StartScreen} />
          </Stack.Navigator>
+         <StatusBar />
       </NavigationContainer>
    );
 }
