@@ -14,7 +14,8 @@ export default function App() {
    return (
       <NavigationContainer>
          <Stack.Navigator screenOptions={{
-            headerStyle: { backgroundColor: '#f5f5f5' }
+            headerStyle: { backgroundColor: '#f5f5f5' },
+            headerShown: false
          }}>
             <Stack.Screen name='LoginScreen' component={LoginScreen} />
             <Stack.Screen name='SignupScreen' component={SignupScreen} />
@@ -25,11 +26,11 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-   container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginTop: 60
-   },
+   /*    container: {
+         flex: 1,
+         backgroundColor: '#fff',
+         alignItems: 'center',
+         justifyContent: 'center',
+         marginTop: 60
+      }, */
 });

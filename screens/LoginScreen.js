@@ -30,7 +30,6 @@ const LoginScreen = () => {
          <Ionicons name='ios-earth' size={100} color='blue' />
          <Text style={styles.title}>History Hunt</Text>
          <Text style={styles.loginText}>Log in to your account</Text>
-
          <View style={styles.inputContainer}>
             <TextInput style={styles.textInput}
                placeholder="Email"
@@ -53,11 +52,12 @@ const LoginScreen = () => {
 const styles = StyleSheet.create({
    container: {
       flex: 1,
+      marginTop: 140,
       alignItems: 'center',
       width: '100%',
-      borderColor: 'blue',
-      borderStyle: 'dashed',
-      borderWidth: 2
+      /*       borderColor: 'blue',
+            borderStyle: 'dashed',
+            borderWidth: 2 */
    },
    inputContainer: {
       margin: 10,
