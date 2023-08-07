@@ -12,7 +12,4 @@ const AuthContent = () => {
 
 }
 
-const styles = StyleSheet.create({
-
-})
 export default AuthContent;

@@ -15,10 +15,9 @@ const AuthStack = () => {
    return (
       <Stack.Navigator screenOptions={{
          headerStyle: { backgroundColor: '#f5f5f5' },
-         headerShown: false
       }}>
-         <Stack.Screen name='LoginScreen' component={LoginScreen} />
-         <Stack.Screen name='SignupScreen' component={SignupScreen} />
+         <Stack.Screen name='LoginScreen' component={LoginScreen} options={{ headerShown: false }} />
+         <Stack.Screen name='SignupScreen' component={SignupScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
    )
 }
