@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import Colors from "../constants/Colors";
 import Button from "../components/Button";
+import AuthContent from "../components/Auth/AuthContent";
 //import LoginForm from '../components/LoginForm'
 
 const LoginScreen = () => {
@@ -45,6 +46,7 @@ const LoginScreen = () => {
             <Text>Don't already have an account?</Text>
             <Pressable onPress={navigateToSignup}><Text>Sign up here</Text></Pressable>
          </View>
+         <AuthContent isLogin />
       </View>
    )
 }
