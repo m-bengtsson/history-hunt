@@ -1,7 +1,11 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, StyleSheet } from "react-native";
 import { useState } from "react";
+import { Ionicons } from "@expo/vector-icons";
+
 
 import AuthForm from "./AuthForm";
+import Colors from "../../constants/Colors";
+import TextButton from "../UI/textButton";
 
 const AuthContent = ({ isLogin, onAuthenticate }) => {
 
@@ -21,19 +25,34 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
       let { email, confirmEmail, password, confirmPassword } = credentials;
 
    }
+   const switchAuthMode = () => {
+      console.log('switch mode')
+   }
    return (
-      <View>
+      <View style={styles.authContent}>
+         <Ionicons name='ios-earth' size={100} color={Colors.mainWhite} />
+         <Text>History Hunt</Text>
          <AuthForm
             isLogin={isLogin}
             onSubmit={submitHandler}
             credentialsValidity={credentialsValidity} />
          <View>
-            <Pressable >
-               <Text>{isLogin ? "Create new account" : "Log in instead"}</Text></Pressable>
+            <TextButton onPress={switchAuthMode} title={isLogin ? "Create new account" : "Log in instead"} />
          </View>
       </View>
    )
 
 }
+
+const styles = StyleSheet.create({
+   authContent: {
+      marginTop: 200,
+      padding: 40,
+      backgroundColor: Colors.trueBlue,
+   },
+   buttons: {
+      marginTop: 8,
+   },
+});
 
 export default AuthContent;

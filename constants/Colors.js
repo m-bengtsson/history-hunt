@@ -1,6 +1,8 @@
 export default Colors = {
-   mainPurple: '#1e711e',
-   mainOrange: '#fbfaf7',
-   darkPurple: '#464646',
-   mainBrown: '#58afc9'
+   trueBlue: '#294178',
+   darkerBlue: '#4464AD',
+   darkOrange: '#f58f29',
+   chocolate: '#7d4600',
+   mainWhite: '#FFFDF2'
+
 }

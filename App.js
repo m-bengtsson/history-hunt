@@ -15,6 +15,7 @@ const AuthStack = () => {
    return (
       <Stack.Navigator screenOptions={{
          headerStyle: { backgroundColor: '#f5f5f5' },
+         contentStyle: { backgroundColor: Colors.trueBlue }
       }}>
          <Stack.Screen name='LoginScreen' component={LoginScreen} options={{ headerShown: false }} />
          <Stack.Screen name='SignupScreen' component={SignupScreen} options={{ headerShown: false }} />
@@ -36,7 +37,7 @@ const AuthenticatedStack = () => {
 export default function App() {
    return (
       <>
-         <StatusBar />
+         <StatusBar style="light" />
          <NavigationContainer>
             <AuthStack />
          </NavigationContainer>

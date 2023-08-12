@@ -2,7 +2,8 @@ import { View, StyleSheet } from 'react-native';
 import { useState } from 'react';
 
 import Input from './Input.js';
-import Button from '../Button.js';
+import Button from '../UI/Button.js';
+import Colors from '../../constants/Colors.js';
 
 const AuthForm = ({ onSubmit, isLogin, credentialsValidity }) => {
    const [enteredEmail, setEnteredEmail] = useState("");
@@ -50,7 +51,6 @@ const AuthForm = ({ onSubmit, isLogin, credentialsValidity }) => {
             }} />
          <View style={styles.buttons}>
             <Button onPress={submitHandler} title={isLogin ? "Log In" : "Sign Up"}>
-
             </Button>
          </View>
       </View>
@@ -60,16 +60,8 @@ const AuthForm = ({ onSubmit, isLogin, credentialsValidity }) => {
 
 const styles = StyleSheet.create({
    authContainer: {
-      marginTop: 64,
-      marginHorizontal: 32,
-      padding: 16,
-      borderRadius: 8,
-      backgroundColor: 'pink',
-      elevation: 2,
-      shadowColor: "black",
-      shadowOffset: { width: 1, height: 1 },
-      shadowOpacity: 0.15,
-      shadowRadius: 4,
+      marginTop: 14,
+      backgroundColor: Colors.trueBlue,
    },
 })
 export default AuthForm;
