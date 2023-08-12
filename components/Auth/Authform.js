@@ -2,16 +2,36 @@ import { View, StyleSheet } from 'react-native';
 import { useState } from 'react';
 
 import Input from './Input.js';
+import Button from '../Button.js';
 
-const AuthForm = () => {
+const AuthForm = ({ onSubmit, isLogin, credentialsValidity }) => {
    const [enteredEmail, setEnteredEmail] = useState("");
+   const [enteredConfirmEmail, setEnteredConfirmEmail] = useState("");
    const [enteredPassword, setEnteredPassword] = useState("");
+   const [enteredConfirmPassword, setEnteredConfirmPassword] = useState("");
 
-   const emailHandler = (text) => {
-      console.log('Email', text)
+
+   const submitHandler = () => {
+      onSubmit({
+
+      })
+
    }
-   const passwordHandler = (text) => {
-      console.log('password', text)
+   const inputHandler = (inputType, enteredValue) => {
+      switch (inputType) {
+         case "email":
+            setEnteredEmail(enteredValue);
+            break;
+         case "confirmEmail":
+            setEnteredConfirmEmail(enteredValue);
+            break;
+         case "password":
+            setEnteredPassword(enteredValue);
+            break;
+         case "confirmPassword":
+            setEnteredConfirmPassword(enteredValue);
+            break;
+      }
    }
 
    return (
@@ -20,14 +40,19 @@ const AuthForm = () => {
             label='Email'
             textInputConfig={{
                keyboardType: 'email-address',
-               onChangeText: emailHandler
+               onChangeText: inputHandler.bind(this, 'email')
             }} />
          <Input
             label='password'
             textInputConfig={{
                keyboardType: 'default',
-               onChangeText: passwordHandler
+               onChangeText: inputHandler
             }} />
+         <View style={styles.buttons}>
+            <Button onPress={submitHandler} title={isLogin ? "Log In" : "Sign Up"}>
+
+            </Button>
+         </View>
       </View>
    )
 

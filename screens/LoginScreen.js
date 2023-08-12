@@ -9,8 +9,7 @@ import AuthContent from "../components/Auth/AuthContent";
 //import LoginForm from '../components/LoginForm'
 
 const LoginScreen = () => {
-   const [email, setEmail] = useState('');
-   const [password, setPassword] = useState('');
+
 
    const navigation = useNavigation()
    const navigateToSignup = () => {
@@ -31,7 +30,7 @@ const LoginScreen = () => {
          <Ionicons name='ios-earth' size={100} color='blue' />
          <Text style={styles.title}>History Hunt</Text>
          <Text style={styles.loginText}>Log in to your account</Text>
-         <View style={styles.inputContainer}>
+         {/*          <View style={styles.inputContainer}>
             <TextInput style={styles.textInput}
                placeholder="Email"
                onChangeText={userEmail => setEmail(userEmail)}
@@ -40,12 +39,12 @@ const LoginScreen = () => {
                placeholder="Password"
                onChangeText={userPassword => setPassword(userPassword)}
                defaultValue={password} />
-         </View>
-         <Button title='Continue' onPress={continueLogin} />
+         </View> */}
+         {/*          <Button title='Login' onPress={continueLogin} />
          <View>
             <Text>Don't already have an account?</Text>
             <Pressable onPress={navigateToSignup}><Text>Sign up here</Text></Pressable>
-         </View>
+         </View> */}
          <AuthContent isLogin />
       </View>
    )
