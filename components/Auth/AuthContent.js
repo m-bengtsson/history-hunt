@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import AuthForm from "./AuthForm";
 import Colors from "../../constants/Colors";
-import TextButton from "../UI/textButton";
+import TextButton from "../UI/TextButton";
 
 const AuthContent = ({ isLogin, onAuthenticate }) => {
 
@@ -30,7 +30,9 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
    }
    return (
       <View style={styles.authContent}>
-         <Ionicons name='ios-earth' size={100} color={Colors.mainWhite} />
+         <View style={styles.iconContainer}>
+            <Ionicons name='ios-earth' size={100} color={Colors.mainWhite} />
+         </View>
          <Text>History Hunt</Text>
          <AuthForm
             isLogin={isLogin}
@@ -49,6 +51,9 @@ const styles = StyleSheet.create({
       marginTop: 200,
       padding: 40,
       backgroundColor: Colors.trueBlue,
+   },
+   iconContainer: {
+      alignSelf: 'center'
    },
    buttons: {
       marginTop: 8,

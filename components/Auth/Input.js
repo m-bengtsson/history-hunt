@@ -26,8 +26,9 @@ const styles = StyleSheet.create({
    label: {
       color: Colors.mainWhite,
       marginBottom: 6,
-      marginLeft: 6
-   },
+      marginLeft: 6,
+/*       fontFamily: 'NerkoOne-Regular'
+ */   },
    input: {
       padding: 16,
       backgroundColor: Colors.trueBlue,

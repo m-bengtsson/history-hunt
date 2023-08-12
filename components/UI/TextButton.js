@@ -2,7 +2,7 @@ import { Text, StyleSheet, Pressable } from 'react-native';
 
 import Colors from '../../constants/Colors';
 
-export default function TextButton(props) {
+const TextButton = (props) => {
    const { onPress, title } = props;
    return (
       <Pressable onPress={onPress}>
@@ -22,3 +22,5 @@ const styles = StyleSheet.create({
    }
 
 })
+
+export default TextButton;
