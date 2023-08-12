@@ -2,10 +2,11 @@ import { View, Text, Pressable, StyleSheet } from "react-native";
 import { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
-
 import AuthForm from "./AuthForm";
 import Colors from "../../constants/Colors";
 import TextButton from "../UI/TextButton";
+import FontLoader from "../UI/FontLoader";
+
 
 const AuthContent = ({ isLogin, onAuthenticate }) => {
 
@@ -29,19 +30,21 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
       console.log('switch mode')
    }
    return (
-      <View style={styles.authContent}>
-         <View style={styles.iconContainer}>
-            <Ionicons name='ios-earth' size={100} color={Colors.mainWhite} />
+      <FontLoader>
+         <View style={styles.authContent}>
+            <View style={styles.iconContainer}>
+               <Ionicons name='ios-earth' size={100} color={Colors.darkerBlue} />
+            </View>
+            <Text style={styles.iconContainer}>History Hunt</Text>
+            <AuthForm
+               isLogin={isLogin}
+               onSubmit={submitHandler}
+               credentialsValidity={credentialsValidity} />
+            <View>
+               <TextButton onPress={switchAuthMode} title={isLogin ? "Create new account" : "Log in instead"} />
+            </View>
          </View>
-         <Text>History Hunt</Text>
-         <AuthForm
-            isLogin={isLogin}
-            onSubmit={submitHandler}
-            credentialsValidity={credentialsValidity} />
-         <View>
-            <TextButton onPress={switchAuthMode} title={isLogin ? "Create new account" : "Log in instead"} />
-         </View>
-      </View>
+      </FontLoader>
    )
 
 }
@@ -53,7 +56,10 @@ const styles = StyleSheet.create({
       backgroundColor: Colors.trueBlue,
    },
    iconContainer: {
-      alignSelf: 'center'
+      alignSelf: 'center',
+      color: Colors.mainWhite,
+      fontFamily: 'NerkoOne_400Regular',
+      fontSize: 38
    },
    buttons: {
       marginTop: 8,

@@ -1,5 +1,7 @@
 import { Text, View, StyleSheet, TextInput } from "react-native"
+
 import Colors from "../../constants/Colors";
+
 
 const Input = ({ label, textInputConfig }) => {
    return (
@@ -27,8 +29,9 @@ const styles = StyleSheet.create({
       color: Colors.mainWhite,
       marginBottom: 6,
       marginLeft: 6,
-/*       fontFamily: 'NerkoOne-Regular'
- */   },
+      fontFamily: 'NerkoOne_400Regular'
+
+   },
    input: {
       padding: 16,
       backgroundColor: Colors.trueBlue,

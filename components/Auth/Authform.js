@@ -43,12 +43,25 @@ const AuthForm = ({ onSubmit, isLogin, credentialsValidity }) => {
                keyboardType: 'email-address',
                onChangeText: inputHandler.bind(this, 'email')
             }} />
+         {!isLogin && (<Input
+            label='Confirm Email Adress'
+            textInputConfig={{
+               keyboardType: 'email-address',
+               onChangeText: inputHandler.bind(this, 'confirmEmail')
+            }} />)}
          <Input
-            label='password'
+            label='Password'
             textInputConfig={{
                keyboardType: 'default',
-               onChangeText: inputHandler
+               onChangeText: inputHandler.bind(this, 'password')
             }} />
+
+         {!isLogin && (<Input
+            label='Confirm Password'
+            textInputConfig={{
+               keyboardType: 'default',
+               onChangeText: inputHandler.bind(this, 'confirmPassword')
+            }} />)}
          <View style={styles.buttons}>
             <Button onPress={submitHandler} title={isLogin ? "Log In" : "Sign Up"}>
             </Button>

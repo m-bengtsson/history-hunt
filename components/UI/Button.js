@@ -15,12 +15,13 @@ const styles = StyleSheet.create({
    container: {
       backgroundColor: Colors.darkOrange,
       borderRadius: 25,
-      padding: 16,
+      padding: 12,
       marginTop: 12,
 
    },
    text: {
-      fontSize: 18,
+      fontFamily: 'NerkoOne_400Regular',
+      fontSize: 26,
       color: Colors.chocolate,
       fontWeight: "bold",
       alignSelf: "center",
