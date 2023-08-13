@@ -11,13 +11,14 @@ const AuthForm = ({ onSubmit, isLogin, credentialsValidity }) => {
    const [enteredPassword, setEnteredPassword] = useState("");
    const [enteredConfirmPassword, setEnteredConfirmPassword] = useState("");
 
+   const {
+      email: emailIsInvalid,
+      confirmEmail: emailsDontMatch,
+      password: passwordIsInvalid,
+      confirmPassword: passwordsDontMatch,
+   } = credentialsValidity;
 
-   const submitHandler = () => {
-      onSubmit({
 
-      })
-
-   }
    const inputHandler = (inputType, enteredValue) => {
       switch (inputType) {
          case "email":
@@ -33,7 +34,16 @@ const AuthForm = ({ onSubmit, isLogin, credentialsValidity }) => {
             setEnteredConfirmPassword(enteredValue);
             break;
       }
-   }
+   };
+
+   const submitHandler = () => {
+      onSubmit({
+         email: enteredEmail,
+         confirmEmail: enteredConfirmEmail,
+         password: enteredPassword,
+         confirmPassword: enteredConfirmPassword,
+      });
+   };
 
    return (
       <View style={styles.authContainer}>
@@ -41,29 +51,41 @@ const AuthForm = ({ onSubmit, isLogin, credentialsValidity }) => {
             label='Email'
             textInputConfig={{
                keyboardType: 'email-address',
-               onChangeText: inputHandler.bind(this, 'email')
+               onChangeText: inputHandler.bind(this, 'email'),
+               value: enteredEmail,
+               isInvalid: emailIsInvalid
+
             }} />
          {!isLogin && (<Input
             label='Confirm Email Adress'
             textInputConfig={{
                keyboardType: 'email-address',
-               onChangeText: inputHandler.bind(this, 'confirmEmail')
+               onChangeText: inputHandler.bind(this, 'confirmEmail'),
+               value: enteredConfirmEmail,
+               isInvalid: emailsDontMatch
+
             }} />)}
          <Input
             label='Password'
             textInputConfig={{
                keyboardType: 'default',
-               onChangeText: inputHandler.bind(this, 'password')
+               onChangeText: inputHandler.bind(this, 'password'),
+               value: enteredPassword,
+               isInvalid: passwordIsInvalid
             }} />
 
          {!isLogin && (<Input
             label='Confirm Password'
             textInputConfig={{
                keyboardType: 'default',
-               onChangeText: inputHandler.bind(this, 'confirmPassword')
+               onChangeText: inputHandler.bind(this, 'confirmPassword'),
+               value: enteredConfirmPassword,
+               isInvalid: passwordsDontMatch
+
             }} />)}
          <View style={styles.buttons}>
-            <Button onPress={submitHandler} title={isLogin ? "Log In" : "Sign Up"}>
+            <Button onPress={submitHandler}
+               title={isLogin ? "Log In" : "Sign Up"}>
             </Button>
          </View>
       </View>

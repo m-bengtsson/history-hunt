@@ -1,4 +1,4 @@
-import { View, Text, Pressable, StyleSheet } from "react-native";
+import { View, Text, Pressable, StyleSheet, Alert } from "react-native";
 import { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -10,25 +10,60 @@ import FontLoader from "../UI/FontLoader";
 
 const AuthContent = ({ isLogin, onAuthenticate }) => {
 
-   const [credentialsValidity, setCredentialsValidity] = useState({ // single state handling multiple properties (user credentials)
+   const [credentialsValidity, setCredentialsValidity] = useState({
+      // single state handling multiple properties (user credentials)
       email: false,
-      password: false,
       confirmEmail: false,
+      password: false,
       confirmPassword: false,
    });
 
    // Submit handling user credentials
    const submitHandler = (credentials) => {
-      //Destrukturera credentials
+      // Destrukturera credentials
       // Implement validering såsom trimmning, tomma fält osv
       // Kolla om epost och lösen matchar
       // onAuthenticate({ email, password })
+      // setCredentialsValidity
       let { email, confirmEmail, password, confirmPassword } = credentials;
+      // Trim email and password inputs
+      email = email.trim();
+      password = password.trim();
 
-   }
+      // Validate email and password inputs
+      const emailIsValid = email.includes("@");
+      const passwordIsValid = password.length > 6;
+
+      // Check if email and password match (for signup)
+      const emailsAreEqual = email === confirmEmail;
+      const passwordsAreEqual = password === confirmPassword;
+
+      // Perform input validation
+      if (
+         !emailIsValid ||
+         !passwordIsValid ||
+         (!isLogin && (!emailsAreEqual || !passwordsAreEqual))
+      ) {/////////////// ÄNDRING :TODO ÄNDRA TILL NÅGOT ANNAT Än ALERT
+         Alert.alert("Invalid input", "Please check your entered credentials.");
+
+         // Update credentialsInvalid state to reflect invalid inputs
+         setCredentialsValidity({
+            email: !emailIsValid,
+            confirmEmail: !emailIsValid || !emailsAreEqual,
+            password: !passwordIsValid,
+            confirmPassword: !passwordIsValid || !passwordsAreEqual,
+         });
+
+         // Exit the function
+         return;
+      }
+      onAuthenticate({ email, password });
+   };
+
    const switchAuthMode = () => {
-      console.log('switch mode')
+      console.log('switch mode');
    }
+
    return (
       <FontLoader>
          <View style={styles.authContent}>

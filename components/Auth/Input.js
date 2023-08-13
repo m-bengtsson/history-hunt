@@ -4,17 +4,13 @@ import Colors from "../../constants/Colors";
 
 
 const Input = ({ label, textInputConfig }) => {
+   const { isInvalid } = textInputConfig;
    return (
       <View style={styles.inputContainer}>
-         <Text style={styles.label}>
+         <Text style={[styles.label, isInvalid && styles.labelInvalid]}>
             {label}
          </Text>
-         <TextInput style={styles.input} {...textInputConfig}
-         /* autoCapitalize="none"
-         keyboardType={keyboardType}
-         secureTextEntry={secure}
-         onChangeText={onUpdateValue}
-         value={value} */
+         <TextInput style={[styles.input, isInvalid && styles.inputInvalid]} {...textInputConfig}
          />
       </View>
    )
@@ -30,7 +26,9 @@ const styles = StyleSheet.create({
       marginBottom: 6,
       marginLeft: 6,
       fontFamily: 'NerkoOne_400Regular'
-
+   },
+   labelInvalid: {
+      color: 'red'
    },
    input: {
       padding: 16,
@@ -41,6 +39,9 @@ const styles = StyleSheet.create({
       fontSize: 16,
       color: Colors.mainWhite
    },
+   inputInvalid: {
+      backgroundColor: 'pink'
+   }
 });
 
 
