@@ -1,5 +1,6 @@
 import { View, Text, Pressable, StyleSheet, Alert } from "react-native";
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 
 import AuthForm from "./AuthForm";
@@ -9,6 +10,7 @@ import FontLoader from "../UI/FontLoader";
 
 
 const AuthContent = ({ isLogin, onAuthenticate }) => {
+   const navigate = useNavigation();
 
    const [credentialsValidity, setCredentialsValidity] = useState({
       // single state handling multiple properties (user credentials)
@@ -18,6 +20,13 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
       confirmPassword: false,
    });
 
+   const switchAuthMode = () => {
+      if (isLogin) {
+         navigate.replace('SignupScreen');
+      } else {
+         navigate.replace('LoginScreen');
+      }
+   };
    // Submit handling user credentials
    const submitHandler = (credentials) => {
       // Destrukturera credentials
@@ -60,13 +69,10 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
       onAuthenticate({ email, password });
    };
 
-   const switchAuthMode = () => {
-      console.log('switch mode');
-   }
 
    return (
       <FontLoader>
-         <View style={styles.authContent}>
+         <View style={[styles.authContent, !isLogin && styles.authContentSignup]}>
             <View style={styles.iconContainer}>
                <Ionicons name='ios-earth' size={100} color={Colors.darkerBlue} />
             </View>
@@ -89,6 +95,9 @@ const styles = StyleSheet.create({
       marginTop: 200,
       padding: 40,
       backgroundColor: Colors.trueBlue,
+   },
+   authContentSignup: {
+      marginTop: 80
    },
    iconContainer: {
       alignSelf: 'center',

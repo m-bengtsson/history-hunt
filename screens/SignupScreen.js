@@ -1,13 +1,17 @@
-import { View } from "react-native";
+import { ScrollView } from "react-native";
 
 import AuthContent from "../components/Auth/AuthContent";
+import * as http from "../util/http";
 
 // Rendering the Authcontent
 const SignupScreen = () => {
+   const authenticationHandler = ({ email, password }) => {
+      http.signupUser(email, password)
+   }
    return (
-      <View>
-         <AuthContent />
-      </View>
+      <ScrollView>
+         <AuthContent onAuthenticate={authenticationHandler} />
+      </ScrollView>
    )
 }
 
