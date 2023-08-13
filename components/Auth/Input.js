@@ -18,14 +18,16 @@ const Input = ({ label, textInputConfig }) => {
 
 const styles = StyleSheet.create({
    inputContainer: {
-      marginVertical: 16,
+      marginBottom: 16,
 
    },
    label: {
       color: Colors.mainWhite,
-      marginBottom: 6,
-      marginLeft: 6,
-      fontFamily: 'NerkoOne_400Regular'
+      marginBottom: 8,
+      marginLeft: 20,
+      fontFamily: 'NerkoOne_400Regular',
+      fontSize: 16,
+
    },
    labelInvalid: {
       color: 'red'

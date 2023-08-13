@@ -14,6 +14,7 @@ const TextButton = (props) => {
 const styles = StyleSheet.create({
 
    text: {
+      textDecorationLine: 'underline',
       fontSize: 16,
       color: Colors.mainWhite,
       fontWeight: "bold",
