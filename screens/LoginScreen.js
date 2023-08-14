@@ -1,9 +1,7 @@
 import { View, Alert } from "react-native";
 import { useContext } from "react";
 import { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
 
-import Colors from "../constants/Colors";
 import AuthContent from "../components/Auth/AuthContent";
 import * as http from "../util/http";
 import LoadingOverlay from "../components/UI/LoadingOverlay";

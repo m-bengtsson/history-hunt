@@ -2,6 +2,8 @@ import 'react-native-gesture-handler';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useContext, useEffect } from 'react';
 
 
 import LoginScreen from './screens/LoginScreen';
@@ -9,7 +11,6 @@ import SignupScreen from './screens/SignupScreen';
 import StartScreen from './screens/StartScreen';
 import Colors from './constants/Colors';
 import AuthContextProvider, { AuthContext } from './store/AuthContext';
-import { useContext } from 'react';
 
 
 const Stack = createNativeStackNavigator();
@@ -38,6 +39,16 @@ const AuthenticatedStack = () => {
 }
 const Navigation = () => {
    const authCtx = useContext(AuthContext);
+
+   useEffect(() => {
+      const getToken = async () => {
+         const token = await AsyncStorage.getItem('appToken');
+         if (token) {
+            authCtx.authenticate(token)
+         }
+      }
+      getToken()
+   }, [authCtx])
 
    return (
       <NavigationContainer>

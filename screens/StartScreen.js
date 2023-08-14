@@ -5,6 +5,10 @@ import Colors from "../constants/Colors";
 import { AuthContext } from "../store/AuthContext";
 import { useContext, useEffect, useState } from "react";
 
+
+// innehåll startscreen:
+// 
+
 const StartScreen = () => {
    const authCtx = useContext(AuthContext)
    const [message, setMessage] = useState(null)
@@ -19,22 +23,25 @@ const StartScreen = () => {
    return (
       <View style={styles.container}>
          <View style={styles.iconContainer}>
+
             <IconButton
-               icon='exit'
-               color={'blue'}
+               icon='log-out-outline'
+               color={Colors.darkerBlue}
                size={35}
                onPress={authCtx.logout}
             />
          </View>
-         <Text>Start screen</Text>
          <Text>Message from server: {message}</Text>
+
       </View>
    )
 }
 
 const styles = StyleSheet.create({
    container: {
-      justifyContent: "center",
+      flex: 1,
+      backgroundColor: Colors.trueBlue,
+      justifyContent: 'flex-start',
       alignItems: "center",
       padding: 32,
    },

@@ -53,7 +53,8 @@ const AuthForm = ({ onSubmit, isLogin, credentialsValidity }) => {
                keyboardType: 'email-address',
                onChangeText: inputHandler.bind(this, 'email'),
                value: enteredEmail,
-               isInvalid: emailIsInvalid
+               isInvalid: emailIsInvalid,
+               autoCapitalize: 'none'
 
             }} />
          {!isLogin && (<Input
@@ -62,7 +63,8 @@ const AuthForm = ({ onSubmit, isLogin, credentialsValidity }) => {
                keyboardType: 'email-address',
                onChangeText: inputHandler.bind(this, 'confirmEmail'),
                value: enteredConfirmEmail,
-               isInvalid: emailsDontMatch
+               isInvalid: emailsDontMatch,
+               autoCapitalize: 'none'
 
             }} />)}
          <Input
@@ -71,7 +73,9 @@ const AuthForm = ({ onSubmit, isLogin, credentialsValidity }) => {
                keyboardType: 'default',
                onChangeText: inputHandler.bind(this, 'password'),
                value: enteredPassword,
-               isInvalid: passwordIsInvalid
+               isInvalid: passwordIsInvalid,
+               autoCapitalize: 'none'
+
             }} />
 
          {!isLogin && (<Input
@@ -80,7 +84,8 @@ const AuthForm = ({ onSubmit, isLogin, credentialsValidity }) => {
                keyboardType: 'default',
                onChangeText: inputHandler.bind(this, 'confirmPassword'),
                value: enteredConfirmPassword,
-               isInvalid: passwordsDontMatch
+               isInvalid: passwordsDontMatch,
+               autoCapitalize: 'none'
 
             }} />)}
          <View style={styles.buttons}>

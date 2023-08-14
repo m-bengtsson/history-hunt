@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 export const AuthContext = createContext({
    token: "",
@@ -9,10 +10,18 @@ export const AuthContext = createContext({
 
 const AuthContextProvider = ({ children }) => {
    const [token, setToken] = useState(null)
-   const isAuthenticated = !!token; // convertera truthy och falsy till en riktig boolean
+   const isAuthenticated = !!token; // konverterar truthy och falsy till en riktig boolean
 
-   const authenticate = (token) => setToken(token);
-   const logout = () => setToken(null)
+   const authenticate = (token) => {
+      setToken(token)
+      AsyncStorage.setItem('appToken', token)
+
+   };
+
+   const logout = () => {
+      setToken(null);
+      AsyncStorage.removeItem('appToken')
+   }
 
    const value = {
       token,

@@ -1,4 +1,4 @@
-import { View, Text, Pressable, StyleSheet, Alert } from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
@@ -13,7 +13,7 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
    const navigate = useNavigation();
 
    const [credentialsValidity, setCredentialsValidity] = useState({
-      // single state handling multiple properties (user credentials)
+      // Single state handling multiple properties (user credentials)
       email: false,
       confirmEmail: false,
       password: false,
@@ -74,7 +74,7 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
       <FontLoader>
          <View style={[styles.authContent, !isLogin && styles.authContentSignup]}>
             <View style={styles.iconContainer}>
-               <Ionicons name='ios-earth' size={100} color={Colors.darkerBlue} />
+               <Ionicons name='ios-earth' size={150} color={Colors.darkerBlue} />
             </View>
             <Text style={styles.iconContainer}>History Hunt</Text>
             <AuthForm
