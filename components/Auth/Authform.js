@@ -74,7 +74,8 @@ const AuthForm = ({ onSubmit, isLogin, credentialsValidity }) => {
                onChangeText: inputHandler.bind(this, 'password'),
                value: enteredPassword,
                isInvalid: passwordIsInvalid,
-               autoCapitalize: 'none'
+               autoCapitalize: 'none',
+               secureTextEntry: true
 
             }} />
 
@@ -85,7 +86,8 @@ const AuthForm = ({ onSubmit, isLogin, credentialsValidity }) => {
                onChangeText: inputHandler.bind(this, 'confirmPassword'),
                value: enteredConfirmPassword,
                isInvalid: passwordsDontMatch,
-               autoCapitalize: 'none'
+               autoCapitalize: 'none',
+               secureTextEntry: true
 
             }} />)}
          <View style={styles.buttons}>
