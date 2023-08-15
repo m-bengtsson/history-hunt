@@ -32,7 +32,8 @@ const AuthenticatedStack = () => {
    return (
       <Stack.Navigator screenOptions={{
          headerStyle: { backgroundColor: '#f5f5f5' },
-         headerShown: false
+         headerShown: true,
+         contentStyle: { backgroundColor: Colors.trueBlue }
       }}>
          <Stack.Screen name='StartScreen' component={StartScreen} />
          <Stack.Screen name='CreateHuntScreen' component={CreateHuntScreen} />

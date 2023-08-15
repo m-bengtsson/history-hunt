@@ -1,11 +1,52 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+import { useState } from "react";
+
+import Input from "../components/Auth/Input";
+import Button from "../components/UI/Button";
+import FontLoader from "../components/UI/FontLoader";
+import Title from "../components/UI/Title";
 
 const CreateHuntScreen = () => {
+   const [enteredHuntName, setEnteredHuntName] = useState("");
+
+
+
    return (
-      <View>
-         <Text>Create Hunt</Text>
-      </View>
+      <FontLoader>
+         <View style={styles.container}>
+            <Title>Customize</Title>
+            <Input
+               label='How long should it be?'
+               textInputConfig={{
+                  keyboardType: 'default',
+                  //onChangeText: inputHandler.bind(this, 'hunt-name'),
+                  //value: enteredHuntName,
+                  //isInvalid: huntNameIsInvalid,
+                  autoCapitalize: 'none'
+
+               }} />
+            <Input
+               label='What do you want to call your hunt?'
+               textInputConfig={{
+                  keyboardType: 'default',
+                  //onChangeText: inputHandler.bind(this, 'hunt-name'),
+                  //value: enteredHuntName,
+                  //isInvalid: huntNameIsInvalid,
+                  autoCapitalize: 'none'
+
+               }} />
+            <Button title={'Continue'} />
+         </View>
+      </FontLoader>
    )
 }
+
+const styles = StyleSheet.create({
+   container: {
+      marginTop: 70,
+      padding: 40
+   }
+
+})
 
 export default CreateHuntScreen;

@@ -35,8 +35,11 @@ export const updateUser = async (displayName, idToken) => {
    return resp.data.localId;
 };
 
-/* const storeHunt = (hunt) => {
 
-   axios.post(`https://history-hunt-f8704-default-rtdb.europe-west1.firebasedatabase.app/hunts`, hunt)
+const rootUrl = 'https://history-hunt-f8704-default-rtdb.europe-west1.firebasedatabase.app'
 
-} */
+export const storeHunt = (hunt) => {
+
+   axios.post(`${rootUrl}/hunts`, hunt)
+
+} 

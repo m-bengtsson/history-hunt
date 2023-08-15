@@ -44,8 +44,6 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
       const displayNameIsValid = displayName.lenth > 0;
       const emailIsValid = email.includes("@");
       const passwordIsValid = password.length > 6;
-
-      // Check if email and password match (for signup)
       const emailsAreEqual = email === confirmEmail;
       const passwordsAreEqual = password === confirmPassword;
 
