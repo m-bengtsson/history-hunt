@@ -11,18 +11,22 @@ import { AuthContext } from "../store/AuthContext";
 const SignupScreen = () => {
    // loading auth??
    const [isAuthenticating, setIsAuthenticating] = useState(false);
-   const authCtx = useContext(AuthContext);
-   const authenticationHandler = async ({ email, password }) => {
+   const authCtx = useContext(AuthContext)
+
+   const authenticationHandler = async ({ displayName, email, password }) => {
       setIsAuthenticating(true);
       try {
          const token = await http.signupUser(email, password);
          authCtx.authenticate(token);
+         await http.updateUser(displayName, token);
+
       } catch (error) {
-         console.log(error);
-         Alert.alert('Wrong credentials');
+         console.log(error)
+         Alert.alert('Wrong credentials')
       }
-      setIsAuthenticating(false);
+      setIsAuthenticating(false)
    };
+
 
    if (isAuthenticating) {
       return <LoadingOverlay message={'Authenticating user...'} />

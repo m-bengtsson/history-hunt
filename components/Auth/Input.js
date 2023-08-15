@@ -10,7 +10,9 @@ const Input = ({ label, textInputConfig }) => {
          <Text style={[styles.label, isInvalid && styles.labelInvalid]}>
             {label}
          </Text>
-         <TextInput style={[styles.input, isInvalid && styles.inputInvalid]} {...textInputConfig}
+         <TextInput style={[styles.input, isInvalid && styles.inputInvalid]}
+            autoCapitalize='none'
+            {...textInputConfig}
          />
       </View>
    )

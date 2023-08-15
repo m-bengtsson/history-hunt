@@ -11,6 +11,7 @@ import SignupScreen from './screens/SignupScreen';
 import StartScreen from './screens/StartScreen';
 import Colors from './constants/Colors';
 import AuthContextProvider, { AuthContext } from './store/AuthContext';
+import CreateHuntScreen from './screens/CreateHuntScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -34,6 +35,7 @@ const AuthenticatedStack = () => {
          headerShown: false
       }}>
          <Stack.Screen name='StartScreen' component={StartScreen} />
+         <Stack.Screen name='CreateHuntScreen' component={CreateHuntScreen} />
       </Stack.Navigator>
    )
 }

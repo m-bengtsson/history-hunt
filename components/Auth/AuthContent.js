@@ -14,6 +14,7 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
 
    const [credentialsValidity, setCredentialsValidity] = useState({
       // Single state handling multiple properties (user credentials)
+      displayName: false,
       email: false,
       confirmEmail: false,
       password: false,
@@ -34,12 +35,13 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
       // Kolla om epost och lösen matchar
       // onAuthenticate({ email, password })
       // setCredentialsValidity
-      let { email, confirmEmail, password, confirmPassword } = credentials;
+      let { displayName, email, confirmEmail, password, confirmPassword } = credentials;
       // Trim email and password inputs
       email = email.trim();
       password = password.trim();
 
       // Validate email and password inputs
+      const displayNameIsValid = displayName.lenth > 0;
       const emailIsValid = email.includes("@");
       const passwordIsValid = password.length > 6;
 
@@ -57,6 +59,7 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
 
          // Update credentialsInvalid state to reflect invalid inputs
          setCredentialsValidity({
+            displayName: displayNameIsValid,
             email: !emailIsValid,
             confirmEmail: !emailIsValid || !emailsAreEqual,
             password: !passwordIsValid,
@@ -66,7 +69,7 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
          // Exit the function
          return;
       }
-      onAuthenticate({ email, password });
+      onAuthenticate({ displayName, email, password });
    };
 
 

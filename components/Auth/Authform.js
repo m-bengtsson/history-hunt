@@ -6,12 +6,14 @@ import Button from '../UI/Button.js';
 import Colors from '../../constants/Colors.js';
 
 const AuthForm = ({ onSubmit, isLogin, credentialsValidity }) => {
+   const [enteredName, setEnteredName] = useState("");
    const [enteredEmail, setEnteredEmail] = useState("");
    const [enteredConfirmEmail, setEnteredConfirmEmail] = useState("");
    const [enteredPassword, setEnteredPassword] = useState("");
    const [enteredConfirmPassword, setEnteredConfirmPassword] = useState("");
 
    const {
+      displayName: displayNameIsInvalid,
       email: emailIsInvalid,
       confirmEmail: emailsDontMatch,
       password: passwordIsInvalid,
@@ -21,6 +23,9 @@ const AuthForm = ({ onSubmit, isLogin, credentialsValidity }) => {
 
    const inputHandler = (inputType, enteredValue) => {
       switch (inputType) {
+         case 'name':
+            setEnteredName(enteredValue);
+            break;
          case "email":
             setEnteredEmail(enteredValue);
             break;
@@ -38,6 +43,7 @@ const AuthForm = ({ onSubmit, isLogin, credentialsValidity }) => {
 
    const submitHandler = () => {
       onSubmit({
+         displayName: enteredName,
          email: enteredEmail,
          confirmEmail: enteredConfirmEmail,
          password: enteredPassword,
@@ -47,6 +53,19 @@ const AuthForm = ({ onSubmit, isLogin, credentialsValidity }) => {
 
    return (
       <View style={styles.authContainer}>
+         {!isLogin && (
+            <Input
+               label="Name"
+               textInputConfig={{
+                  keyboardType: 'default',
+                  onChangeText: inputHandler.bind(this, 'name'),
+                  value: enteredName,
+                  isInvalid: displayNameIsInvalid,
+                  autoCapitalize: 'words',
+               }}
+            />
+         )}
+
          <Input
             label='Email'
             textInputConfig={{
@@ -64,7 +83,6 @@ const AuthForm = ({ onSubmit, isLogin, credentialsValidity }) => {
                onChangeText: inputHandler.bind(this, 'confirmEmail'),
                value: enteredConfirmEmail,
                isInvalid: emailsDontMatch,
-               autoCapitalize: 'none'
 
             }} />)}
          <Input
@@ -74,8 +92,7 @@ const AuthForm = ({ onSubmit, isLogin, credentialsValidity }) => {
                onChangeText: inputHandler.bind(this, 'password'),
                value: enteredPassword,
                isInvalid: passwordIsInvalid,
-               autoCapitalize: 'none',
-               secureTextEntry: true
+               // secureTextEntry: true
 
             }} />
 
@@ -86,8 +103,7 @@ const AuthForm = ({ onSubmit, isLogin, credentialsValidity }) => {
                onChangeText: inputHandler.bind(this, 'confirmPassword'),
                value: enteredConfirmPassword,
                isInvalid: passwordsDontMatch,
-               autoCapitalize: 'none',
-               secureTextEntry: true
+               // secureTextEntry: true
 
             }} />)}
          <View style={styles.buttons}>
@@ -97,7 +113,6 @@ const AuthForm = ({ onSubmit, isLogin, credentialsValidity }) => {
          </View>
       </View>
    )
-
 }
 
 const styles = StyleSheet.create({

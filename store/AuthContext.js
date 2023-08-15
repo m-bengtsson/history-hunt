@@ -10,12 +10,11 @@ export const AuthContext = createContext({
 
 const AuthContextProvider = ({ children }) => {
    const [token, setToken] = useState(null)
-   const isAuthenticated = !!token; // konverterar truthy och falsy till en riktig boolean
+   const isAuthenticated = !!token; // convertera truthy och falsy till en riktig boolean
 
    const authenticate = (token) => {
       setToken(token)
       AsyncStorage.setItem('appToken', token)
-
    };
 
    const logout = () => {
