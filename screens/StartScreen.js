@@ -15,14 +15,16 @@ import FontLoader from "../components/UI/FontLoader";
 
 const StartScreen = () => {
    const authCtx = useContext(AuthContext);
-   const [message, setMessage] = useState(null);
+   const [user, setUser] = useState(null);
    const navigation = useNavigation();
+
+   axios.post(`https://history-hunt-f8704-default-rtdb.europe-west1.firebasedatabase.app/test.json?auth=${authCtx.token}`)
 
    useEffect(() => {
       axios.get(`https://history-hunt-f8704-default-rtdb.europe-west1.firebasedatabase.app/test.json?auth=${authCtx.token}`)
          .then((resp) => {
-            console.log(resp.data);
-            setMessage(resp.data);
+            console.log('resp', resp.data);
+            setUser(resp.data);
          });
    }, [])
 

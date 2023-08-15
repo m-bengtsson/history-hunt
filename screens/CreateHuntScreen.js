@@ -6,10 +6,15 @@ import Button from "../components/UI/Button";
 import FontLoader from "../components/UI/FontLoader";
 import Title from "../components/UI/Title";
 
+import * as http from "../util/http"
+
 const CreateHuntScreen = () => {
    const [enteredHuntName, setEnteredHuntName] = useState("");
 
 
+   const pressHandler = () => {
+      http.storeHunt({ name: 'skattjakt' })
+   }
 
    return (
       <FontLoader>
@@ -35,7 +40,7 @@ const CreateHuntScreen = () => {
                   autoCapitalize: 'none'
 
                }} />
-            <Button title={'Continue'} />
+            <Button title={'Continue'} onPress={pressHandler} />
          </View>
       </FontLoader>
    )

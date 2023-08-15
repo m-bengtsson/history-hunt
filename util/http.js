@@ -40,6 +40,6 @@ const rootUrl = 'https://history-hunt-f8704-default-rtdb.europe-west1.firebaseda
 
 export const storeHunt = (hunt) => {
 
-   axios.post(`${rootUrl}/hunts`, hunt)
+   axios.post(`${rootUrl}/hunts.json`, hunt)
 
 } 
