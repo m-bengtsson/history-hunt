@@ -10,7 +10,7 @@ const authenticate = async (mode, email, password) => {
          returnSecureToken: true,
       }
    );
-   console.log('id token', JSON.stringify(resp))
+   //console.log('id token', JSON.stringify(resp))
    return resp.data.idToken;
 }
 
@@ -31,15 +31,50 @@ export const updateUser = async (displayName, idToken) => {
          returnSecureToken: true
       }
    );
-   console.log('name', resp.data.displayName)
+   //console.log('name', resp.data.displayName);
    return resp.data.localId;
 };
+/* export const getUser = async (idToken) => {
+
+   const resp = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`, { idToken });
+   try{
+
+   }
+
+   console.log('respone', resp)
+   return resp
+} */
+// Databas
+
+
+export const getUser = async (idToken) => {
+   const payload = {
+      idToken: idToken,
+   };
+   try {
+      const resp = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`, payload);
+      return resp.data.users;
+   } catch (error) {
+      console.error("Error fetching user data:", error.response?.data || error.message);
+      throw error;
+   }
+};
+
 
 
 const rootUrl = 'https://history-hunt-f8704-default-rtdb.europe-west1.firebasedatabase.app'
 
 export const storeHunt = (hunt) => {
 
-   axios.post(`${rootUrl}/hunts.json`, hunt)
+   axios.post(`${rootUrl}/hunts.json`, hunt);
 
-} 
+}
+
+export const getHunts = async () => {
+   const resp = await axios.get(`${rootUrl}/hunts.json`);
+   //console.log('GET', resp)
+}
+
+export const storeUsers = (user) => {
+   axios.post(`${rootUrl}/users.json`, user);
+}

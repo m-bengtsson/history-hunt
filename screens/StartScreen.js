@@ -10,23 +10,48 @@ import IconButton from "../components/UI/IconButton";
 import Colors from "../constants/Colors";
 import Button from "../components/UI/Button";
 import FontLoader from "../components/UI/FontLoader";
+import * as http from "../util/http"
 
 // innehåll startscreen:
 
 const StartScreen = () => {
    const authCtx = useContext(AuthContext);
-   const [user, setUser] = useState(null);
+
+   // usestate eller context för currentuser??
    const navigation = useNavigation();
 
-   axios.post(`https://history-hunt-f8704-default-rtdb.europe-west1.firebasedatabase.app/test.json?auth=${authCtx.token}`)
-
    useEffect(() => {
-      axios.get(`https://history-hunt-f8704-default-rtdb.europe-west1.firebasedatabase.app/test.json?auth=${authCtx.token}`)
-         .then((resp) => {
-            console.log('resp', resp.data);
-            setUser(resp.data);
-         });
-   }, [])
+      const fetchUser = async () => {
+         try {
+            const resp = await http.getUser(authCtx.token);
+
+            // kollar att det är array med minst en sak
+            if (Array.isArray(resp) && resp.length > 0) {
+               // första objectet i resp listan(en user)   
+               const { displayName: userName, email: userEmail } = resp[0];
+
+
+               console.log(userName, userEmail)
+            }
+         } catch (error) {
+            console.error("Error fetching user data:", error.response?.data || error.message);
+         }
+      };
+
+      fetchUser();
+   }, []);
+
+
+   /*    useEffect(() => {
+         axios.get(`https://history-hunt-f8704-default-rtdb.europe-west1.firebasedatabase.app/hunts.json?auth=${authCtx.token}`)
+            .then((resp) => {
+               console.log(resp.data);
+               // hämta ut localId??
+            });
+      }, []) */
+
+
+
 
    const pressHandler = () => {
       navigation.navigate('CreateHuntScreen');

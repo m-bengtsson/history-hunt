@@ -1,40 +1,30 @@
 import { createContext } from "react"
 
-export const UserContext = ({
-   hunts: [],
-   photoUrl: null,
-   addUser: ({ name, email, id }) => { },
-})
+export const UserContext = createContext({
+   name: "",
+   email: "",
+   saveUser: (name, email) => { }
+});
 
 
+const UserContextProvider = ({ children }) => {
+   const [name, setName] = useState(null)
+   const [email, setEmail] = useState(null)
 
-export const AuthContext = createContext({
-   token: "",
-   isAuthenticated: false,
-   authenticate: (token) => { },
-   logout: () => { }
-})
 
-const AuthContextProvider = ({ children }) => {
-   const [token, setToken] = useState(null)
-   const isAuthenticated = !!token; // convertera truthy och falsy till en riktig boolean
+   const currentUser = (localId) => {
 
-   const authenticate = (token) => {
-      setToken(token)
-      AsyncStorage.setItem('appToken', token)
+   }
+
+   const saveUser = (name, email) => {
+      setName(name);
+      setEmail(email);
    };
 
-   const logout = () => {
-      setToken(null);
-      AsyncStorage.removeItem('appToken')
-   }
-
    const value = {
-      token,
-      isAuthenticated,
-      authenticate,
-      logout
+      name,
+      email
    }
+   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 }
-
-return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+export default UserContext
