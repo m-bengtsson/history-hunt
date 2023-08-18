@@ -17,7 +17,10 @@ import * as http from "../util/http"
 const StartScreen = () => {
    const authCtx = useContext(AuthContext);
 
-   // usestate eller context för currentuser??
+
+   const [userName, setUserName] = useState(null)
+   const [userEmail, setUserEmail] = useState(null)
+
    const navigation = useNavigation();
 
    useEffect(() => {
@@ -28,19 +31,21 @@ const StartScreen = () => {
             // kollar att det är array med minst en sak
             if (Array.isArray(resp) && resp.length > 0) {
                // första objectet i resp listan(en user)   
-               const { displayName: userName, email: userEmail } = resp[0];
+               const { displayName: name, email: email } = resp[0];
 
+               // userContext här
+               setUserName(name)
+               setUserEmail(email)
 
-               console.log(userName, userEmail)
             }
          } catch (error) {
             console.error("Error fetching user data:", error.response?.data || error.message);
          }
-      };
-
+      }
       fetchUser();
-   }, []);
+   }, [authCtx]);
 
+   console.log(userName, userEmail)
 
    /*    useEffect(() => {
          axios.get(`https://history-hunt-f8704-default-rtdb.europe-west1.firebasedatabase.app/hunts.json?auth=${authCtx.token}`)
@@ -69,7 +74,7 @@ const StartScreen = () => {
                />
             </View>
             <FontAwesome name='user-circle' color={'white'} size={200} />
-            <Text>Name</Text>
+            <Text>{userName}</Text>
             <Text>Active Hunts</Text>
             <Text>Planned hunts</Text>
             <Text>Medals</Text>

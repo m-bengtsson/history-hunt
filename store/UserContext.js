@@ -1,29 +1,32 @@
-import { createContext } from "react"
+import { createContext, useState } from "react"
 
 export const UserContext = createContext({
-   name: "",
-   email: "",
-   saveUser: (name, email) => { }
+   users: [],
+   setCurrentUser: () => { },
+   addUser: (name, email) => { }
 });
 
 
 const UserContextProvider = ({ children }) => {
    const [name, setName] = useState(null)
    const [email, setEmail] = useState(null)
+   const [users, setUsers] = useState([])
 
 
-   const currentUser = (localId) => {
 
-   }
-
-   const saveUser = (name, email) => {
+   const setCurrentUser = (name, email) => {
       setName(name);
       setEmail(email);
+   }
+
+   const addUser = (name, email) => {
+      setUsers([...users, { name, email }]);
    };
 
    const value = {
-      name,
-      email
+      users,
+      setCurrentUser,
+      addUser
    }
    return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 }
