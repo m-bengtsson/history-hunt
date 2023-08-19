@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 
-import AuthForm from "./AuthForm";
+import AuthFormUser from "./AuthFormUser";
 import Colors from "../../constants/Colors";
 import TextButton from "../UI/TextButton";
 import FontLoader from "../UI/FontLoader";
@@ -78,7 +78,7 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
                <Ionicons name='ios-earth' size={150} color={Colors.darkerBlue} />
             </View>
             <Text style={styles.iconContainer}>History Hunt</Text>
-            <AuthForm
+            <AuthFormUser
                isLogin={isLogin}
                onSubmit={submitHandler}
                credentialsValidity={credentialsValidity} />

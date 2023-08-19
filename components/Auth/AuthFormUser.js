@@ -5,7 +5,7 @@ import Input from './Input.js';
 import Button from '../UI/Button.js';
 import Colors from '../../constants/Colors.js';
 
-const AuthForm = ({ onSubmit, isLogin, credentialsValidity }) => {
+const AuthFormUser = ({ onSubmit, isLogin, credentialsValidity }) => {
    const [enteredName, setEnteredName] = useState("");
    const [enteredEmail, setEnteredEmail] = useState("");
    const [enteredConfirmEmail, setEnteredConfirmEmail] = useState("");
@@ -121,5 +121,5 @@ const styles = StyleSheet.create({
       backgroundColor: Colors.trueBlue,
    },
 })
-export default AuthForm;
+export default AuthFormUser;
 
