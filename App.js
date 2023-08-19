@@ -9,9 +9,10 @@ import { useContext, useEffect } from 'react';
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
 import StartScreen from './screens/StartScreen';
+import CreateHuntScreen from './screens/CreateHuntScreen';
 import Colors from './constants/Colors';
 import AuthContextProvider, { AuthContext } from './store/AuthContext';
-import CreateHuntScreen from './screens/CreateHuntScreen';
+import UserContextProvider from './store/UserContext';
 
 
 const Stack = createNativeStackNavigator();
@@ -66,7 +67,9 @@ export default function App() {
       <>
          <StatusBar style="light" />
          <AuthContextProvider>
-            <Navigation />
+            <UserContextProvider>
+               <Navigation />
+            </UserContextProvider>
          </AuthContextProvider>
       </>
    );

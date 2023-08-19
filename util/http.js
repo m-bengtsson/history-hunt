@@ -10,7 +10,6 @@ const authenticate = async (mode, email, password) => {
          returnSecureToken: true,
       }
    );
-   //console.log('id token', JSON.stringify(resp))
    return resp.data.idToken;
 }
 
@@ -31,21 +30,8 @@ export const updateUser = async (displayName, idToken) => {
          returnSecureToken: true
       }
    );
-   //console.log('name', resp.data.displayName);
    return resp.data.localId;
 };
-/* export const getUser = async (idToken) => {
-
-   const resp = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`, { idToken });
-   try{
-
-   }
-
-   console.log('respone', resp)
-   return resp
-} */
-// Databas
-
 
 export const getUser = async (idToken) => {
    const payload = {
@@ -60,12 +46,15 @@ export const getUser = async (idToken) => {
    }
 };
 
-
+// ------------------- Databas ---------------------//
 
 const rootUrl = 'https://history-hunt-f8704-default-rtdb.europe-west1.firebasedatabase.app'
 
-export const storeHunt = (hunt) => {
+export const storeUsers = (user) => {
+   axios.post(`${rootUrl}/users.json`, user);
 
+}
+export const storeHunt = (hunt) => {
    axios.post(`${rootUrl}/hunts.json`, hunt);
 
 }
@@ -75,6 +64,3 @@ export const getHunts = async () => {
    //console.log('GET', resp)
 }
 
-export const storeUsers = (user) => {
-   axios.post(`${rootUrl}/users.json`, user);
-}

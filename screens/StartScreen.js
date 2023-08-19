@@ -11,15 +11,13 @@ import Colors from "../constants/Colors";
 import Button from "../components/UI/Button";
 import FontLoader from "../components/UI/FontLoader";
 import * as http from "../util/http"
+import { UserContext } from "../store/UserContext";
 
 // innehåll startscreen:
 
 const StartScreen = () => {
    const authCtx = useContext(AuthContext);
-
-
-   const [userName, setUserName] = useState(null)
-   const [userEmail, setUserEmail] = useState(null)
+   const userCtx = useContext(UserContext);
 
    const navigation = useNavigation();
 
@@ -31,31 +29,28 @@ const StartScreen = () => {
             // kollar att det är array med minst en sak
             if (Array.isArray(resp) && resp.length > 0) {
                // första objectet i resp listan(en user)   
-               const { displayName: name, email: email } = resp[0];
-
-               // userContext här
-               setUserName(name)
-               setUserEmail(email)
+               const { displayName, email } = resp[0];
+               userCtx.setCurrentUser({ name: displayName, email })
 
             }
          } catch (error) {
             console.error("Error fetching user data:", error.response?.data || error.message);
+            //set athentication här för att logga ut vid invalid token
+            authCtx.logout(authCtx.token)
          }
       }
       fetchUser();
    }, [authCtx]);
 
-   console.log(userName, userEmail)
+   console.log(userCtx.currentUser, 'username and email',)
 
-   /*    useEffect(() => {
-         axios.get(`https://history-hunt-f8704-default-rtdb.europe-west1.firebasedatabase.app/hunts.json?auth=${authCtx.token}`)
-            .then((resp) => {
-               console.log(resp.data);
-               // hämta ut localId??
-            });
-      }, []) */
-
-
+   /*   useEffect(() => {
+        axios.get(`https://history-hunt-f8704-default-rtdb.europe-west1.firebasedatabase.app/users.json?auth=${authCtx.token}`)
+           .then((resp) => {
+              console.log('users', resp.data);
+              // hämta ut localId??
+           });
+     }, [authCtx]) */
 
 
    const pressHandler = () => {
@@ -74,7 +69,7 @@ const StartScreen = () => {
                />
             </View>
             <FontAwesome name='user-circle' color={'white'} size={200} />
-            <Text>{userName}</Text>
+            <Text>{userCtx.currentUser.name}</Text>
             <Text>Active Hunts</Text>
             <Text>Planned hunts</Text>
             <Text>Medals</Text>

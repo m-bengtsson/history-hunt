@@ -3,8 +3,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 
 export const AuthContext = createContext({
    token: "",
-   userId: "",
-   testId: (userId) => { },
+   /*    userId: "",
+      testId: (userId) => { }, */
    isAuthenticated: false,
    authenticate: (token) => { },
    logout: () => { }
@@ -15,10 +15,10 @@ const AuthContextProvider = ({ children }) => {
    const isAuthenticated = !!token; // convertera truthy och falsy till en riktig boolean
    const [userId, setUserId] = useState(null)
 
-   const testId = (userId) => {
-      setUserId(userId)
-      // console.log(userId)
-   }
+   /*    const testId = (userId) => {
+         setUserId(userId)
+         // console.log(userId)
+      } */
 
    const authenticate = (token) => {
       console.log('provider token', token)
@@ -33,8 +33,8 @@ const AuthContextProvider = ({ children }) => {
 
    const value = {
       token,
-      userId,
-      testId,
+      /*       userId,
+            testId, */
       isAuthenticated,
       authenticate,
       logout

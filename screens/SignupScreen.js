@@ -5,32 +5,35 @@ import AuthContent from "../components/Auth/AuthContent";
 import * as http from "../util/http";
 import LoadingOverlay from "../components/UI/LoadingOverlay";
 import { AuthContext } from "../store/AuthContext";
+import { UserContext } from "../store/UserContext";
 
 
 // Rendering the Authcontent
 const SignupScreen = () => {
    // loading auth??
    const [isAuthenticating, setIsAuthenticating] = useState(false);
-   const authCtx = useContext(AuthContext)
-
-   const authenticationHandler = async ({ displayName, email, password }) => {
+   const authCtx = useContext(AuthContext);
+   const userCtx = useContext(UserContext);
+   /* 
       useEffect(() => {
-
-      }, [])
+   
+      },) */
+   const authenticationHandler = async ({ displayName, email, password }) => {
       setIsAuthenticating(true);
       try {
          const token = await http.signupUser(email, password);
-         // console.log('respone token', token)
          authCtx.authenticate(token);
-         //console.log('token', authCtx.token)
+
          const resp = await http.updateUser(displayName, token);
-         //console.log('update user resp', resp)
-         authCtx.testId(resp)
+         await http.storeUsers({ name: displayName, email: email })
+         //userCtx.addUser(displayName, email);
+
 
       } catch (error) {
          console.log(error)
          Alert.alert('Wrong credentials')
       }
+
       setIsAuthenticating(false)
    };
 
