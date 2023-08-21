@@ -53,6 +53,8 @@ const StartScreen = () => {
      }, [authCtx]) */
 
 
+
+
    const pressHandler = () => {
       navigation.navigate('CreateHuntScreen');
    }
@@ -68,7 +70,10 @@ const StartScreen = () => {
                   onPress={authCtx.logout}
                />
             </View>
-            <FontAwesome name='user-circle' color={'white'} size={200} />
+            {/*             <FontAwesome name='user-circle' color={'white'} size={200} />
+            
+ */}
+            <View style={styles.pictureContainer}><Text style={styles.pictureIcon}>picture</Text></View>
             <Text>{userCtx.currentUser.name}</Text>
             <Text>Active Hunts</Text>
             <Text>Planned hunts</Text>
@@ -87,8 +92,20 @@ const styles = StyleSheet.create({
       alignItems: "center",
       padding: 32,
    },
+   pictureContainer: {
+      width: 200,
+      height: 200,
+      borderRadius: 100,
+      backgroundColor: 'white',
+      justifyContent: 'flex-end'
+   },
+   pictureIcon: {
+      alignSelf: 'flex-end',
+      justifyContent: 'flex-end',
+   },
    iconContainer: {
       alignSelf: 'flex-end'
+
    },
    title: {
       fontSize: 20,

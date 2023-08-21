@@ -21,7 +21,6 @@ const AuthContextProvider = ({ children }) => {
       } */
 
    const authenticate = (token) => {
-      console.log('provider token', token)
       setToken(token);
       AsyncStorage.setItem('appToken', token)
    };

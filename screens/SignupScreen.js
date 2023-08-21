@@ -25,8 +25,8 @@ const SignupScreen = () => {
          authCtx.authenticate(token);
 
          const resp = await http.updateUser(displayName, token);
-         await http.storeUsers({ name: displayName, email: email })
-         //userCtx.addUser(displayName, email);
+
+         await http.storeUsers({ name: displayName, email })
 
 
       } catch (error) {
