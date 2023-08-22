@@ -25,6 +25,8 @@ const SignupScreen = () => {
          await http.storeUsers({ name: displayName, email })
 
 
+         userCtx.addUser(displayName, email);
+
       } catch (error) {
          console.log(error)
          Alert.alert('Wrong credentials')
@@ -32,6 +34,8 @@ const SignupScreen = () => {
 
       setIsAuthenticating(false)
    };
+
+
 
    if (isAuthenticating) {
       return <LoadingOverlay message={'Authenticating user...'} />

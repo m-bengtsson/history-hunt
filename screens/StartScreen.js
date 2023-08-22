@@ -18,7 +18,6 @@ import ImagePicker from "../components/ImagePicker";
 const StartScreen = () => {
    const authCtx = useContext(AuthContext);
    const userCtx = useContext(UserContext);
-
    const navigation = useNavigation();
 
    useEffect(() => {
@@ -40,9 +39,10 @@ const StartScreen = () => {
          }
       }
       fetchUser();
-   }, [authCtx]);
+   }, [authCtx, userCtx]);
 
-   console.log(userCtx.currentUser, 'username and email',)
+   //console.log('all users', userCtx.users)
+   //console.log(userCtx.currentUser, 'username and email',)
 
    /*   useEffect(() => {
         axios.get(`https://history-hunt-f8704-default-rtdb.europe-west1.firebasedatabase.app/users.json?auth=${authCtx.token}`)
