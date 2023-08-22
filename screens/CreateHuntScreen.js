@@ -14,6 +14,7 @@ const CreateHuntScreen = () => {
 
    const pressHandler = () => {
       http.storeHunt({ name: 'skattjakt' })
+
    }
 
    return (

@@ -12,8 +12,8 @@ import Button from "../components/UI/Button";
 import FontLoader from "../components/UI/FontLoader";
 import * as http from "../util/http"
 import { UserContext } from "../store/UserContext";
+import ImagePicker from "../components/ImagePicker";
 
-// innehåll startscreen:
 
 const StartScreen = () => {
    const authCtx = useContext(AuthContext);
@@ -56,7 +56,15 @@ const StartScreen = () => {
 
 
    const pressHandler = () => {
-      navigation.navigate('CreateHuntScreen');
+      //navigation.navigate('CreateHuntScreen');
+      navigation.navigate('MapScreen');
+
+   }
+
+   const takeProfilePicture = () => {
+      return (
+         <ImagePicker />
+      )
    }
 
    return (
@@ -73,7 +81,9 @@ const StartScreen = () => {
             {/*             <FontAwesome name='user-circle' color={'white'} size={200} />
             
  */}
-            <View style={styles.pictureContainer}><Text style={styles.pictureIcon}>picture</Text></View>
+            <View style={styles.pictureContainer}>
+               <IconButton icon="camera" size={35} color={Colors.mainWhite} onPress={takeProfilePicture} />
+            </View>
             <Text>{userCtx.currentUser.name}</Text>
             <Text>Active Hunts</Text>
             <Text>Planned hunts</Text>
@@ -96,8 +106,9 @@ const styles = StyleSheet.create({
       width: 200,
       height: 200,
       borderRadius: 100,
-      backgroundColor: 'white',
-      justifyContent: 'flex-end'
+      backgroundColor: Colors.darkerBlue,
+      justifyContent: 'flex-end',
+      alignItems: 'flex-end'
    },
    pictureIcon: {
       alignSelf: 'flex-end',

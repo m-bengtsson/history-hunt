@@ -14,10 +14,7 @@ const SignupScreen = () => {
    const [isAuthenticating, setIsAuthenticating] = useState(false);
    const authCtx = useContext(AuthContext);
    const userCtx = useContext(UserContext);
-   /* 
-      useEffect(() => {
-   
-      },) */
+
    const authenticationHandler = async ({ displayName, email, password }) => {
       setIsAuthenticating(true);
       try {
@@ -25,7 +22,6 @@ const SignupScreen = () => {
          authCtx.authenticate(token);
 
          const resp = await http.updateUser(displayName, token);
-
          await http.storeUsers({ name: displayName, email })
 
 

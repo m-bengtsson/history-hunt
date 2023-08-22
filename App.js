@@ -13,6 +13,7 @@ import CreateHuntScreen from './screens/CreateHuntScreen';
 import Colors from './constants/Colors';
 import AuthContextProvider, { AuthContext } from './store/AuthContext';
 import UserContextProvider from './store/UserContext';
+import MapScreen from './screens/MapScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -37,10 +38,8 @@ const AuthenticatedStack = () => {
          contentStyle: { backgroundColor: Colors.trueBlue },
          title: ''
       }}>
-         <Stack.Screen name='StartScreen' component={StartScreen} options={{
-            contentStyle: { color: Colors.mainWhite },
-
-         }} />
+         <Stack.Screen name='StartScreen' component={StartScreen} />
+         <Stack.Screen name='MapScreen' component={MapScreen} />
          <Stack.Screen name='CreateHuntScreen' component={CreateHuntScreen} />
       </Stack.Navigator>
    )
