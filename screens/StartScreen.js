@@ -55,8 +55,7 @@ const StartScreen = () => {
 
 
    const pressHandler = () => {
-      //navigation.navigate('CreateHuntScreen');
-      navigation.navigate('MapScreen');
+      navigation.navigate('CreateHuntScreen');
 
    }
 

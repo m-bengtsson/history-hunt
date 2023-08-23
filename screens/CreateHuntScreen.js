@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Input from "../components/Auth/Input";
 import Button from "../components/UI/Button";
@@ -7,16 +7,34 @@ import FontLoader from "../components/UI/FontLoader";
 import Title from "../components/UI/Title";
 
 import * as http from "../util/http"
+import { useNavigation, useRoute } from "@react-navigation/native";
+
 
 const CreateHuntScreen = () => {
    const [enteredHuntName, setEnteredHuntName] = useState("");
+   const [pickedLocation, setPickedLocation] = useState([])
 
+   const route = useRoute()
+   const navigation = useNavigation()
+
+   useEffect(() => {
+      if (route.params?.location) {
+         setPickedLocation(prev => [...prev, route.params.location])
+      }
+   }, [route])
+
+   console.log('picked location', pickedLocation)
+   //console.log('rout params location', route.params.location)
 
    const pressHandler = () => {
-      http.storeHunt({ name: 'skattjakt' })
-
+      //http.storeHunt({ name: 'skattjakt' })
+      navigation.navigate('MapScreen')
    }
 
+   const inputHandler = () => {
+
+
+   }
    return (
       <FontLoader>
          <View style={styles.container}>
@@ -25,7 +43,7 @@ const CreateHuntScreen = () => {
                label='How long should it be?'
                textInputConfig={{
                   keyboardType: 'default',
-                  //onChangeText: inputHandler.bind(this, 'hunt-name'),
+                  onChangeText: inputHandler.bind(this, 'huntName'),
                   //value: enteredHuntName,
                   //isInvalid: huntNameIsInvalid,
                   autoCapitalize: 'none'
