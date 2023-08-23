@@ -1,4 +1,3 @@
-import axios from "axios"
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { AuthContext } from "../store/AuthContext";
 import { useContext, useEffect, useState } from "react";

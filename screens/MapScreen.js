@@ -1,23 +1,35 @@
+import { useState } from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
-import MapView from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 
 
 const { height, width } = Dimensions.get('window')
 
 const MapScreen = () => {
 
+   const [pinnedLocation, setPinnedLocation] = useState(null)
+
+   const initialRegion = {
+      latitude: 57.70887,
+      longitude: 11.97456,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421
+   }
+
+   const markerHandler = (event) => {
+      const latitude = event.nativeEvent.coordi
+   }
 
    return (
       <View>
          <MapView
             style={styles.map}
-            region={{
-               latitude: 37.78825,
-               longitude: -122.4324,
-               latitudeDelta: 0.015,
-               longitudeDelta: 0.0121,
-            }}
+            initialRegion={initialRegion}
+            onPress={pinnedMarkerHandler}
          >
+            <Marker >
+
+            </Marker>
          </MapView>
       </View>
    )

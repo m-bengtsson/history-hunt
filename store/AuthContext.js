@@ -13,7 +13,7 @@ export const AuthContext = createContext({
 const AuthContextProvider = ({ children }) => {
    const [token, setToken] = useState(null)
    const isAuthenticated = !!token; // convertera truthy och falsy till en riktig boolean
-   const [userId, setUserId] = useState(null)
+   //sconst [userId, setUserId] = useState(null)
 
    /*    const testId = (userId) => {
          setUserId(userId)
