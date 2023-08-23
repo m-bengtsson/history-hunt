@@ -7,8 +7,16 @@ const { height, width } = Dimensions.get('window')
 
 const MapScreen = () => {
 
-   const [pinnedLocation, setPinnedLocation] = useState(null)
+   const [pinnedLocation, setPinnedLocation] = useState()
 
+
+   const markerHandler = (event) => {
+
+      const latitude = event.nativeEvent.coordinate.latitude;
+      const longitude = event.nativeEvent.coordinate.longitude;
+      console.log('marker event', latitude, longitude)
+      setPinnedLocation({ latitude, longitude });
+   }
    const initialRegion = {
       latitude: 57.70887,
       longitude: 11.97456,
@@ -16,20 +24,20 @@ const MapScreen = () => {
       longitudeDelta: 0.0421
    }
 
-   const markerHandler = (event) => {
-      const latitude = event.nativeEvent.coordi
-   }
-
    return (
       <View>
          <MapView
             style={styles.map}
             initialRegion={initialRegion}
-            onPress={pinnedMarkerHandler}
+            onPress={markerHandler}
          >
-            <Marker >
+            {<Marker
+               pinColor="red"
+               coordinate={pinnedLocation}
+               title="Your pinned location"
+            >
 
-            </Marker>
+            </Marker>}
          </MapView>
       </View>
    )
