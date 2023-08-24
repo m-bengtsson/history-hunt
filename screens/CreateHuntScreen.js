@@ -12,39 +12,58 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 
 const CreateHuntScreen = () => {
    const [enteredHuntName, setEnteredHuntName] = useState("");
-   const [pickedLocation, setPickedLocation] = useState([])
+   const [enteredTimeDuration, setEnteredTimeDuration] = useState();
+   const [pickedLocation, setPickedLocation] = useState([]);
 
    const route = useRoute()
    const navigation = useNavigation()
-
-   useEffect(() => {
-      if (route.params?.location) {
-         setPickedLocation(prev => [...prev, route.params.location])
-      }
-   }, [route])
-
-   console.log('picked location', pickedLocation)
-   //console.log('rout params location', route.params.location)
+   /* 
+      useEffect(() => {
+         if (route.params?.location) {
+            setPickedLocation(prev => [...prev, route.params.location])
+         }
+      }, [route])
+   
+      console.log('picked location', pickedLocation) */
 
    const pressHandler = () => {
-      //http.storeHunt({ name: 'skattjakt' })
       navigation.navigate('MapScreen')
    }
 
-   const inputHandler = () => {
+   const inputHandler = (inputType, enteredValue) => {
+      switch (inputType) {
+         case 'hunt-name':
+            setEnteredHuntName(enteredValue);
+            console.log(enteredHuntName)
+            break;
+         case "time-duration":
+            setEnteredTimeDuration(enteredValue);
+            break;
+      }
+   };
+
+   const submitHandler = () => {
+      const hunt =
+      {
+         name: enteredHuntName,
+         timeDuration: enteredTimeDuration,
+         locations: pickedLocation,
+         //invited: invitedPeople
+      }
+   };
 
 
-   }
+
    return (
-      <FontLoader>
-         <View style={styles.container}>
+      <View style={styles.container}>
+         <FontLoader>
             <Title>Customize</Title>
             <Input
                label='How long should it be?'
                textInputConfig={{
                   keyboardType: 'default',
-                  onChangeText: inputHandler.bind(this, 'huntName'),
-                  //value: enteredHuntName,
+                  onChangeText: inputHandler.bind(this, 'hunt-name'),
+                  value: enteredHuntName,
                   //isInvalid: huntNameIsInvalid,
                   autoCapitalize: 'none'
 
@@ -53,15 +72,17 @@ const CreateHuntScreen = () => {
                label='What do you want to call your hunt?'
                textInputConfig={{
                   keyboardType: 'default',
-                  //onChangeText: inputHandler.bind(this, 'hunt-name'),
-                  //value: enteredHuntName,
+                  onChangeText: inputHandler.bind(this, 'time-duration'),
+                  value: enteredTimeDuration,
                   //isInvalid: huntNameIsInvalid,
                   autoCapitalize: 'none'
 
                }} />
-            <Button title={'Continue'} onPress={pressHandler} />
-         </View>
-      </FontLoader>
+            <Button title={'Choose Location'} onPress={pressHandler} />
+            {/*             <Button title={'Continue'} onPress={submitHandler} />
+ */}
+         </FontLoader>
+      </View>
    )
 }
 
