@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import Button from "../components/UI/Button";
@@ -10,7 +10,7 @@ import * as Location from 'expo-location';
 const { height, width } = Dimensions.get('window')
 
 const MapScreen = () => {
-   const [pinnedLocation, setPinnedLocation] = useState();
+   const [pinnedLocation, setPinnedLocation] = useState([]);
    const [permission, requestPermission] = Location.useForegroundPermissions();
 
    const navigation = useNavigation()
@@ -18,8 +18,17 @@ const MapScreen = () => {
    const markerHandler = (event) => {
       const latitude = event.nativeEvent.coordinate.latitude;
       const longitude = event.nativeEvent.coordinate.longitude;
-      setPinnedLocation({ latitude, longitude });
+
+      setPinnedLocation(prevLocations => [...prevLocations, { latitude, longitude }]);
    }
+
+   /*   useEffect(() => {
+        if (pinnedLocation.length === 0) {
+           console.log('No new marker locations');
+        } else {
+           console.log('New marker locations:', pinnedLocation);
+        }
+     }, [pinnedLocation]); */
 
    const initialRegion = {
       latitude: 57.70887,
@@ -33,21 +42,21 @@ const MapScreen = () => {
    }
 
    return (
-      <View>
-         <MapView
-            style={styles.map}
-            initialRegion={initialRegion}
-            onPress={markerHandler}
-         >
-            {<Marker
+      <MapView
+         style={styles.map}
+         initialRegion={initialRegion}
+         onPress={markerHandler}
+      >
+         {pinnedLocation.map((location, index) => (
+            <Marker
+               key={index}
                pinColor="red"
-               coordinate={pinnedLocation}
-               title="Your pinned location"
-            >
-            </Marker>}
-            <Button title={'Confirm locations'} onPress={confirmLocations} />
-         </MapView>
-      </View>
+               coordinate={location}
+               title={`Pinned location ${index + 1}`}
+            />
+         ))}
+         <Button title={'Confirm locations'} onPress={confirmLocations} />
+      </MapView>
    )
 }
 

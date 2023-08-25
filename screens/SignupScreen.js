@@ -8,9 +8,8 @@ import { AuthContext } from "../store/AuthContext";
 import { UserContext } from "../store/UserContext";
 
 
-// Rendering the Authcontent
 const SignupScreen = () => {
-   // loading auth??
+
    const [isAuthenticating, setIsAuthenticating] = useState(false);
    const authCtx = useContext(AuthContext);
    const userCtx = useContext(UserContext);
@@ -24,7 +23,6 @@ const SignupScreen = () => {
          const resp = await http.updateUser(displayName, token);
          await http.storeUsers({ name: displayName, email })
 
-
          userCtx.addUser(displayName, email);
 
       } catch (error) {
@@ -36,11 +34,10 @@ const SignupScreen = () => {
    };
 
 
-
-
    if (isAuthenticating) {
       return <LoadingOverlay message={'Authenticating user...'} />
    }
+
    return (
       <ScrollView>
          <AuthContent onAuthenticate={authenticationHandler} />
