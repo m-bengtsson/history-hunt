@@ -23,8 +23,6 @@ const SignupScreen = () => {
          const resp = await http.updateUser(displayName, token);
          await http.storeUsers({ name: displayName, email })
 
-         userCtx.addUser(displayName, email);
-
       } catch (error) {
          console.log(error)
          Alert.alert('Wrong credentials')

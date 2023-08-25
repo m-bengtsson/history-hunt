@@ -38,9 +38,8 @@ const StartScreen = () => {
          }
       }
       fetchUser();
-   }, [authCtx, userCtx]);
+   }, [authCtx]);
 
-   //console.log('all users', userCtx.users)
    //console.log(userCtx.currentUser, 'username and email',)
 
    /*   useEffect(() => {
