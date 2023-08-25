@@ -19,7 +19,18 @@ const MapScreen = () => {
       const latitude = event.nativeEvent.coordinate.latitude;
       const longitude = event.nativeEvent.coordinate.longitude;
 
-      setPinnedLocation(prevLocations => [...prevLocations, { latitude, longitude }]);
+
+      // Filter already existing pins
+      const indexAlreadyExists = pinnedLocation.findIndex(loc => loc.latitude === latitude && loc.longitude === longitude);
+
+      if (indexAlreadyExists !== -1) {
+         // Remove pin
+         const updatePinnedLocations = pinnedLocation.filter((pin, index) => index !== indexAlreadyExists);
+         setPinnedLocation(updatePinnedLocations);
+      } else {
+         // Add pin
+         setPinnedLocation(prev => [...prev, { latitude, longitude }])
+      }
    }
 
    useEffect(() => {
