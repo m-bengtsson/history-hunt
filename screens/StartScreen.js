@@ -12,12 +12,15 @@ import FontLoader from "../components/UI/FontLoader";
 import * as http from "../util/http"
 import { UserContext } from "../store/UserContext";
 import ImagePicker from "../components/ImagePicker";
+import LoadingOverlay from "../components/UI/LoadingOverlay";
 
 
 const StartScreen = () => {
    const authCtx = useContext(AuthContext);
    const userCtx = useContext(UserContext);
    const navigation = useNavigation();
+   const [userDataLoaded, setUserDataLoaded] = useState(false); // Add this state
+
 
    useEffect(() => {
       const fetchUser = async () => {
@@ -29,6 +32,7 @@ const StartScreen = () => {
                // första objectet i resp listan(en user)   
                const { displayName, email } = resp[0];
                userCtx.setCurrentUser({ name: displayName, email })
+               setUserDataLoaded(true)
 
             }
          } catch (error) {
@@ -40,18 +44,10 @@ const StartScreen = () => {
       fetchUser();
    }, [authCtx]);
 
-   //console.log(userCtx.currentUser, 'username and email',)
 
-   /*   useEffect(() => {
-        axios.get(`https://history-hunt-f8704-default-rtdb.europe-west1.firebasedatabase.app/users.json?auth=${authCtx.token}`)
-           .then((resp) => {
-              console.log('users', resp.data);
-              // hämta ut localId??
-           });
-     }, [authCtx]) */
-
-
-
+   if (!userDataLoaded) {
+      return <LoadingOverlay message="Loading user data..." />
+   }
 
    const pressHandler = () => {
       navigation.navigate('CreateHuntScreen');

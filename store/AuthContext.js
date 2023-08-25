@@ -15,11 +15,6 @@ const AuthContextProvider = ({ children }) => {
    const isAuthenticated = !!token; // convertera truthy och falsy till en riktig boolean
    //sconst [userId, setUserId] = useState(null)
 
-   /*    const testId = (userId) => {
-         setUserId(userId)
-         // console.log(userId)
-      } */
-
    const authenticate = (token) => {
       setToken(token);
       AsyncStorage.setItem('appToken', token)
@@ -32,8 +27,6 @@ const AuthContextProvider = ({ children }) => {
 
    const value = {
       token,
-      /*       userId,
-            testId, */
       isAuthenticated,
       authenticate,
       logout

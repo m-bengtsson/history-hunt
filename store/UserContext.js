@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react"
 import * as http from "../util/http";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const UserContext = createContext({
    users: [],
@@ -11,27 +12,27 @@ export const UserContext = createContext({
 
 const UserContextProvider = ({ children }) => {
    const [currentUser, setCurrentUser] = useState({ name: null, email: null });
-   const [users, setUsers] = useState([])
+   const [users, setUsers] = useState([]);
 
    // fetch usercollection
-
-
    useEffect(() => {
       const fetchUsers = async () => {
          try {
             const userData = await http.getUserCollection()
             console.log('userData', userData)
+
+
          } catch (error) {
             console.log('UserContext, Error fetching users', error)
          }
       }
       fetchUsers()
-
    }, [])
 
    const addUser = (name, email) => {
       setUsers([...users, { name, email }]);
    };
+
 
    const value = {
       users,
