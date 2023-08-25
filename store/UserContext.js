@@ -14,23 +14,9 @@ const UserContextProvider = ({ children }) => {
    const [currentUser, setCurrentUser] = useState({ name: null, email: null });
    const [users, setUsers] = useState([]);
 
-   // fetch usercollection
-   useEffect(() => {
-      const fetchUsers = async () => {
-         try {
-            const userData = await http.getUserCollection()
-            console.log('userData', userData)
-
-
-         } catch (error) {
-            console.log('UserContext, Error fetching users', error)
-         }
-      }
-      fetchUsers()
-   }, [])
 
    const addUser = (name, email) => {
-      setUsers([...users, { name, email }]);
+      setUsers(prev => [...prev, { name, email }]);
    };
 
 

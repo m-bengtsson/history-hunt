@@ -23,17 +23,15 @@ const StartScreen = () => {
 
 
    useEffect(() => {
-      const fetchUser = async () => {
+      const fetchCurrentUser = async () => {
          try {
             const resp = await http.getUser(authCtx.token);
-
             // kollar att det är array med minst en sak
             if (Array.isArray(resp) && resp.length > 0) {
                // första objectet i resp listan(en user)   
                const { displayName, email } = resp[0];
                userCtx.setCurrentUser({ name: displayName, email })
                setUserDataLoaded(true)
-
             }
          } catch (error) {
             console.error("Error fetching user data:", error.response?.data || error.message);
@@ -41,8 +39,24 @@ const StartScreen = () => {
             authCtx.logout(authCtx.token)
          }
       }
-      fetchUser();
-   }, [authCtx]);
+      const fetchAllUsers = async () => {
+         try {
+            const userData = await http.getUserCollection();
+            console.log('users', userData)
+
+            for (const userId in userData) {
+               const user = userData[userId];
+               await userCtx.addUser(user.name, user.email);
+
+            }
+
+         } catch (error) {
+            console.error("Error fetching user collection data:", error)
+         }
+      }
+      fetchAllUsers()
+      fetchCurrentUser();
+   }, []);
 
 
    if (!userDataLoaded) {
