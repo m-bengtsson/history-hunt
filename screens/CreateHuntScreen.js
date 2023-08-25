@@ -30,6 +30,10 @@ const CreateHuntScreen = () => {
       navigation.navigate('MapScreen')
    }
 
+   const navigateToInviteScreen = () => {
+      navigation.navigate('InviteScreen')
+   }
+
    const inputHandler = (inputType, enteredValue) => {
       switch (inputType) {
          case 'hunt-name':
@@ -81,6 +85,8 @@ const CreateHuntScreen = () => {
             <Button title={'Choose Location'} onPress={pressHandler} />
             {/*             <Button title={'Continue'} onPress={submitHandler} />
  */}
+            <Button title={'Invite friends'} onPress={navigateToInviteScreen} />
+
          </FontLoader>
       </View>
    )

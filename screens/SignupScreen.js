@@ -37,6 +37,7 @@ const SignupScreen = () => {
 
 
 
+
    if (isAuthenticating) {
       return <LoadingOverlay message={'Authenticating user...'} />
    }

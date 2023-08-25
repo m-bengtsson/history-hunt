@@ -50,6 +50,11 @@ export const getUser = async (idToken) => {
 
 const rootUrl = 'https://history-hunt-f8704-default-rtdb.europe-west1.firebasedatabase.app'
 
+export const getUserCollection = async () => {
+   const resp = await axios.get(`${rootUrl}/users.json`);
+   return resp.data;
+}
+
 export const storeUsers = (user) => {
    axios.post(`${rootUrl}/users.json`, user);
 
