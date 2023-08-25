@@ -22,13 +22,13 @@ const MapScreen = () => {
       setPinnedLocation(prevLocations => [...prevLocations, { latitude, longitude }]);
    }
 
-   /*   useEffect(() => {
-        if (pinnedLocation.length === 0) {
-           console.log('No new marker locations');
-        } else {
-           console.log('New marker locations:', pinnedLocation);
-        }
-     }, [pinnedLocation]); */
+   useEffect(() => {
+      if (pinnedLocation.length === 0) {
+         console.log('No new marker locations');
+      } else {
+         console.log('New marker locations:', pinnedLocation);
+      }
+   }, [pinnedLocation]);
 
    const initialRegion = {
       latitude: 57.70887,
