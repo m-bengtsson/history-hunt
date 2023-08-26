@@ -8,7 +8,6 @@ const Title = ({ children }) => {
          <Text style={styles.title}>{children}</Text>
       </FontLoader>
    )
-
 }
 
 styles = StyleSheet.create({

@@ -3,18 +3,12 @@ import { useContext, useEffect } from "react";
 
 import * as http from "../util/http"
 import { UserContext } from "../store/UserContext";
-//import InviteCard from "../components/InviteCard";
-
+import InviteCard from "../components/InviteCard";
+import FontLoader from "../components/UI/FontLoader";
+import Title from "../components/UI/Title"
 
 const InviteScreen = () => {
    const userCtx = useContext(UserContext);
-   //console.log('all users', userCtx.users)
-
-   const InviteCard = ({ name, email }) => {
-      return (
-         <Text>{name}</Text>
-      )
-   }
 
 
    const renderFriend = (itemData) => {
@@ -24,15 +18,21 @@ const InviteScreen = () => {
    };
 
    return (
-      <View style={styles.container}>
-         <SafeAreaView style={styles.safeArea}>
-            <FlatList
-               data={userCtx.users}
-               renderItem={renderFriend}
-               keyExtractor={item => item.email}
-            />
-         </SafeAreaView>
-      </View>
+      <FontLoader>
+         <View style={styles.container}>
+            <Title>Invite Friends</Title>
+            <SafeAreaView style={styles.safeArea}>
+               <FlatList
+                  columnWrapperStyle={styles.wrapper}
+                  data={userCtx.users}
+                  renderItem={renderFriend}
+                  keyExtractor={item => item.email}
+                  horizontal={false}
+                  numColumns={3}
+               />
+            </SafeAreaView>
+         </View>
+      </FontLoader>
    );
 }
 
@@ -40,8 +40,10 @@ const styles = StyleSheet.create({
    container: {
       flex: 1,
    },
-   card: {},
-
+   wrapper: {
+      flexWrap: 'wrap',
+      margin: 10
+   },
    text: {
       color: Colors.mainWhite,
       fontSize: 40,

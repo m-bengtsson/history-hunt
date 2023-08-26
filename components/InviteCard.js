@@ -1,17 +1,21 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Pressable, Text } from 'react-native';
 import { useContext } from 'react';
+import { FontAwesome } from '@expo/vector-icons';
+
 
 import IconButton from './UI/IconButton';
 import Colors from '../constants/Colors';
-import { UserContext } from '../store/UserContext';
 
-const InviteCard = () => {
-   const userCtx = useContext(UserContext)
+const InviteCard = ({ name, email, onPress }) => {
 
    return (
       <View style={styles.container}>
-
-
+         <Pressable onPress={onPress}>
+            <View style={styles.card}>
+               <FontAwesome style={styles.icon} name='user-circle' size={60} color={Colors.lighterBlue} />
+               <Text style={styles.text}>{name}</Text>
+            </View>
+         </Pressable>
       </View>
    )
 }
@@ -19,10 +23,25 @@ const InviteCard = () => {
 const styles = StyleSheet.create({
    container: {
       flex: 1,
+      paddingHorizontal: 10,
+   },
+   card: {
+      width: 110,
+      height: 110,
+      padding: 10,
+      backgroundColor: Colors.darkerBlue_2,
+      borderRadius: 18,
+      justifyContent: 'center'
+   },
+   icon: {
+      alignSelf: 'center'
    },
    text: {
       color: Colors.mainWhite,
-      fontSize: 40,
+      fontSize: 16,
+      alignSelf: 'center',
+      marginVertical: 0,
+      fontFamily: 'NerkoOne_400Regular',
    }
 })
 
