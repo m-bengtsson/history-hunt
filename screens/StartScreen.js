@@ -19,16 +19,20 @@ const StartScreen = () => {
    const authCtx = useContext(AuthContext);
    const userCtx = useContext(UserContext);
    const navigation = useNavigation();
-   const [userDataLoaded, setUserDataLoaded] = useState(false); // Add this state
-
+   const [userDataLoaded, setUserDataLoaded] = useState(false);
 
    useEffect(() => {
-      const fetchCurrentUser = async () => {
+      const fetchData = async () => {
          try {
-            const resp = await http.getUser(authCtx.token);
+            /*  const userData = await http.getUserCollection();
+            
+                        for (const userId in userData) {
+                           const user = userData[userId];
+                           await userCtx.addUser(user.name, user.email);
+                        } */
             // kollar att det är array med minst en sak
+            const resp = await http.getUser(authCtx.token);
             if (Array.isArray(resp) && resp.length > 0) {
-               // första objectet i resp listan(en user)   
                const { displayName, email } = resp[0];
                userCtx.setCurrentUser({ name: displayName, email })
                setUserDataLoaded(true)
@@ -39,23 +43,7 @@ const StartScreen = () => {
             authCtx.logout(authCtx.token)
          }
       }
-      const fetchAllUsers = async () => {
-         try {
-            const userData = await http.getUserCollection();
-            console.log('users', userData)
-
-            for (const userId in userData) {
-               const user = userData[userId];
-               await userCtx.addUser(user.name, user.email);
-
-            }
-
-         } catch (error) {
-            console.error("Error fetching user collection data:", error)
-         }
-      }
-      fetchAllUsers()
-      fetchCurrentUser();
+      fetchData()
    }, []);
 
 

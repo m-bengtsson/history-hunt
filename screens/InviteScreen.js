@@ -1,35 +1,51 @@
-import { View, Text } from "react-native";
-import * as http from "../util/http"
+import { View, Text, StyleSheet, FlatList, SafeAreaView } from "react-native";
 import { useContext, useEffect } from "react";
+
+import * as http from "../util/http"
 import { UserContext } from "../store/UserContext";
+//import InviteCard from "../components/InviteCard";
 
 
 const InviteScreen = () => {
    const userCtx = useContext(UserContext);
+   //console.log('all users', userCtx.users)
 
-   /*    useEffect(() => {
-         const fetchUser = async () => {
-            try {
-               const resp = await http.getUserCollection();
-               userCtx
-               console.log(resp)
-   
-            } catch (error) {
-               console.error("Error fetching user data:", error.response?.data || error.message);
-               //set athentication här för att logga ut vid invalid token
-            }
-         }
-         fetchUser();
-      }, [userCtx]); */
-   console.log('all users', userCtx.users)
+   const InviteCard = ({ name, email }) => {
+      return (
+         <Text>{name}</Text>
+      )
+   }
 
 
+   const renderFriend = (itemData) => {
+      const friend = itemData.item;
+      console.log(friend)
+      return <InviteCard {...friend} />;
+   };
 
    return (
-      <View>
-         <Text>Invite screen</Text>
+      <View style={styles.container}>
+         <SafeAreaView style={styles.safeArea}>
+            <FlatList
+               data={userCtx.users}
+               renderItem={renderFriend}
+               keyExtractor={item => item.email}
+            />
+         </SafeAreaView>
       </View>
-   )
+   );
 }
+
+const styles = StyleSheet.create({
+   container: {
+      flex: 1,
+   },
+   card: {},
+
+   text: {
+      color: Colors.mainWhite,
+      fontSize: 40,
+   }
+})
 
 export default InviteScreen;
