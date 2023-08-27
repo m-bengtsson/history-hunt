@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet, FlatList, SafeAreaView } from "react-native";
-import { useContext, useEffect } from "react";
+import { useContext, useState } from "react";
 
-import * as http from "../util/http"
 import { UserContext } from "../store/UserContext";
 import InviteCard from "../components/InviteCard";
 import FontLoader from "../components/UI/FontLoader";
@@ -9,12 +8,18 @@ import Title from "../components/UI/Title"
 
 const InviteScreen = () => {
    const userCtx = useContext(UserContext);
+   const [selectedFriendEmails, setSelectedFriendEmails] = useState([]);
+
+   const toggleSelectedFriend = (email) => {
+      console.log('email', email)
+
+   }
 
 
    const renderFriend = (itemData) => {
       const friend = itemData.item;
-      console.log(friend)
-      return <InviteCard {...friend} />;
+      const isSelected = selectedFriendEmails.includes(friend.email);
+      return <InviteCard {...friend} isSelected={isSelected} onSelect={toggleSelectedFriend} />;
    };
 
    return (

@@ -13,6 +13,7 @@ import * as http from "../util/http"
 import { UserContext } from "../store/UserContext";
 import ImagePicker from "../components/ImagePicker";
 import LoadingOverlay from "../components/UI/LoadingOverlay";
+import Title from "../components/UI/Title";
 
 
 const StartScreen = () => {
@@ -79,10 +80,13 @@ const StartScreen = () => {
             <View style={styles.pictureContainer}>
                <IconButton icon="camera" size={35} color={Colors.mainWhite} onPress={takeProfilePicture} />
             </View>
-            <Text>{userCtx.currentUser.name}</Text>
-            <Text>Active Hunts</Text>
-            <Text>Planned hunts</Text>
-            <Text>Medals</Text>
+            <Title>{userCtx.currentUser.name}</Title>
+            <View style={styles.huntsContainer}>
+               <Title>Active Hunts</Title>
+               <Title>Planned hunts</Title>
+               <Title>Medals</Title>
+
+            </View>
             <Button title='Create Hunt' onPress={pressHandler} />
          </View>
       </FontLoader>
@@ -93,9 +97,10 @@ const styles = StyleSheet.create({
    container: {
       flex: 1,
       backgroundColor: Colors.trueBlue,
-      justifyContent: 'flex-start',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
       alignItems: "center",
-      padding: 32,
+      padding: 0,
    },
    pictureContainer: {
       width: 200,
@@ -112,6 +117,9 @@ const styles = StyleSheet.create({
    iconContainer: {
       alignSelf: 'flex-end'
 
+   },
+   huntsContainer: {
+      alignItems: 'flex-start'
    },
    title: {
       fontSize: 20,
