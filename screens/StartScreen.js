@@ -1,9 +1,8 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { AuthContext } from "../store/AuthContext";
 import { useContext, useEffect, useState } from "react";
-import { FontAwesome, AntDesign, MaterialIcons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
-import Modal from "react-native-modal";
 
 
 import IconButton from "../components/UI/IconButton";
@@ -12,9 +11,10 @@ import Button from "../components/UI/Button";
 import FontLoader from "../components/UI/FontLoader";
 import * as http from "../util/http"
 import { UserContext } from "../store/UserContext";
-import ImagePicker from "../components/ImagePicker";
 import LoadingOverlay from "../components/UI/LoadingOverlay";
 import Title from "../components/UI/Title";
+import CameraModal from "../components/CameraModal";
+import HuntStatus from "../components/HuntStatus";
 
 
 const StartScreen = () => {
@@ -24,7 +24,6 @@ const StartScreen = () => {
    const [userDataLoaded, setUserDataLoaded] = useState(false);
    const [isModalVisible, setModalVisible] = useState(false);
 
-
    useEffect(() => {
       const fetchData = async () => {
          try {
@@ -32,6 +31,7 @@ const StartScreen = () => {
             const resp = await http.getUser(authCtx.token);
             if (Array.isArray(resp) && resp.length > 0) {
                const { displayName, email } = resp[0];
+
                userCtx.setCurrentUser({ name: displayName, email })
                setUserDataLoaded(true)
             }
@@ -44,18 +44,16 @@ const StartScreen = () => {
       fetchData()
    }, []);
 
-   if (!userDataLoaded) {
-      return <LoadingOverlay message="Loading user data..." />
-   }
-
    const pressHandler = () => {
       navigation.navigate('CreateHuntScreen');
-
    }
 
    const toggleCamera = () => {
       setModalVisible(!isModalVisible);
+   }
 
+   if (!userDataLoaded) {
+      return <LoadingOverlay message="Loading user data..." />
    }
 
    return (
@@ -72,23 +70,9 @@ const StartScreen = () => {
             <View style={styles.pictureContainer}>
                <AntDesign name="edit" size={30} color={Colors.darkOrange} onPress={toggleCamera} />
             </View>
-            <View style={styles.modalWrapper}>
-               <Modal isVisible={isModalVisible}>
-                  <View >
-                     <MaterialIcons name="cancel" size={44} color={Colors.mainWhite} onPress={toggleCamera} />
-                     <View style={styles.modalContainer}>
-                        <ImagePicker />
-                     </View>
-                  </View>
-               </Modal>
-            </View>
             <Title>{userCtx.currentUser.name}</Title>
-            <View style={styles.huntsContainer}>
-               <Title>Active Hunts</Title>
-               <Title>Planned hunts</Title>
-               <Title>Medals</Title>
-
-            </View>
+            <CameraModal onPress={toggleCamera} isModalVisible={isModalVisible} />
+            <HuntStatus name={userCtx.currentUser.name} />
             <Button title='Create Hunt' onPress={pressHandler} />
          </View>
       </FontLoader>
@@ -100,9 +84,8 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: Colors.trueBlue,
       flexDirection: 'column',
-      justifyContent: 'space-between',
       alignItems: "center",
-      padding: 0,
+      paddingBottom: 20,
    },
    modalContainer: {
       backgroundColor: Colors.trueBlue,
@@ -124,9 +107,9 @@ const styles = StyleSheet.create({
       alignSelf: 'flex-end'
 
    },
-   huntsContainer: {
-      alignItems: 'flex-start'
-   },
+   /*    huntsContainer: {
+         alignItems: 'flex-start'
+      }, */
    title: {
       fontSize: 20,
       fontWeight: "bold",
