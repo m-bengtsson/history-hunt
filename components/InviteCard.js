@@ -6,13 +6,21 @@ import { FontAwesome } from '@expo/vector-icons';
 import IconButton from './UI/IconButton';
 import Colors from '../constants/Colors';
 
-const InviteCard = ({ name, email, onPress }) => {
+
+
+const InviteCard = ({ name, email, isSelected, onSelect }) => {
 
    return (
       <View style={styles.container}>
-         <Pressable onPress={onPress}>
+         <Pressable onPress={() => onSelect(email)}>
             <View style={styles.card}>
-               <FontAwesome style={styles.icon} name='user-circle' size={60} color={Colors.lighterBlue} />
+               {isSelected ? (
+                  <FontAwesome style={styles.icon} name='check-circle' size={60} color={Colors.lighterBlue} />
+
+               ) : (
+                  <FontAwesome style={styles.icon} name='user-circle' size={60} color={Colors.lighterBlue} />
+
+               )}
                <Text style={styles.text}>{name}</Text>
             </View>
          </Pressable>

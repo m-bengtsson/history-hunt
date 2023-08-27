@@ -11,10 +11,12 @@ const InviteScreen = () => {
    const [selectedFriendEmails, setSelectedFriendEmails] = useState([]);
 
    const toggleSelectedFriend = (email) => {
-      console.log('email', email)
-
+      setSelectedFriendEmails((prevSelected) =>
+         prevSelected.includes(email)
+            ? prevSelected.filter((selectedEmail) => selectedEmail !== email)
+            : [...prevSelected, email]
+      );
    }
-
 
    const renderFriend = (itemData) => {
       const friend = itemData.item;
