@@ -6,13 +6,14 @@ import InviteCard from "../components/InviteCard";
 import FontLoader from "../components/UI/FontLoader";
 import Title from "../components/UI/Title"
 import Button from "../components/UI/Button"
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 const InviteScreen = () => {
    const userCtx = useContext(UserContext);
    const [selectedFriendEmails, setSelectedFriendEmails] = useState([]);
 
    const navigation = useNavigation()
+   const route = useRoute()
 
    const toggleSelectedFriend = (email) => {
       setSelectedFriendEmails((prevSelected) =>
@@ -29,7 +30,8 @@ const InviteScreen = () => {
    };
 
    const navigateToMapScreen = () => {
-      navigation.navigate('MapScreen', { invitedFriends: selectedFriendEmails })
+      const { hunt } = route.params;
+      navigation.navigate('MapScreen', { invitedFriends: selectedFriendEmails }, { hunt })
    }
 
 
