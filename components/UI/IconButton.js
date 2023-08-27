@@ -15,7 +15,6 @@ const IconButton = ({ icon, color, size, onPress }) => {
 const styles = StyleSheet.create({
    button: {
       margin: 8,
-      borderRadius: 20,
    },
    pressed: {
       opacity: 0.6,
