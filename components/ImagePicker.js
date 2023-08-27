@@ -71,7 +71,7 @@ const ImagePicker = () => {
 const styles = StyleSheet.create({
    container: {
       width: 350,
-      height: 400,
+      height: 350,
       justifyContent: 'flex-end',
       alignSelf: 'center',
       margin: 20,
