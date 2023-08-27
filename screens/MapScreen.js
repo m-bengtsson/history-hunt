@@ -8,7 +8,8 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 import Button from "../components/UI/Button";
 import Colors from "../constants/Colors";
-import Title from "../components/UI/Title"
+import Title from "../components/UI/Title";
+import SmallTitle from "../components/UI/SmallTitle";
 
 
 const { height, width } = Dimensions.get('window');
@@ -94,12 +95,13 @@ const MapScreen = () => {
             <Button title='Confirm' onPress={toggleModal} />
          </View>
          <View style={styles.modalWrapper}>
-
             <Modal isVisible={isModalVisible}>
                <View >
                   <MaterialIcons name="cancel" size={44} color="black" onPress={toggleModal} />
                   <View style={styles.modalContainer}>
-                     <Text>Hello!</Text>
+                     <SmallTitle>You picked: {name}</SmallTitle>
+                     <SmallTitle>Here is the route you will be taking:</SmallTitle>
+                     <SmallTitle>This should take approximately: {timeDuration}</SmallTitle>
                   </View>
                   <Button title='Confirm Hunt' onPress={confirmHunt} />
                </View>
@@ -128,7 +130,7 @@ const styles = StyleSheet.create({
    },
    modalContainer: {
       height: 500,
-      backgroundColor: Colors.mainWhite,
+      backgroundColor: Colors.trueBlue,
       borderRadius: 30,
       padding: 20,
    },
