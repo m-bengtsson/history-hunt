@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import Button from "../components/UI/Button";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import * as Location from 'expo-location';
+import Modal from "react-native-modal";
+import { MaterialIcons } from '@expo/vector-icons';
 
+import Button from "../components/UI/Button";
+import Colors from "../constants/Colors";
+import Title from "../components/UI/Title"
 
 
 const { height, width } = Dimensions.get('window');
@@ -14,31 +18,28 @@ const MapScreen = () => {
    const [permission, requestPermission] = Location.useForegroundPermissions();
    const [invited, setInvited] = useState([])
    const [inputHunt, setInputHunt] = ("")
+   const [isModalVisible, setModalVisible] = useState(false);
 
 
    const navigation = useNavigation();
    const route = useRoute();
 
-   console.log('route params', route.params)
-
    const { name, timeDuration } = route.params;
    console.log('name and duration: ', name, timeDuration)
 
+   const toggleModal = () => {
+      setModalVisible(!isModalVisible);
+   };
 
    useEffect(() => {
       if (route.params?.invitedFriends) {
          setInvited(prev => [...prev, ...route.params.invitedFriends])
       }
-
    }, [route])
-
-   console.log('Invited friends: ', invited);
-
 
    const markerHandler = (event) => {
       const latitude = event.nativeEvent.coordinate.latitude;
       const longitude = event.nativeEvent.coordinate.longitude;
-
 
       // Filter already existing pins
       const indexAlreadyExists = pinnedLocation.findIndex(loc => loc.latitude === latitude && loc.longitude === longitude);
@@ -68,26 +69,43 @@ const MapScreen = () => {
       longitudeDelta: 0.0421
    }
 
-   const confirmLocations = () => {
+   const confirmHunt = () => {
       console.log('confirm locations')
    }
 
    return (
-      <MapView
-         style={styles.map}
-         initialRegion={initialRegion}
-         onPress={markerHandler}
-      >
-         {pinnedLocation.map((location, index) => (
-            <Marker
-               key={index}
-               pinColor="red"
-               coordinate={location}
-               title={`Pinned location ${index + 1}`}
-            />
-         ))}
-         <Button title={'Confirm locations'} onPress={confirmLocations} />
-      </MapView>
+      <View style={styles.container}>
+         <Title >Choose Location</Title>
+         <MapView
+            style={styles.map}
+            initialRegion={initialRegion}
+            onPress={markerHandler}
+         >
+            {pinnedLocation.map((location, index) => (
+               <Marker
+                  key={index}
+                  pinColor="red"
+                  coordinate={location}
+                  title={`Pinned location ${index + 1}`}
+               />
+            ))}
+         </MapView>
+         <View style={styles.buttonContainer}>
+            <Button title='Confirm' onPress={toggleModal} />
+         </View>
+         <View style={styles.modalWrapper}>
+
+            <Modal isVisible={isModalVisible}>
+               <View >
+                  <MaterialIcons name="cancel" size={44} color="black" onPress={toggleModal} />
+                  <View style={styles.modalContainer}>
+                     <Text>Hello!</Text>
+                  </View>
+                  <Button title='Confirm Hunt' onPress={confirmHunt} />
+               </View>
+            </Modal>
+         </View>
+      </View>
    )
 }
 
@@ -95,9 +113,28 @@ const MapScreen = () => {
 const styles = StyleSheet.create({
    container: {
       flex: 1,
+
+   },
+   buttonContainer: {
+      padding: 20
+
+   },
+   modalWrapper: {
+      /*      flex: 1,
+           justifyContent: 'space-between',
+           flexDirection: 'column',
+           borderRadius: 24, */
+
+   },
+   modalContainer: {
+      height: 500,
+      backgroundColor: Colors.mainWhite,
+      borderRadius: 30,
+      padding: 20,
    },
    map: {
-      height: height
+      height: 650,
+
    },
 });
 
