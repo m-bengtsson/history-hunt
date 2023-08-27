@@ -41,8 +41,8 @@ const AuthenticatedStack = () => {
       }}>
          <Stack.Screen name='StartScreen' component={StartScreen} />
          <Stack.Screen name='CreateHuntScreen' component={CreateHuntScreen} />
-         <Stack.Screen name='MapScreen' component={MapScreen} />
          <Stack.Screen name='InviteScreen' component={InviteScreen} />
+         <Stack.Screen name='MapScreen' component={MapScreen} />
 
       </Stack.Navigator>
    )

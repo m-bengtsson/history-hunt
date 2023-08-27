@@ -1,28 +1,19 @@
 import { View, Text, StyleSheet } from "react-native";
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 import Input from "../components/Auth/Input";
 import Button from "../components/UI/Button";
 import FontLoader from "../components/UI/FontLoader";
 import Title from "../components/UI/Title";
 
-import { useNavigation } from "@react-navigation/native";
-
 
 const CreateHuntScreen = () => {
    const [enteredHuntName, setEnteredHuntName] = useState("");
-   const [enteredTimeDuration, setEnteredTimeDuration] = useState();
+   const [enteredTimeDuration, setEnteredTimeDuration] = useState("");
 
    const navigation = useNavigation()
 
-   const navigateToInviteScreen = () => {
-      const hunt =
-      {
-         name: enteredHuntName,
-         timeDuration: enteredTimeDuration,
-      }
-      navigation.navigate('InviteScreen', { hunt })
-   }
 
    const inputHandler = (inputType, enteredValue) => {
       switch (inputType) {
@@ -35,6 +26,10 @@ const CreateHuntScreen = () => {
             break;
       }
    };
+   const navigateToInviteScreen = () => {
+
+      navigation.navigate('InviteScreen', { name: enteredHuntName, timeDuration: enteredTimeDuration })
+   }
 
    return (
       <View style={styles.container}>

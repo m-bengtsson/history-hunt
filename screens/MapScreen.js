@@ -13,18 +13,27 @@ const MapScreen = () => {
    const [pinnedLocation, setPinnedLocation] = useState([]);
    const [permission, requestPermission] = Location.useForegroundPermissions();
    const [invited, setInvited] = useState([])
+   const [inputHunt, setInputHunt] = ("")
 
 
    const navigation = useNavigation();
    const route = useRoute();
 
+   console.log('route params', route.params)
+
+   const { name, timeDuration } = route.params;
+   console.log('name and duration: ', name, timeDuration)
+
+
    useEffect(() => {
       if (route.params?.invitedFriends) {
-         setInvited(prev => [...prev, route.params.invitedFriends])
+         setInvited(prev => [...prev, ...route.params.invitedFriends])
       }
+
    }, [route])
 
-   //console.log('invited friends: ', invited)
+   console.log('Invited friends: ', invited);
+
 
    const markerHandler = (event) => {
       const latitude = event.nativeEvent.coordinate.latitude;

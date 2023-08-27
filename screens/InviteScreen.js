@@ -30,10 +30,10 @@ const InviteScreen = () => {
    };
 
    const navigateToMapScreen = () => {
-      const { hunt } = route.params;
-      navigation.navigate('MapScreen', { invitedFriends: selectedFriendEmails }, { hunt })
+      const { name, timeDuration } = route.params;
+      console.log('hunt: ', name, timeDuration)
+      navigation.navigate('MapScreen', { invitedFriends: selectedFriendEmails, name, timeDuration });
    }
-
 
    return (
       <FontLoader>
