@@ -30,7 +30,6 @@ const InviteScreen = () => {
 
    const navigateToMapScreen = () => {
       navigation.navigate('MapScreen', { invitedFriends: selectedFriendEmails })
-
    }
 
 

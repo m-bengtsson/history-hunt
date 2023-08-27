@@ -2,18 +2,29 @@ import { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import Button from "../components/UI/Button";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import * as Location from 'expo-location';
 
 
 
-const { height, width } = Dimensions.get('window')
+const { height, width } = Dimensions.get('window');
 
 const MapScreen = () => {
    const [pinnedLocation, setPinnedLocation] = useState([]);
    const [permission, requestPermission] = Location.useForegroundPermissions();
+   const [invited, setInvited] = useState([])
 
-   const navigation = useNavigation()
+
+   const navigation = useNavigation();
+   const route = useRoute();
+
+   useEffect(() => {
+      if (route.params?.invitedFriends) {
+         setInvited(prev => [...prev, route.params.invitedFriends])
+      }
+   }, [route])
+
+   //console.log('invited friends: ', invited)
 
    const markerHandler = (event) => {
       const latitude = event.nativeEvent.coordinate.latitude;
