@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { useRef, useState } from 'react';
 import { Camera, CameraType } from 'expo-camera';
 import IconButton from './UI/IconButton';
@@ -12,23 +12,28 @@ const ImagePicker = () => {
    }
 
    return (
-      <View style={styles.container}>
-         <Camera ref={cameraRef} type={CameraType.back}>
-            <IconButton icon="camera" size={32} color='white' onPress={takePicture} />
+      <View>
+         <Camera ref={cameraRef} type={CameraType.back} style={styles.container}>
+            <View style={styles.iconContainer}>
+               <IconButton icon="camera" size={52} color='white' onPress={takePicture} />
+
+            </View>
          </Camera>
-         <Text style={styles.text}>Camera</Text>
       </View>
    )
 }
 
 const styles = StyleSheet.create({
    container: {
-      flex: 1,
+      width: 400,
+      height: 700,
+      justifyContent: 'flex-end',
+      alignSelf: 'center'
+
    },
-   text: {
-      color: Colors.mainWhite,
-      fontSize: 40,
-   }
+   iconContainer: {
+      alignSelf: 'center'
+   },
 })
 
 export default ImagePicker;

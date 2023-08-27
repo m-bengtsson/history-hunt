@@ -1,8 +1,9 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { AuthContext } from "../store/AuthContext";
 import { useContext, useEffect, useState } from "react";
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
+import Modal from "react-native-modal";
 
 
 import IconButton from "../components/UI/IconButton";
@@ -21,16 +22,12 @@ const StartScreen = () => {
    const userCtx = useContext(UserContext);
    const navigation = useNavigation();
    const [userDataLoaded, setUserDataLoaded] = useState(false);
+   const [isModalVisible, setModalVisible] = useState(false);
+
 
    useEffect(() => {
       const fetchData = async () => {
          try {
-            /*  const userData = await http.getUserCollection();
-            
-                        for (const userId in userData) {
-                           const user = userData[userId];
-                           await userCtx.addUser(user.name, user.email);
-                        } */
             // kollar att det är array med minst en sak
             const resp = await http.getUser(authCtx.token);
             if (Array.isArray(resp) && resp.length > 0) {
@@ -47,7 +44,6 @@ const StartScreen = () => {
       fetchData()
    }, []);
 
-
    if (!userDataLoaded) {
       return <LoadingOverlay message="Loading user data..." />
    }
@@ -57,10 +53,9 @@ const StartScreen = () => {
 
    }
 
-   const takeProfilePicture = () => {
-      return (
-         <ImagePicker />
-      )
+   const toggleCamera = () => {
+      setModalVisible(!isModalVisible);
+
    }
 
    return (
@@ -74,11 +69,18 @@ const StartScreen = () => {
                   onPress={authCtx.logout}
                />
             </View>
-            {/*             <FontAwesome name='user-circle' color={'white'} size={200} />
-            
- */}
             <View style={styles.pictureContainer}>
-               <IconButton icon="camera" size={35} color={Colors.mainWhite} onPress={takeProfilePicture} />
+               <AntDesign name="edit" size={30} color={Colors.darkOrange} onPress={toggleCamera} />
+            </View>
+            <View style={styles.modalWrapper}>
+               <Modal isVisible={isModalVisible}>
+                  <View >
+                     <MaterialIcons name="cancel" size={44} color={Colors.mainWhite} onPress={toggleCamera} />
+                     <View style={styles.modalContainer}>
+                        <ImagePicker />
+                     </View>
+                  </View>
+               </Modal>
             </View>
             <Title>{userCtx.currentUser.name}</Title>
             <View style={styles.huntsContainer}>
@@ -101,6 +103,10 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
       alignItems: "center",
       padding: 0,
+   },
+   modalContainer: {
+      backgroundColor: Colors.trueBlue,
+      borderRadius: 30,
    },
    pictureContainer: {
       width: 200,
