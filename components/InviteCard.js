@@ -2,8 +2,6 @@ import { View, StyleSheet, Pressable, Text } from 'react-native';
 import { useContext } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
 
-
-import IconButton from './UI/IconButton';
 import Colors from '../constants/Colors';
 
 
@@ -19,7 +17,6 @@ const InviteCard = ({ name, email, isSelected, onSelect }) => {
 
                ) : (
                   <FontAwesome style={styles.icon} name='user-circle' size={60} color={Colors.lighterBlue} />
-
                )}
                <Text style={styles.text}>{name}</Text>
             </View>

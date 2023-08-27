@@ -49,7 +49,7 @@ const MapScreen = () => {
    }
 
    const confirmLocations = () => {
-      navigation.navigate('CreateHuntScreen', { location: pinnedLocation })
+      console.log('confirm locations')
    }
 
    return (

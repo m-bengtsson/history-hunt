@@ -26,9 +26,6 @@ const CreateHuntScreen = () => {
    
       console.log('picked location', pickedLocation) */
 
-   const pressHandler = () => {
-      navigation.navigate('MapScreen')
-   }
 
    const navigateToInviteScreen = () => {
       navigation.navigate('InviteScreen')
@@ -82,7 +79,7 @@ const CreateHuntScreen = () => {
                   autoCapitalize: 'none'
 
                }} />
-            <Button title={'Choose Location'} onPress={pressHandler} />
+            {/*             <Button title={'Choose Location'} onPress={pressHandler} /> */}
             {/*             <Button title={'Continue'} onPress={submitHandler} />
  */}
             <Button title={'Invite friends'} onPress={navigateToInviteScreen} />
