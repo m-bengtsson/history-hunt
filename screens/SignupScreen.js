@@ -13,6 +13,8 @@ const SignupScreen = () => {
    const [isAuthenticating, setIsAuthenticating] = useState(false);
    const authCtx = useContext(AuthContext);
    const userCtx = useContext(UserContext);
+   const photoUrl = 'placeholder';
+
 
    const authenticationHandler = async ({ displayName, email, password }) => {
       setIsAuthenticating(true);
@@ -20,8 +22,10 @@ const SignupScreen = () => {
          const token = await http.signupUser(email, password);
          authCtx.authenticate(token);
 
-         const resp = await http.updateUser(displayName, token);
-         await http.storeUsers({ name: displayName, email })
+         const resp = await http.updateUser(displayName, photoUrl, token);
+
+         console.log('response data', resp)
+         await http.storeUsers({ name: displayName, email, photoUrl })
 
       } catch (error) {
          console.log(error)

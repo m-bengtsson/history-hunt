@@ -24,6 +24,7 @@ const StartScreen = () => {
    const [userDataLoaded, setUserDataLoaded] = useState(false);
    const [isModalVisible, setModalVisible] = useState(false);
 
+
    useEffect(() => {
       if (!userDataLoaded) {
          const fetchData = async () => {
@@ -34,7 +35,7 @@ const StartScreen = () => {
                if (Array.isArray(resp) && resp.length > 0) {
                   const { displayName, email } = resp[0];
 
-                  console.log('name: ', displayName)
+                  //console.log('name: ', displayName)
 
                   userCtx.setCurrentUser({ name: displayName, email })
                   setUserDataLoaded(true)
@@ -48,6 +49,8 @@ const StartScreen = () => {
          fetchData();
       }
    }, [authCtx.token, userDataLoaded, userCtx]);
+
+   //console.log('user photo', userCtx.currentUser)
 
    const pressHandler = () => {
       navigation.navigate('CreateHuntScreen');

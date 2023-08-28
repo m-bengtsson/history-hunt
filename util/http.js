@@ -21,16 +21,16 @@ export const signinUser = async (email, password) => {
    return authenticate('signInWithPassword', email, password)
 };
 
-export const updateUser = async (displayName, idToken) => {
+export const updateUser = async (displayName, photoUrl, idToken) => {
    const resp = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${API_KEY}`,
       {
          displayName,
+         photoUrl,
          idToken,
-         //photoUrl,
          returnSecureToken: true
       }
    );
-   return resp.data.localId;
+   return resp.data;
 };
 
 export const getUser = async (idToken) => {
