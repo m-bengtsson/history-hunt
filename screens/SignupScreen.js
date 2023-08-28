@@ -15,7 +15,6 @@ const SignupScreen = () => {
    const userCtx = useContext(UserContext);
    const photoUrl = 'placeholder';
 
-
    const authenticationHandler = async ({ displayName, email, password }) => {
       setIsAuthenticating(true);
       try {
@@ -23,18 +22,14 @@ const SignupScreen = () => {
          authCtx.authenticate(token);
 
          const resp = await http.updateUser(displayName, photoUrl, token);
-
-         console.log('response data', resp)
          await http.storeUsers({ name: displayName, email, photoUrl })
 
       } catch (error) {
          console.log(error)
          Alert.alert('Wrong credentials')
       }
-
       setIsAuthenticating(false)
    };
-
 
    if (isAuthenticating) {
       return <LoadingOverlay message={'Authenticating user...'} />

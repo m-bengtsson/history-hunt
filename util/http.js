@@ -33,6 +33,18 @@ export const updateUser = async (displayName, photoUrl, idToken) => {
    return resp.data;
 };
 
+export const updateUserPhoto = async (photoUrl, idToken) => {
+   const resp = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${API_KEY}`,
+      {
+         photoUrl: photoUrl,
+         idToken: idToken,
+         returnSecureToken: true
+      }
+   );
+   return resp.data;
+
+}
+
 export const getUser = async (idToken) => {
    const payload = {
       idToken: idToken,

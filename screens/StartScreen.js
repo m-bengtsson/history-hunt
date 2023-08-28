@@ -1,9 +1,9 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 import { AuthContext } from "../store/AuthContext";
 import { useContext, useEffect, useState } from "react";
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
-
+import Modal from "react-native-modal";
 
 import IconButton from "../components/UI/IconButton";
 import Colors from "../constants/Colors";
@@ -15,6 +15,7 @@ import LoadingOverlay from "../components/UI/LoadingOverlay";
 import SmallTitle from "../components/UI/SmallTitle";
 import CameraModal from "../components/CameraModal";
 import HuntStatus from "../components/HuntStatus";
+import ImagePicker from "../components/ImagePicker";
 
 
 const StartScreen = () => {
@@ -23,34 +24,29 @@ const StartScreen = () => {
    const navigation = useNavigation();
    const [userDataLoaded, setUserDataLoaded] = useState(false);
    const [isModalVisible, setModalVisible] = useState(false);
-
+   const [photo, setPhoto] = useState();
 
    useEffect(() => {
       if (!userDataLoaded) {
          const fetchData = async () => {
             try {
                const resp = await http.getUser(authCtx.token);
-
                // kollar att det är array med minst en sak
                if (Array.isArray(resp) && resp.length > 0) {
-                  const { displayName, email } = resp[0];
-
-                  //console.log('name: ', displayName)
-
-                  userCtx.setCurrentUser({ name: displayName, email })
+                  const { displayName, email, photoUrl } = resp[0];
+                  userCtx.setCurrentUser({ name: displayName, email, photoUrl })
                   setUserDataLoaded(true)
                }
             } catch (error) {
                console.error("Error fetching user data:", error.response?.data || error.message);
                //set athentication här för att logga ut vid invalid token
+               authCtx.logout()
             }
             setUserDataLoaded(true);
          };
          fetchData();
       }
    }, [authCtx.token, userDataLoaded, userCtx]);
-
-   //console.log('user photo', userCtx.currentUser)
 
    const pressHandler = () => {
       navigation.navigate('CreateHuntScreen');
@@ -63,6 +59,16 @@ const StartScreen = () => {
    if (!userDataLoaded || !userCtx.currentUser.name) {
       return <LoadingOverlay message="Loading user data..." />
    }
+   const updatePhotoHandler = async () => {
+      try {
+         await http.updateUserPhoto(photo.uri, authCtx.token)
+         userCtx.updatePhotoUrl(photo.uri);
+
+      } catch (error) {
+         console.log(error)
+      }
+      toggleCamera()
+   };
 
    return (
       <FontLoader>
@@ -75,11 +81,24 @@ const StartScreen = () => {
                   onPress={authCtx.logout}
                />
             </View>
-            <View style={styles.pictureContainer}>
+            {userCtx.currentUser.photoUrl ? (<View style={styles.ifPhoto}>
+               <Image source={{ uri: userCtx.currentUser.photoUrl }} style={styles.pictureContainer} />
                <AntDesign name="edit" size={30} color={Colors.darkOrange} onPress={toggleCamera} />
             </View>
+
+            ) :
+               <View style={styles.pictureContainer}>
+                  <AntDesign name="edit" size={30} color={Colors.darkOrange} onPress={toggleCamera} />
+               </View>
+            }
             <SmallTitle>{userCtx.currentUser.name}</SmallTitle>
-            <CameraModal toggleCamera={toggleCamera} isModalVisible={isModalVisible} />
+            <CameraModal
+               isVisible={isModalVisible}
+               toggleCamera={toggleCamera}
+               setPhoto={setPhoto}
+               photo={photo}
+               updatePhotoHandler={updatePhotoHandler}
+            />
             <HuntStatus name={userCtx.currentUser.name} />
             <Button title='Create Hunt' onPress={pressHandler} />
          </View>
@@ -99,6 +118,7 @@ const styles = StyleSheet.create({
       backgroundColor: Colors.trueBlue,
       borderRadius: 30,
    },
+
    pictureContainer: {
       width: 200,
       height: 200,
@@ -106,6 +126,11 @@ const styles = StyleSheet.create({
       backgroundColor: Colors.darkerBlue,
       justifyContent: 'flex-end',
       alignItems: 'flex-end'
+   },
+   ifPhoto: {
+      justifyContent: 'flex-end',
+      alignItems: 'flex-end'
+
    },
    pictureIcon: {
       alignSelf: 'flex-end',
