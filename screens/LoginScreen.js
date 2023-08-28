@@ -19,8 +19,6 @@ const LoginScreen = () => {
       } catch (error) {
          // Gör en overlay här
          Alert.alert('Incorrect e-mail or password')
-         //console.log(JSON.stringify(error));
-         // ÄNDRING felmeddellande här
       }
       setIsAuthenticating(false)
    };

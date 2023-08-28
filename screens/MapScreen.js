@@ -10,6 +10,7 @@ import Button from "../components/UI/Button";
 import Colors from "../constants/Colors";
 import Title from "../components/UI/Title";
 import SmallTitle from "../components/UI/SmallTitle";
+import * as http from "../util/http";
 
 
 const { height, width } = Dimensions.get('window');
@@ -70,8 +71,13 @@ const MapScreen = () => {
       longitudeDelta: 0.0421
    }
 
-   const confirmHunt = () => {
-      console.log('confirm locations')
+   const confirmHunt = async () => {
+      /* try {
+         await http.storeHunt({ name: name, estimatedTime: timeDuration, locations: pinnedLocation, invited: invited })
+         navigation.replace('StartScreen')
+      } catch (error) {
+         console.log(error)
+      } */
    }
 
    return (
