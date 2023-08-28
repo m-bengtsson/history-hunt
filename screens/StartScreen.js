@@ -1,9 +1,8 @@
 import { View, StyleSheet, Image } from "react-native";
 import { AuthContext } from "../store/AuthContext";
 import { useContext, useEffect, useState } from "react";
-import { AntDesign, MaterialIcons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
-import Modal from "react-native-modal";
 
 import IconButton from "../components/UI/IconButton";
 import Colors from "../constants/Colors";
@@ -15,7 +14,6 @@ import LoadingOverlay from "../components/UI/LoadingOverlay";
 import SmallTitle from "../components/UI/SmallTitle";
 import CameraModal from "../components/CameraModal";
 import HuntStatus from "../components/HuntStatus";
-import ImagePicker from "../components/ImagePicker";
 
 
 const StartScreen = () => {
@@ -114,11 +112,6 @@ const styles = StyleSheet.create({
       alignItems: "center",
       paddingBottom: 20,
    },
-   modalContainer: {
-      backgroundColor: Colors.trueBlue,
-      borderRadius: 30,
-   },
-
    pictureContainer: {
       width: 200,
       height: 200,
