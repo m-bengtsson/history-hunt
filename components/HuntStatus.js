@@ -1,13 +1,13 @@
 import { View, StyleSheet } from "react-native";
-import Title from "./UI/Title";
+import SmallTitle from "./UI/SmallTitle";
 
 const HuntStatus = ({ name }) => {
    return (
       <>
          <View style={styles.huntsContainer}>
-            <Title>Active Hunts</Title>
-            <Title>Planned hunts</Title>
-            <Title>Medals</Title>
+            <SmallTitle>Active Hunts</SmallTitle>
+            <SmallTitle>Planned hunts</SmallTitle>
+            <SmallTitle>Medals</SmallTitle>
          </View>
       </>
    )

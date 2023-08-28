@@ -12,7 +12,7 @@ import FontLoader from "../components/UI/FontLoader";
 import * as http from "../util/http"
 import { UserContext } from "../store/UserContext";
 import LoadingOverlay from "../components/UI/LoadingOverlay";
-import Title from "../components/UI/Title";
+import SmallTitle from "../components/UI/SmallTitle";
 import CameraModal from "../components/CameraModal";
 import HuntStatus from "../components/HuntStatus";
 
@@ -25,24 +25,29 @@ const StartScreen = () => {
    const [isModalVisible, setModalVisible] = useState(false);
 
    useEffect(() => {
-      const fetchData = async () => {
-         try {
-            // kollar att det är array med minst en sak
-            const resp = await http.getUser(authCtx.token);
-            if (Array.isArray(resp) && resp.length > 0) {
-               const { displayName, email } = resp[0];
+      if (!userDataLoaded) {
+         const fetchData = async () => {
+            try {
+               const resp = await http.getUser(authCtx.token);
 
-               userCtx.setCurrentUser({ name: displayName, email })
-               setUserDataLoaded(true)
+               // kollar att det är array med minst en sak
+               if (Array.isArray(resp) && resp.length > 0) {
+                  const { displayName, email } = resp[0];
+
+                  console.log('name: ', displayName)
+
+                  userCtx.setCurrentUser({ name: displayName, email })
+                  setUserDataLoaded(true)
+               }
+            } catch (error) {
+               console.error("Error fetching user data:", error.response?.data || error.message);
+               //set athentication här för att logga ut vid invalid token
             }
-         } catch (error) {
-            console.error("Error fetching user data:", error.response?.data || error.message);
-            //set athentication här för att logga ut vid invalid token
-            authCtx.logout(authCtx.token)
-         }
+            setUserDataLoaded(true);
+         };
+         fetchData();
       }
-      fetchData()
-   }, []);
+   }, [authCtx.token, userDataLoaded, userCtx]);
 
    const pressHandler = () => {
       navigation.navigate('CreateHuntScreen');
@@ -52,7 +57,7 @@ const StartScreen = () => {
       setModalVisible(!isModalVisible);
    }
 
-   if (!userDataLoaded) {
+   if (!userDataLoaded || !userCtx.currentUser.name) {
       return <LoadingOverlay message="Loading user data..." />
    }
 
@@ -70,7 +75,7 @@ const StartScreen = () => {
             <View style={styles.pictureContainer}>
                <AntDesign name="edit" size={30} color={Colors.darkOrange} onPress={toggleCamera} />
             </View>
-            <Title>{userCtx.currentUser.name}</Title>
+            <SmallTitle>{userCtx.currentUser.name}</SmallTitle>
             <CameraModal onPress={toggleCamera} isModalVisible={isModalVisible} />
             <HuntStatus name={userCtx.currentUser.name} />
             <Button title='Create Hunt' onPress={pressHandler} />
@@ -107,9 +112,6 @@ const styles = StyleSheet.create({
       alignSelf: 'flex-end'
 
    },
-   /*    huntsContainer: {
-         alignItems: 'flex-start'
-      }, */
    title: {
       fontSize: 20,
       fontWeight: "bold",

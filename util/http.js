@@ -24,8 +24,8 @@ export const signinUser = async (email, password) => {
 export const updateUser = async (displayName, idToken) => {
    const resp = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${API_KEY}`,
       {
-         idToken,
          displayName,
+         idToken,
          //photoUrl,
          returnSecureToken: true
       }

@@ -11,8 +11,12 @@ export const UserContext = createContext({
 
 
 const UserContextProvider = ({ children }) => {
-   const [currentUser, setCurrentUser] = useState({ name: null, email: null });
+   const [currentUser, setCurrentUserState] = useState({ name: null, email: null });
    const [users, setUsers] = useState([]);
+
+   const setCurrentUser = ({ name, email }) => {
+      setCurrentUserState({ name, email });
+   };
 
    useEffect(() => {
       const fetchUsers = async () => {
@@ -44,7 +48,7 @@ const UserContextProvider = ({ children }) => {
    const value = {
       users,
       currentUser,
-      setCurrentUser,
+      setCurrentUser: setCurrentUser,
       addUser
    }
    return <UserContext.Provider value={value}>{children}</UserContext.Provider>
