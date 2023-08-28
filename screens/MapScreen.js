@@ -13,21 +13,15 @@ import SmallTitle from "../components/UI/SmallTitle";
 import * as http from "../util/http";
 
 
-const { height, width } = Dimensions.get('window');
-
 const MapScreen = () => {
    const [pinnedLocation, setPinnedLocation] = useState([]);
    const [permission, requestPermission] = Location.useForegroundPermissions();
    const [invited, setInvited] = useState([])
-   const [inputHunt, setInputHunt] = ("")
    const [isModalVisible, setModalVisible] = useState(false);
-
 
    const navigation = useNavigation();
    const route = useRoute();
-
    const { name, timeDuration } = route.params;
-   console.log('name and duration: ', name, timeDuration)
 
    const toggleModal = () => {
       setModalVisible(!isModalVisible);
@@ -43,15 +37,15 @@ const MapScreen = () => {
       const latitude = event.nativeEvent.coordinate.latitude;
       const longitude = event.nativeEvent.coordinate.longitude;
 
-      // Filter already existing pins
+      // filtrera existerande pins
       const indexAlreadyExists = pinnedLocation.findIndex(loc => loc.latitude === latitude && loc.longitude === longitude);
 
       if (indexAlreadyExists !== -1) {
-         // Remove pin
+         // ta bort pin
          const updatePinnedLocations = pinnedLocation.filter((pin, index) => index !== indexAlreadyExists);
          setPinnedLocation(updatePinnedLocations);
       } else {
-         // Add pin
+         // add pin
          setPinnedLocation(prev => [...prev, { latitude, longitude }])
       }
    }
@@ -72,12 +66,12 @@ const MapScreen = () => {
    }
 
    const confirmHunt = async () => {
-      /* try {
+      try {
          await http.storeHunt({ name: name, estimatedTime: timeDuration, locations: pinnedLocation, invited: invited })
-         navigation.replace('StartScreen')
+         navigation.navigate('StartScreen')
       } catch (error) {
          console.log(error)
-      } */
+      }
    }
 
    return (
