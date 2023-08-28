@@ -6,9 +6,9 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import IconButton from './UI/IconButton';
 import Colors from '../constants/Colors';
 
-const ImagePicker = () => {
+const ImagePicker = ({ photo, setPhoto }) => {
    const cameraRef = useRef();
-   const [photo, setPhoto] = useState();
+   //const [photo, setPhoto] = useState();
    const [type, setType] = useState(CameraType.back);
    const [permission, requestPermission] = Camera.useCameraPermissions();
 
@@ -36,7 +36,6 @@ const ImagePicker = () => {
          }
          )
          setPhoto(takenPhoto)
-         console.log('taken photo', takenPhoto)
       }
    }
 

@@ -1,5 +1,6 @@
 import { View, StyleSheet } from "react-native";
-import { MaterialIcons } from '@expo/vector-icons';
+import { useState } from "react";
+import { MaterialIcons, AntDesign } from '@expo/vector-icons';
 import Modal from "react-native-modal";
 
 import Colors from "../constants/Colors";
@@ -7,16 +8,27 @@ import ImagePicker from "./ImagePicker";
 
 
 
-const CameraModal = ({ onPress, isModalVisible }) => {
+const CameraModal = ({ toggleCamera, isModalVisible }) => {
+
+   const [photo, setPhoto] = useState();
+
+   const choosePhotoHandler = () => {
+      console.log('user photo', photo)
+
+
+   }
+
    return (
       <View style={styles.modalWrapper}>
          <Modal isVisible={isModalVisible}>
             <View >
-               <MaterialIcons name="cancel" size={44} color={Colors.mainWhite} onPress={onPress} />
+               <MaterialIcons name="cancel" size={44} color={Colors.mainWhite} onPress={toggleCamera} />
                <View style={styles.modalContainer}>
-                  <ImagePicker />
+                  <ImagePicker setPhoto={setPhoto} photo={photo} />
                </View>
+               <AntDesign name="checkcircleo" size={24} color={Colors.mainWhite} onPress={choosePhotoHandler} />
             </View>
+
          </Modal>
       </View>
    )

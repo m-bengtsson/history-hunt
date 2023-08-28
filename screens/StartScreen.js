@@ -79,7 +79,7 @@ const StartScreen = () => {
                <AntDesign name="edit" size={30} color={Colors.darkOrange} onPress={toggleCamera} />
             </View>
             <SmallTitle>{userCtx.currentUser.name}</SmallTitle>
-            <CameraModal onPress={toggleCamera} isModalVisible={isModalVisible} />
+            <CameraModal toggleCamera={toggleCamera} isModalVisible={isModalVisible} />
             <HuntStatus name={userCtx.currentUser.name} />
             <Button title='Create Hunt' onPress={pressHandler} />
          </View>
