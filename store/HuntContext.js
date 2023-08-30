@@ -1,34 +1,38 @@
-import { createContext, useReducer } from "react"
+import { createContext, useState } from "react"
 
 export const HuntContext = createContext({
    hunts: [],
-   addHunt: ({ name, estimatedTime, locations, invited: [], createdBy }) => { },
+   activeHunts: [],
+   createdHunts: [],
+   addHunt: (name, estimatedTime, locations, invited, createdBy) => { },
+   addToActiveHunts: () => { },
+   addToCreatedHunts: () => { },
    updateHunt: (id) => { },
    finishHunt: (id) => { }
 });
 
-
-const huntReducer = (state, action) => {
-   switch (action.type) {
-      case 'ADD':
-         return [id, { ...action.payload }, ...state]
-
-      case 'UPDATE':
-
-   }
-}
-
 const HuntContextProvider = ({ children }) => {
-   const [huntState, dispatch] = useReducer(huntReducer)
+   const [hunts, setHunts] = useState([]);
+   const [activeHunts, setActiveHunts] = useState([]);
+   const [createdHunts, setCreatedHunts] = useState([]);
+
 
    const addHunt = (hunt) => {
-      dispatch({ action: 'ADD', payload: hunt })
-
+      setHunts(prevHunts => [...prevHunts, hunt]);
+   }
+   const addToActiveHunts = (hunt) => {
+      setActiveHunts(prevHunts => [...prevHunts, hunt]);
+   }
+   const addToCreatedHunts = (hunt) => {
+      setCreatedHunts(prevHunts => [...prevHunts, hunt]);
    }
 
-
-
    const value = {
+      hunts,
+      activeHunts,
+      createdHunts,
+      addToActiveHunts,
+      addToCreatedHunts,
       addHunt
    }
 

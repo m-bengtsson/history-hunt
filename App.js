@@ -13,6 +13,7 @@ import CreateHuntScreen from './screens/CreateHuntScreen';
 import Colors from './constants/Colors';
 import AuthContextProvider, { AuthContext } from './store/AuthContext';
 import UserContextProvider from './store/UserContext';
+import HuntContextProvider from './store/HuntContext';
 import MapScreen from './screens/MapScreen';
 import InviteScreen from './screens/InviteScreen';
 
@@ -73,7 +74,9 @@ export default function App() {
          <StatusBar style="light" />
          <AuthContextProvider>
             <UserContextProvider>
-               <Navigation />
+               <HuntContextProvider>
+                  <Navigation />
+               </HuntContextProvider>
             </UserContextProvider>
          </AuthContextProvider>
       </>

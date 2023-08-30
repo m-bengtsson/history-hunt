@@ -35,7 +35,7 @@ const CreateHuntScreen = () => {
          <FontLoader>
             <Title>Customize</Title>
             <Input
-               label='How long should it be?'
+               label='What do you want to call your hunt?'
                textInputConfig={{
                   keyboardType: 'default',
                   onChangeText: inputHandler.bind(this, 'hunt-name'),
@@ -45,7 +45,7 @@ const CreateHuntScreen = () => {
 
                }} />
             <Input
-               label='What do you want to call your hunt?'
+               label='How long should it be?'
                textInputConfig={{
                   keyboardType: 'default',
                   onChangeText: inputHandler.bind(this, 'time-duration'),

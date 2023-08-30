@@ -1,16 +1,17 @@
 import { View, StyleSheet, Image } from "react-native";
-import { AuthContext } from "../store/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
+
+import { AuthContext } from "../store/AuthContext";
+import { UserContext } from "../store/UserContext";
+import { HuntContext } from "../store/HuntContext";
+import * as http from "../util/http"
 
 import IconButton from "../components/UI/IconButton";
 import Colors from "../constants/Colors";
 import Button from "../components/UI/Button";
 import FontLoader from "../components/UI/FontLoader";
-import * as http from "../util/http"
-import { UserContext } from "../store/UserContext";
-import { HuntContext } from "../store/HuntContext";
 import LoadingOverlay from "../components/UI/LoadingOverlay";
 import SmallTitle from "../components/UI/SmallTitle";
 import CameraModal from "../components/CameraModal";
@@ -42,8 +43,7 @@ const StartScreen = () => {
 
                for (const huntId in huntsData) {
                   const hunt = huntsData[huntId];
-                  console.log('Hunt:', hunt);
-
+                  huntCtx.addHunt(hunt)
                }
 
             } catch (error) {
@@ -55,7 +55,9 @@ const StartScreen = () => {
          };
          fetchData();
       }
-   }, [authCtx.token, userDataLoaded, userCtx]);
+   }, []);
+
+
 
    const pressHandler = () => {
       navigation.navigate('CreateHuntScreen');

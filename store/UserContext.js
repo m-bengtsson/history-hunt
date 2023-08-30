@@ -5,7 +5,8 @@ export const UserContext = createContext({
    users: [],
    currentUser: { name: null, email: null, photoUrl: null },
    setCurrentUser: (name, email, photoUrl) => { },
-   addUser: (name, email) => { }
+   addUser: (name, email) => { },
+
 });
 
 const UserContextProvider = ({ children }) => {
