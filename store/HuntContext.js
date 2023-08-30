@@ -2,7 +2,7 @@ import { createContext, useReducer } from "react"
 
 export const HuntContext = createContext({
    hunts: [],
-   addHunt: ({ name, estimatedTime, locations, invited: [] }) => { },
+   addHunt: ({ name, estimatedTime, locations, invited: [], createdBy }) => { },
    updateHunt: (id) => { },
    finishHunt: (id) => { }
 });

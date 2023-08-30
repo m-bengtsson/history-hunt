@@ -10,6 +10,7 @@ import Button from "../components/UI/Button";
 import FontLoader from "../components/UI/FontLoader";
 import * as http from "../util/http"
 import { UserContext } from "../store/UserContext";
+import { HuntContext } from "../store/HuntContext";
 import LoadingOverlay from "../components/UI/LoadingOverlay";
 import SmallTitle from "../components/UI/SmallTitle";
 import CameraModal from "../components/CameraModal";
@@ -19,6 +20,7 @@ import HuntStatus from "../components/HuntStatus";
 const StartScreen = () => {
    const authCtx = useContext(AuthContext);
    const userCtx = useContext(UserContext);
+   const huntCtx = useContext(HuntContext)
    const navigation = useNavigation();
    const [userDataLoaded, setUserDataLoaded] = useState(false);
    const [isModalVisible, setModalVisible] = useState(false);
@@ -35,6 +37,15 @@ const StartScreen = () => {
                   userCtx.setCurrentUser({ name: displayName, email, photoUrl })
                   setUserDataLoaded(true)
                }
+               const huntsResp = await http.getHunts()
+               const huntsData = huntsResp.data;
+
+               for (const huntId in huntsData) {
+                  const hunt = huntsData[huntId];
+                  console.log('Hunt:', hunt);
+
+               }
+
             } catch (error) {
                console.error("Error fetching user data:", error.response?.data || error.message);
                //set athentication här för att logga ut vid invalid token
@@ -63,7 +74,7 @@ const StartScreen = () => {
          userCtx.updatePhotoUrl(photo.uri);
 
       } catch (error) {
-         console.log(error)
+         (error)
       }
       toggleCamera()
    };

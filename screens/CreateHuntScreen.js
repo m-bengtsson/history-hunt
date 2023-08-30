@@ -19,7 +19,7 @@ const CreateHuntScreen = () => {
       switch (inputType) {
          case 'hunt-name':
             setEnteredHuntName(enteredValue);
-            console.log(enteredHuntName)
+            //console.log(enteredHuntName)
             break;
          case "time-duration":
             setEnteredTimeDuration(enteredValue);

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -11,6 +11,7 @@ import Colors from "../constants/Colors";
 import Title from "../components/UI/Title";
 import SmallTitle from "../components/UI/SmallTitle";
 import * as http from "../util/http";
+import { UserContext } from "../store/UserContext";
 
 
 const MapScreen = () => {
@@ -18,6 +19,8 @@ const MapScreen = () => {
    const [permission, requestPermission] = Location.useForegroundPermissions();
    const [invited, setInvited] = useState([])
    const [isModalVisible, setModalVisible] = useState(false);
+
+   const userCtx = useContext(UserContext)
 
    const navigation = useNavigation();
    const route = useRoute();
@@ -67,7 +70,13 @@ const MapScreen = () => {
 
    const confirmHunt = async () => {
       try {
-         await http.storeHunt({ name: name, estimatedTime: timeDuration, locations: pinnedLocation, invited: invited })
+         await http.storeHunt({
+            name: name,
+            estimatedTime: timeDuration,
+            locations: pinnedLocation,
+            invited: invited,
+            createdBy: userCtx.currentUser.email
+         })
          navigation.navigate('StartScreen')
       } catch (error) {
          console.log(error)
