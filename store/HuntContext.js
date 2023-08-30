@@ -25,8 +25,15 @@ const HuntContextProvider = ({ children }) => {
       dispatch({ action: 'ADD', payload: hunt })
 
    }
+
+
+
+   const value = {
+      addHunt
+   }
+
    return (
-      <HuntContext.Provider>{children}</HuntContext.Provider>
+      <HuntContext.Provider value={value}>{children}</HuntContext.Provider>
    )
 };
 

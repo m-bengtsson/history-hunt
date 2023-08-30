@@ -1,6 +1,5 @@
 import { createContext, useEffect, useState } from "react"
 import * as http from "../util/http";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const UserContext = createContext({
    users: [],
@@ -17,7 +16,6 @@ const UserContextProvider = ({ children }) => {
       const fetchUsers = async () => {
          try {
             const userData = await http.getUserCollection();
-
             const fetchedUsers = Object.values(userData).map(user => ({
                name: user.name,
                email: user.email,
