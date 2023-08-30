@@ -22,6 +22,7 @@ const InviteScreen = () => {
             : [...prevSelected, email]
       );
    }
+   const filteredUsers = userCtx.users.filter(user => user.email !== userCtx.currentUser.email);
 
    const renderFriend = (itemData) => {
       const friend = itemData.item;
@@ -44,7 +45,7 @@ const InviteScreen = () => {
                <SafeAreaView style={styles.safeArea}>
                   <FlatList
                      columnWrapperStyle={styles.wrapper}
-                     data={userCtx.users}
+                     data={filteredUsers}
                      renderItem={renderFriend}
                      keyExtractor={item => item.email}
                      horizontal={false}
