@@ -6,7 +6,6 @@ import { Ionicons } from "@expo/vector-icons";
 import AuthFormUser from "./AuthFormUser";
 import Colors from "../../constants/Colors";
 import TextButton from "../UI/TextButton";
-import FontLoader from "../UI/FontLoader";
 
 
 const AuthContent = ({ isLogin, onAuthenticate }) => {
@@ -72,21 +71,19 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
 
 
    return (
-      <FontLoader>
-         <View style={[styles.authContent, !isLogin && styles.authContentSignup]}>
-            <View style={styles.iconContainer}>
-               <Ionicons name='ios-earth' size={150} color={Colors.darkerBlue} />
-            </View>
-            <Text style={styles.iconContainer}>History Hunt</Text>
-            <AuthFormUser
-               isLogin={isLogin}
-               onSubmit={submitHandler}
-               credentialsValidity={credentialsValidity} />
-            <View>
-               <TextButton onPress={switchAuthMode} title={isLogin ? "Create new account" : "Log in instead"} />
-            </View>
+      <View style={[styles.authContent, !isLogin && styles.authContentSignup]}>
+         <View style={styles.iconContainer}>
+            <Ionicons name='ios-earth' size={150} color={Colors.darkerBlue} />
          </View>
-      </FontLoader>
+         <Text style={styles.iconContainer}>History Hunt</Text>
+         <AuthFormUser
+            isLogin={isLogin}
+            onSubmit={submitHandler}
+            credentialsValidity={credentialsValidity} />
+         <View>
+            <TextButton onPress={switchAuthMode} title={isLogin ? "Create new account" : "Log in instead"} />
+         </View>
+      </View>
    )
 
 }

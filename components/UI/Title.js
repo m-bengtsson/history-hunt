@@ -1,12 +1,9 @@
 import { View, StyleSheet, Text } from "react-native";
-import FontLoader from "./FontLoader";
 import Colors from "../../constants/Colors";
 
 const Title = ({ children }) => {
    return (
-      <FontLoader>
-         <Text style={styles.title}>{children}</Text>
-      </FontLoader>
+      <Text style={styles.title}>{children}</Text>
    )
 }
 

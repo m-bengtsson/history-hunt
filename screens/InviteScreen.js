@@ -3,7 +3,6 @@ import { useContext, useState } from "react";
 
 import { UserContext } from "../store/UserContext";
 import InviteCard from "../components/InviteCard";
-import FontLoader from "../components/UI/FontLoader";
 import Title from "../components/UI/Title"
 import Button from "../components/UI/Button"
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -37,27 +36,25 @@ const InviteScreen = () => {
    }
 
    return (
-      <FontLoader>
-         <View style={styles.container}>
-            <View>
+      <View style={styles.container}>
+         <View>
 
-               <Title>Invite Friends</Title>
-               <SafeAreaView style={styles.safeArea}>
-                  <FlatList
-                     columnWrapperStyle={styles.wrapper}
-                     data={filteredUsers}
-                     renderItem={renderFriend}
-                     keyExtractor={item => item.email}
-                     horizontal={false}
-                     numColumns={3}
-                  />
-               </SafeAreaView>
-            </View>
-            <View style={styles.buttonContainer}>
-               <Button title='Continue' onPress={navigateToMapScreen} />
-            </View>
+            <Title>Invite Friends</Title>
+            <SafeAreaView style={styles.safeArea}>
+               <FlatList
+                  columnWrapperStyle={styles.wrapper}
+                  data={filteredUsers}
+                  renderItem={renderFriend}
+                  keyExtractor={item => item.email}
+                  horizontal={false}
+                  numColumns={3}
+               />
+            </SafeAreaView>
          </View>
-      </FontLoader>
+         <View style={styles.buttonContainer}>
+            <Button title='Continue' onPress={navigateToMapScreen} />
+         </View>
+      </View>
    );
 }
 

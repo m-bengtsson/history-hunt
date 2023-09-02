@@ -1,12 +1,8 @@
 import { Text, StyleSheet } from "react-native"
-import FontLoader from "./FontLoader"
 
 const SmallTitle = ({ children }) => {
    return (
-      <FontLoader>
-
-         <Text style={styles.textStyle}>{children}</Text>
-      </FontLoader>
+      <Text style={styles.textStyle}>{children}</Text>
    )
 }
 
