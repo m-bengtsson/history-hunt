@@ -11,7 +11,6 @@ import * as http from "../util/http"
 import IconButton from "../components/UI/IconButton";
 import Colors from "../constants/Colors";
 import Button from "../components/UI/Button";
-import FontLoader from "../components/UI/FontLoader";
 import LoadingOverlay from "../components/UI/LoadingOverlay";
 import SmallTitle from "../components/UI/SmallTitle";
 import CameraModal from "../components/CameraModal";
@@ -21,7 +20,7 @@ import HuntStatus from "../components/HuntStatus";
 const StartScreen = () => {
    const authCtx = useContext(AuthContext);
    const userCtx = useContext(UserContext);
-   const huntCtx = useContext(HuntContext)
+   const huntCtx = useContext(HuntContext);
    const navigation = useNavigation();
    const [userDataLoaded, setUserDataLoaded] = useState(false);
    const [isModalVisible, setModalVisible] = useState(false);
@@ -44,6 +43,7 @@ const StartScreen = () => {
                for (const huntId in huntsData) {
                   const hunt = huntsData[huntId];
                   huntCtx.addHunt(hunt)
+                  //console.log('hunts in loop: ', name);
                }
 
             } catch (error) {
@@ -57,7 +57,17 @@ const StartScreen = () => {
       }
    }, []);
 
+   useEffect(() => {
+      console.log('updated hunts', huntCtx.hunts);
+      for (const huntId in huntCtx.hunts) {
+         const hunt = huntCtx.hunts[huntId]
+         console.log('name of hunt: ', hunt.name)
 
+         //const { name } = hunt.name;
+         console.log('hunts in loop: ', hunt);
+      }
+
+   }, [huntCtx.hunts]);
 
    const pressHandler = () => {
       navigation.navigate('CreateHuntScreen');
@@ -82,38 +92,36 @@ const StartScreen = () => {
    };
 
    return (
-      <FontLoader>
-         <View style={styles.container}>
-            <View style={styles.iconContainer}>
-               <IconButton
-                  icon='log-out-outline'
-                  color={Colors.darkerBlue}
-                  size={35}
-                  onPress={authCtx.logout}
-               />
-            </View>
-            {userCtx.currentUser.photoUrl ? (<View style={styles.ifPhoto}>
-               <Image source={{ uri: userCtx.currentUser.photoUrl }} style={styles.pictureContainer} />
+      <View style={styles.container}>
+         <View style={styles.iconContainer}>
+            <IconButton
+               icon='log-out-outline'
+               color={Colors.darkerBlue}
+               size={35}
+               onPress={authCtx.logout}
+            />
+         </View>
+         {userCtx.currentUser.photoUrl ? (<View style={styles.ifPhoto}>
+            <Image source={{ uri: userCtx.currentUser.photoUrl }} style={styles.pictureContainer} />
+            <AntDesign name="edit" size={30} color={Colors.darkOrange} onPress={toggleCamera} />
+         </View>
+
+         ) :
+            <View style={styles.pictureContainer}>
                <AntDesign name="edit" size={30} color={Colors.darkOrange} onPress={toggleCamera} />
             </View>
-
-            ) :
-               <View style={styles.pictureContainer}>
-                  <AntDesign name="edit" size={30} color={Colors.darkOrange} onPress={toggleCamera} />
-               </View>
-            }
-            <SmallTitle>{userCtx.currentUser.name}</SmallTitle>
-            <CameraModal
-               isVisible={isModalVisible}
-               toggleCamera={toggleCamera}
-               setPhoto={setPhoto}
-               photo={photo}
-               updatePhotoHandler={updatePhotoHandler}
-            />
-            <HuntStatus name={userCtx.currentUser.name} />
-            <Button title='Create Hunt' onPress={pressHandler} />
-         </View>
-      </FontLoader>
+         }
+         <SmallTitle>{userCtx.currentUser.name}</SmallTitle>
+         <CameraModal
+            isVisible={isModalVisible}
+            toggleCamera={toggleCamera}
+            setPhoto={setPhoto}
+            photo={photo}
+            updatePhotoHandler={updatePhotoHandler}
+         />
+         <HuntStatus name={userCtx.currentUser.name} />
+         <Button title='Create Hunt' onPress={pressHandler} />
+      </View>
    )
 }
 

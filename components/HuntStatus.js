@@ -1,9 +1,10 @@
-import { View, StyleSheet } from "react-native";
-import { useContext, useEffect } from "react";
+import { View, StyleSheet, Text } from "react-native";
+import { useContext, useEffect, useState } from "react";
 
 import { HuntContext } from "../store/HuntContext";
 import SmallTitle from "./UI/SmallTitle";
 import { UserContext } from "../store/UserContext";
+import HuntItem from "./HuntItem";
 
 const HuntStatus = () => {
 
@@ -12,31 +13,17 @@ const HuntStatus = () => {
    const currentUser = userCtx.currentUser;
    //console.log('user', currentUser)
 
-   let foundMatch = false;
 
-   for (const huntId in huntCtx.hunts) {
-      const hunt = huntCtx.hunts[huntId]
+   const huntsCreated = huntCtx.hunts.filter(hunt => hunt.createdBy === currentUser.email)
+   console.log('hunts created: ', huntsCreated)
 
-      if (hunt.createdBy === currentUser.email) {
-         huntCtx.addToCreatedHunts(hunt)
-         foundMatch = true;
-      } else if (!foundMatch) {
-         const isInvited = hunt.invited.includes(currentUser.email)
-
-         console.log('invited: ', isInvited)
-      } else (
-         console.log('not invited')
-      )
-   }
-   if (!foundMatch) {
-
-   }
 
    return (
       <>
          <View style={styles.huntsContainer}>
-            <SmallTitle>Active Hunts: </SmallTitle>
             <SmallTitle>Created hunts: </SmallTitle>
+            {huntsCreated.map(hunt => <HuntItem name={hunt.name} estmatedTime={hunt.estmatedTime} />)}
+            <SmallTitle>Active Hunts: </SmallTitle>
             <SmallTitle>Medals: </SmallTitle>
          </View>
       </>

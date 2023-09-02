@@ -20,7 +20,8 @@ const UserContextProvider = ({ children }) => {
             const fetchedUsers = Object.values(userData).map(user => ({
                name: user.name,
                email: user.email,
-            }));
+            }))
+            console.log('UserContext fetched user: ', fetchedUsers)
 
             setUsers(fetchedUsers);
          } catch (error) {

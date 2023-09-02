@@ -16,6 +16,8 @@ import UserContextProvider from './store/UserContext';
 import HuntContextProvider from './store/HuntContext';
 import MapScreen from './screens/MapScreen';
 import InviteScreen from './screens/InviteScreen';
+import FontLoader from "./components/UI/FontLoader";
+
 
 
 const Stack = createNativeStackNavigator();
@@ -71,14 +73,17 @@ const Navigation = () => {
 export default function App() {
    return (
       <>
-         <StatusBar style="light" />
-         <AuthContextProvider>
-            <UserContextProvider>
-               <HuntContextProvider>
-                  <Navigation />
-               </HuntContextProvider>
-            </UserContextProvider>
-         </AuthContextProvider>
+         <FontLoader>
+            <StatusBar style="light" />
+            <AuthContextProvider>
+               <UserContextProvider>
+                  <HuntContextProvider>
+
+                     <Navigation />
+                  </HuntContextProvider>
+               </UserContextProvider>
+            </AuthContextProvider>
+         </FontLoader>
       </>
    );
 }

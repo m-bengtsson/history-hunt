@@ -81,3 +81,4 @@ export const getHunts = async () => {
    return resp;
 }
 
+const GOOGLE_API_KEY = "AIzaSyDKb_4C_Dl8cuSknmkXPGnJeweJr7WHk6s";
