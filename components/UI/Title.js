@@ -9,7 +9,7 @@ const Title = ({ children }) => {
 
 styles = StyleSheet.create({
    title: {
-      fontFamily: 'NerkoOne_400Regular',
+      fontFamily: 'nerko',
       fontSize: 40,
       color: Colors.mainWhite,
       alignSelf: 'center',

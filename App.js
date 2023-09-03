@@ -78,7 +78,6 @@ export default function App() {
             <AuthContextProvider>
                <UserContextProvider>
                   <HuntContextProvider>
-
                      <Navigation />
                   </HuntContextProvider>
                </UserContextProvider>

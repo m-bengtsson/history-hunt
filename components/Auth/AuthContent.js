@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
    iconContainer: {
       alignSelf: 'center',
       color: Colors.mainWhite,
-      fontFamily: 'NerkoOne_400Regular',
+      fontFamily: 'nerko',
       fontSize: 38
    },
    buttons: {

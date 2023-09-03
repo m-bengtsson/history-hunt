@@ -10,21 +10,27 @@ const HuntStatus = () => {
    const huntCtx = useContext(HuntContext);
    const userCtx = useContext(UserContext);
    const currentUser = userCtx.currentUser;
+   const [createdHunts, setCreatedHunts] = useState([]);
    //console.log('user', currentUser)
 
-   const huntsCreated = huntCtx.hunts.filter(
-      (hunt) => hunt.createdBy === currentUser.email
-   );
-   console.log("hunts created: ", huntsCreated);
+   useEffect(() => {
+
+      const huntsCreated = huntCtx.hunts.filter(
+         (hunt) => hunt.createdBy === currentUser.email
+      );
+
+      setCreatedHunts(huntsCreated)
+      console.log("hunts created: ", huntsCreated);
+   }, [huntCtx, currentUser])
 
    return (
       <>
          <View style={styles.huntsContainer}>
             <SmallTitle>Created hunts: </SmallTitle>
-            {huntsCreated.map((hunt, key) => (
-               <HuntItem key={key} name={hunt.name} estmatedTime={hunt.estmatedTime} />
+            {createdHunts.map((hunt, key) => (
+               <HuntItem key={key} name={hunt.name} estimatedTime={hunt.estimatedTime} />
             ))}
-            <SmallTitle>Active Hunts: </SmallTitle>
+            <SmallTitle marginTop={10} >Active Hunts: </SmallTitle>
             <SmallTitle>Medals: </SmallTitle>
          </View>
       </>

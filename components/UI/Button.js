@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 
    },
    text: {
-      fontFamily: 'NerkoOne_400Regular',
+      fontFamily: 'nerko',
       fontSize: 26,
       color: Colors.chocolate,
       fontWeight: "bold",

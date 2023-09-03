@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
       color: Colors.mainWhite,
       marginBottom: 8,
       marginLeft: 20,
-      fontFamily: 'NerkoOne_400Regular',
+      fontFamily: 'nerko',
       fontSize: 16,
 
    },

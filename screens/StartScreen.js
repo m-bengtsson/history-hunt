@@ -16,7 +16,6 @@ import SmallTitle from "../components/UI/SmallTitle";
 import CameraModal from "../components/CameraModal";
 import HuntStatus from "../components/HuntStatus";
 
-
 const StartScreen = () => {
    const authCtx = useContext(AuthContext);
    const userCtx = useContext(UserContext);
@@ -26,48 +25,40 @@ const StartScreen = () => {
    const [isModalVisible, setModalVisible] = useState(false);
    const [photo, setPhoto] = useState();
 
+   const fetchData = async () => {
+      try {
+         const resp = await http.getUser(authCtx.token);
+         // kollar att det är array med minst en sak
+         if (Array.isArray(resp) && resp.length > 0) {
+            const { displayName, email, photoUrl } = resp[0];
+
+            userCtx.setCurrentUser({ name: displayName, email, photoUrl })
+            setUserDataLoaded(true)
+         }
+         const huntsResp = await http.getHunts()
+         const huntsData = huntsResp.data;
+
+         for (const huntId in huntsData) {
+            const hunt = huntsData[huntId];
+            huntCtx.addHunt(hunt)
+            //console.log('hunts in loop: ', name);
+         }
+
+      } catch (error) {
+         console.error("Error fetching user data:", error.response?.data || error.message);
+         //set athentication här för att logga ut vid invalid token
+         authCtx.logout()
+      }
+      setUserDataLoaded(true);
+   };
+
+
+
    useEffect(() => {
       if (!userDataLoaded) {
-         const fetchData = async () => {
-            try {
-               const resp = await http.getUser(authCtx.token);
-               // kollar att det är array med minst en sak
-               if (Array.isArray(resp) && resp.length > 0) {
-                  const { displayName, email, photoUrl } = resp[0];
-                  userCtx.setCurrentUser({ name: displayName, email, photoUrl })
-                  setUserDataLoaded(true)
-               }
-               const huntsResp = await http.getHunts()
-               const huntsData = huntsResp.data;
-
-               for (const huntId in huntsData) {
-                  const hunt = huntsData[huntId];
-                  huntCtx.addHunt(hunt)
-                  //console.log('hunts in loop: ', name);
-               }
-
-            } catch (error) {
-               console.error("Error fetching user data:", error.response?.data || error.message);
-               //set athentication här för att logga ut vid invalid token
-               authCtx.logout()
-            }
-            setUserDataLoaded(true);
-         };
          fetchData();
       }
    }, []);
-
-   useEffect(() => {
-      console.log('updated hunts', huntCtx.hunts);
-      for (const huntId in huntCtx.hunts) {
-         const hunt = huntCtx.hunts[huntId]
-         console.log('name of hunt: ', hunt.name)
-
-         //const { name } = hunt.name;
-         console.log('hunts in loop: ', hunt);
-      }
-
-   }, [huntCtx.hunts]);
 
    const pressHandler = () => {
       navigation.navigate('CreateHuntScreen');
@@ -101,17 +92,18 @@ const StartScreen = () => {
                onPress={authCtx.logout}
             />
          </View>
-         {userCtx.currentUser.photoUrl ? (<View style={styles.ifPhoto}>
+         {userCtx.currentUser.photoUrl ? (
             <Image source={{ uri: userCtx.currentUser.photoUrl }} style={styles.pictureContainer} />
+         ) :
+            <View style={styles.pictureContainer} />
+         }
+         <View style={styles.nameAndEdit}>
+            <SmallTitle >{userCtx.currentUser.name}</SmallTitle>
             <AntDesign name="edit" size={30} color={Colors.darkOrange} onPress={toggleCamera} />
          </View>
-
-         ) :
-            <View style={styles.pictureContainer}>
-               <AntDesign name="edit" size={30} color={Colors.darkOrange} onPress={toggleCamera} />
-            </View>
-         }
-         <SmallTitle>{userCtx.currentUser.name}</SmallTitle>
+         <View style={styles.buttonWrapper}>
+            <Button title='Create Hunt' onPress={pressHandler} />
+         </View>
          <CameraModal
             isVisible={isModalVisible}
             toggleCamera={toggleCamera}
@@ -120,7 +112,7 @@ const StartScreen = () => {
             updatePhotoHandler={updatePhotoHandler}
          />
          <HuntStatus name={userCtx.currentUser.name} />
-         <Button title='Create Hunt' onPress={pressHandler} />
+
       </View>
    )
 }
@@ -157,9 +149,16 @@ const styles = StyleSheet.create({
    title: {
       fontSize: 20,
       fontWeight: "bold",
-      fontFamily: 'NerkoOne_400Regular',
+      fontFamily: 'nerko',
       marginBottom: 8,
    },
+   nameAndEdit: {
+      flexDirection: 'row',
+      gap: 12
+   },
+   buttonWrapper: {
+
+   }
 });
 
 export default StartScreen;

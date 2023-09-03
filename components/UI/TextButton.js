@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
       fontWeight: "bold",
       alignSelf: "center",
       margin: 10,
-      fontFamily: 'NerkoOne_400Regular'
+      fontFamily: 'nerko'
    }
 
 })

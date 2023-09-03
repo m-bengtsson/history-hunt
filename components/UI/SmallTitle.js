@@ -1,19 +1,19 @@
 import { Text, StyleSheet } from "react-native"
 
-const SmallTitle = ({ children }) => {
+const SmallTitle = ({ children, ...rest }) => {
    return (
-      <Text style={styles.textStyle}>{children}</Text>
+      <Text style={[styles.textStyle, rest]}>{children}</Text>
    )
 }
 
 const styles = StyleSheet.create({
    textStyle: {
-      fontFamily: 'NerkoOne_400Regular',
-      fontSize: 20,
-      color: Colors.mainWhite,
+      fontFamily: 'nerko',
+      fontSize: 30,
       alignSelf: 'center',
-      marginBottom: 10
+      marginBottom: 10,
+      color: 'white'
    }
 })
 
-export default SmallTitle
+export default SmallTitle;

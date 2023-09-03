@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
       fontSize: 16,
       alignSelf: 'center',
       marginVertical: 0,
-      fontFamily: 'NerkoOne_400Regular',
+      fontFamily: 'nerko',
    }
 })
 
