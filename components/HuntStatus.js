@@ -11,31 +11,28 @@ const HuntStatus = () => {
    const huntCtx = useContext(HuntContext);
    const userCtx = useContext(UserContext);
    const currentUser = userCtx.currentUser;
-   const [createdHunts, setCreatedHunts] = useState([]);
-   const [invitedHunts, setInvitedHunts] = useState([]);
+   //const [createdHunts, setCreatedHunts] = useState([]);
+   //const [invitedHunts, setInvitedHunts] = useState([]);
 
-   useEffect(() => {
-      const huntsCreated = huntCtx.hunts.filter(
-         (hunt) => hunt.createdBy === currentUser.email
-      );
+   const huntsCreated = huntCtx.hunts.filter(
+      (hunt) => hunt.createdBy === currentUser.email
+   );
+   const huntsInvited = huntCtx.hunts.filter((hunt) => hunt.invited.find(invite => invite === currentUser.email));
 
-      const huntsInvited = huntCtx.hunts.filter((hunt) => hunt.invited.find(invite => invite === currentUser.email));
+   /* setCreatedHunts(huntsCreated)
+   setInvitedHunts(huntsInvited) */
 
-      setCreatedHunts(huntsCreated)
-      setInvitedHunts(huntsInvited)
-      console.log("hunts created: ", huntsCreated);
-   }, [huntCtx, currentUser])
 
    return (
       <>
          <View style={styles.huntsContainer}>
             <ScrollView style={styles.scrollContainer}>
                <SmallTitle color={Colors.darkerBlue} marginTop={10} >Active Hunts</SmallTitle>
-               {invitedHunts.map((hunt, key) => (
+               {huntsInvited.map((hunt, key) => (
                   <HuntItem name={hunt.name} estimatedTime={hunt.estimatedTime} />
                ))}
                <SmallTitle color={Colors.darkerBlue}>Created hunts</SmallTitle>
-               {createdHunts.map((hunt, key) => (
+               {huntsCreated.map((hunt, key) => (
                   <HuntItem name={hunt.name} estimatedTime={hunt.estimatedTime} />
                ))}
 
