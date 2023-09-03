@@ -96,12 +96,12 @@ const StartScreen = () => {
          ) :
             <View style={styles.pictureContainer} />
          }
+         <View style={{ backgroundColor: Colors.darkOrange, padding: 6, borderRadius: 100, position: 'absolute', top: 190, right: 120 }}>
+            <Ionicons name="camera" size={30} color={Colors.chocolate} onPress={toggleCamera} />
+
+         </View>
          <View style={styles.nameAndEdit}>
             <SmallTitle >{userCtx.currentUser.name}</SmallTitle>
-            <View style={{ marginTop: -60, marginRight: -55 }}>
-               <Ionicons name="camera" size={40} color={Colors.darkOrange} onPress={toggleCamera} />
-
-            </View>
          </View>
          <View style={styles.buttonWrapper}>
             <Button title='Create Hunt' onPress={pressHandler} />
