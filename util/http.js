@@ -80,5 +80,3 @@ export const getHunts = async () => {
    const resp = await axios.get(`${rootUrl}/hunts.json`);
    return resp;
 }
-
-const GOOGLE_API_KEY = "AIzaSyDKb_4C_Dl8cuSknmkXPGnJeweJr7WHk6s";

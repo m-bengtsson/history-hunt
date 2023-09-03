@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import * as Location from 'expo-location';
@@ -12,6 +12,7 @@ import Title from "../components/UI/Title";
 import SmallTitle from "../components/UI/SmallTitle";
 import * as http from "../util/http";
 import { UserContext } from "../store/UserContext";
+import { createLocationUrl } from "../util/location";
 
 
 const MapScreen = () => {
@@ -61,12 +62,6 @@ const MapScreen = () => {
       }
    }, [pinnedLocation]);
 
-   const initialRegion = {
-      latitude: 57.70887,
-      longitude: 11.97456,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421
-   }
 
    const confirmHunt = async () => {
       try {
@@ -81,6 +76,12 @@ const MapScreen = () => {
       } catch (error) {
          console.log(error)
       }
+   }
+   const initialRegion = {
+      latitude: 57.70887,
+      longitude: 11.97456,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421
    }
 
    return (
@@ -109,6 +110,7 @@ const MapScreen = () => {
                   <MaterialIcons name="cancel" size={44} color="black" onPress={toggleModal} />
                   <View style={styles.modalContainer}>
                      <SmallTitle>You picked: {name}</SmallTitle>
+                     <Image style={styles.mapImage} source={{ uri: createLocationUrl({ centerLat: initialRegion.latitude, centerLng: initialRegion.longitude }, pinnedLocation) }} />
                      <SmallTitle>Here is the route you will be taking:</SmallTitle>
                      <SmallTitle>This should take approximately: {timeDuration}</SmallTitle>
                   </View>
@@ -147,6 +149,10 @@ const styles = StyleSheet.create({
       height: 650,
 
    },
+   mapImage: {
+      width: '100%',
+      height: 200
+   }
 });
 
 export default MapScreen;
