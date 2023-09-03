@@ -15,15 +15,18 @@ const HuntStatus = () => {
    const userCtx = useContext(UserContext);
    const currentUser = userCtx.currentUser;
    const [createdHunts, setCreatedHunts] = useState([]);
+   const [invitedHunts, setInvitedHunts] = useState([]);
    //console.log('user', currentUser)
 
    useEffect(() => {
-
       const huntsCreated = huntCtx.hunts.filter(
          (hunt) => hunt.createdBy === currentUser.email
       );
 
+      const huntsInvited = huntCtx.hunts.filter((hunt) => hunt.invited.find(invite => invite === currentUser.email));
+
       setCreatedHunts(huntsCreated)
+      setInvitedHunts(huntsInvited)
       console.log("hunts created: ", huntsCreated);
    }, [huntCtx, currentUser])
 
@@ -31,11 +34,14 @@ const HuntStatus = () => {
       <>
          <View style={styles.huntsContainer}>
             <ScrollView style={styles.scrollContainer}>
-               <SmallTitle color={Colors.darkerBlue}>Created hunts: </SmallTitle>
+               <SmallTitle color={Colors.darkerBlue} marginTop={10} >Active Hunts</SmallTitle>
+               {invitedHunts.map((hunt, key) => (
+                  <HuntItem name={hunt.name} estimatedTime={hunt.estimatedTime} />
+               ))}
+               <SmallTitle color={Colors.darkerBlue}>Created hunts</SmallTitle>
                {createdHunts.map((hunt, key) => (
                   <HuntItem name={hunt.name} estimatedTime={hunt.estimatedTime} />
                ))}
-               <SmallTitle color={Colors.darkerBlue} marginTop={10} >Active Hunts: </SmallTitle>
 
                <SmallTitle color={Colors.darkerBlue} marginTop={20} alignSelf={"center"}>Medals</SmallTitle>
             </ScrollView>
@@ -49,7 +55,6 @@ const styles = StyleSheet.create({
       paddingHorizontal: 30,
       alignItems: 'flex-start',
       margin: 30,
-      height: 300,
       width: '100%'
    },
    scrollContainer: {
