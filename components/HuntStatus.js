@@ -1,8 +1,5 @@
 import { View, StyleSheet, Text, ScrollView } from "react-native";
-import { useContext, useEffect, useState } from "react";
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-
-
+import { useContext, useEffect, useState, useLayoutEffect } from "react";
 
 import { HuntContext } from "../store/HuntContext";
 import SmallTitle from "./UI/SmallTitle";
@@ -16,7 +13,6 @@ const HuntStatus = () => {
    const currentUser = userCtx.currentUser;
    const [createdHunts, setCreatedHunts] = useState([]);
    const [invitedHunts, setInvitedHunts] = useState([]);
-   //console.log('user', currentUser)
 
    useEffect(() => {
       const huntsCreated = huntCtx.hunts.filter(

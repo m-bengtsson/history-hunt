@@ -33,7 +33,7 @@ const StartScreen = () => {
             const { displayName, email, photoUrl } = resp[0];
 
             userCtx.setCurrentUser({ name: displayName, email, photoUrl })
-            setUserDataLoaded(true)
+            //setUserDataLoaded(true)
          }
          const huntsResp = await http.getHunts()
          const huntsData = huntsResp.data;
