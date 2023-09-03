@@ -1,6 +1,6 @@
 import { View, StyleSheet, Image } from "react-native";
 import { useContext, useEffect, useState } from "react";
-import { AntDesign } from '@expo/vector-icons';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
 
 import { AuthContext } from "../store/AuthContext";
@@ -98,7 +98,10 @@ const StartScreen = () => {
          }
          <View style={styles.nameAndEdit}>
             <SmallTitle >{userCtx.currentUser.name}</SmallTitle>
-            <AntDesign name="edit" size={30} color={Colors.darkOrange} onPress={toggleCamera} />
+            <View style={{ marginTop: -60, marginRight: -55 }}>
+               <Ionicons name="camera" size={40} color={Colors.darkOrange} onPress={toggleCamera} />
+
+            </View>
          </View>
          <View style={styles.buttonWrapper}>
             <Button title='Create Hunt' onPress={pressHandler} />
