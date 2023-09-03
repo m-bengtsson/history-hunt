@@ -54,13 +54,13 @@ const MapScreen = () => {
       }
    }
 
-   useEffect(() => {
-      if (pinnedLocation.length === 0) {
-         console.log('No new marker locations');
-      } else {
-         console.log('New marker locations:', pinnedLocation);
-      }
-   }, [pinnedLocation]);
+   /*    useEffect(() => {
+         if (pinnedLocation.length === 0) {
+            console.log('No new marker locations');
+         } else {
+            console.log('New marker locations:', pinnedLocation);
+         }
+      }, [pinnedLocation]); */
 
 
    const confirmHunt = async () => {
@@ -78,10 +78,10 @@ const MapScreen = () => {
       }
    }
    const initialRegion = {
-      latitude: 57.70887,
-      longitude: 11.97456,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421
+      latitude: 57.70486618888211,
+      longitude: 11.967065748958134,
+      latitudeDelta: 0.0422,
+      longitudeDelta: 0.0121
    }
 
    return (

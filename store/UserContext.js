@@ -21,8 +21,6 @@ const UserContextProvider = ({ children }) => {
                name: user.name,
                email: user.email,
             }))
-            console.log('UserContext fetched user: ', fetchedUsers)
-
             setUsers(fetchedUsers);
          } catch (error) {
             console.error("Error fetching user collection data:", error);

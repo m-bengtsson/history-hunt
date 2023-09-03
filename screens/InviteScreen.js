@@ -31,7 +31,7 @@ const InviteScreen = () => {
 
    const navigateToMapScreen = () => {
       const { name, timeDuration } = route.params;
-      console.log('hunt: ', name, timeDuration)
+      //console.log('hunt: ', name, timeDuration)
       navigation.navigate('MapScreen', { invitedFriends: selectedFriendEmails, name, timeDuration });
    }
 

@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, ScrollView } from "react-native";
 import { useContext, useEffect, useState } from "react";
 
 import { HuntContext } from "../store/HuntContext";
@@ -26,12 +26,15 @@ const HuntStatus = () => {
    return (
       <>
          <View style={styles.huntsContainer}>
-            <SmallTitle>Created hunts: </SmallTitle>
-            {createdHunts.map((hunt, key) => (
-               <HuntItem key={key} name={hunt.name} estimatedTime={hunt.estimatedTime} />
-            ))}
-            <SmallTitle marginTop={10} >Active Hunts: </SmallTitle>
-            <SmallTitle>Medals: </SmallTitle>
+            <ScrollView>
+               <SmallTitle>Created hunts: </SmallTitle>
+               {createdHunts.map((hunt, key) => (
+                  <HuntItem key={key} name={hunt.name} estimatedTime={hunt.estimatedTime} />
+               ))}
+               <SmallTitle marginTop={10} >Active Hunts: </SmallTitle>
+
+               <SmallTitle>Medals: </SmallTitle>
+            </ScrollView>
          </View>
       </>
    );
@@ -39,7 +42,9 @@ const HuntStatus = () => {
 
 const styles = StyleSheet.create({
    huntsContainer: {
-      alignItems: "flex-start",
+      alignSelf: 'flex-start',
+      alignItems: 'flex-start',
+      margin: 30
    },
 });
 

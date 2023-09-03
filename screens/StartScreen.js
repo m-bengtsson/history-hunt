@@ -41,7 +41,6 @@ const StartScreen = () => {
          for (const huntId in huntsData) {
             const hunt = huntsData[huntId];
             huntCtx.addHunt(hunt)
-            //console.log('hunts in loop: ', name);
          }
 
       } catch (error) {
