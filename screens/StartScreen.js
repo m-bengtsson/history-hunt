@@ -97,7 +97,7 @@ const StartScreen = () => {
             <View style={styles.pictureContainer} />
          }
          <View style={{ backgroundColor: Colors.darkOrange, padding: 6, borderRadius: 100, position: 'absolute', top: 190, right: 120 }}>
-            <Ionicons name="camera" size={30} color={Colors.chocolate} onPress={toggleCamera} />
+            <MaterialIcons name="edit" size={30} color={Colors.chocolate} onPress={toggleCamera} />
 
          </View>
          <View style={styles.nameAndEdit}>

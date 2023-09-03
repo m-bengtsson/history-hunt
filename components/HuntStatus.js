@@ -1,5 +1,8 @@
 import { View, StyleSheet, Text, ScrollView } from "react-native";
 import { useContext, useEffect, useState } from "react";
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+
+
 
 import { HuntContext } from "../store/HuntContext";
 import SmallTitle from "./UI/SmallTitle";
@@ -30,7 +33,7 @@ const HuntStatus = () => {
             <ScrollView style={styles.scrollContainer}>
                <SmallTitle color={Colors.darkerBlue}>Created hunts: </SmallTitle>
                {createdHunts.map((hunt, key) => (
-                  <HuntItem key={key} name={hunt.name} estimatedTime={hunt.estimatedTime} />
+                  <HuntItem name={hunt.name} estimatedTime={hunt.estimatedTime} />
                ))}
                <SmallTitle color={Colors.darkerBlue} marginTop={10} >Active Hunts: </SmallTitle>
 
