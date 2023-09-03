@@ -128,6 +128,8 @@ const styles = StyleSheet.create({
       width: 200,
       height: 200,
       borderRadius: 100,
+      borderColor: Colors.mainWhite,
+      borderWidth: 2,
       backgroundColor: Colors.darkerBlue,
       justifyContent: 'flex-end',
       alignItems: 'flex-end'

@@ -13,7 +13,8 @@ const HuntItem = ({ name, estimatedTime }) => {
 const styles = StyleSheet.create({
    container: {
       flexDirection: 'column',
-      marginVertical: 5
+      marginVertical: 5,
+      marginHorizontal: 20
    },
    title: {
       fontFamily: "nerko",

@@ -5,6 +5,7 @@ import { HuntContext } from "../store/HuntContext";
 import SmallTitle from "./UI/SmallTitle";
 import { UserContext } from "../store/UserContext";
 import HuntItem from "./HuntItem";
+import Colors from "../constants/Colors";
 
 const HuntStatus = () => {
    const huntCtx = useContext(HuntContext);
@@ -26,14 +27,14 @@ const HuntStatus = () => {
    return (
       <>
          <View style={styles.huntsContainer}>
-            <ScrollView>
-               <SmallTitle>Created hunts: </SmallTitle>
+            <ScrollView style={styles.scrollContainer}>
+               <SmallTitle color={Colors.darkerBlue}>Created hunts: </SmallTitle>
                {createdHunts.map((hunt, key) => (
                   <HuntItem key={key} name={hunt.name} estimatedTime={hunt.estimatedTime} />
                ))}
-               <SmallTitle marginTop={10} >Active Hunts: </SmallTitle>
+               <SmallTitle color={Colors.darkerBlue} marginTop={10} >Active Hunts: </SmallTitle>
 
-               <SmallTitle>Medals: </SmallTitle>
+               <SmallTitle color={Colors.darkerBlue} marginTop={20} alignSelf={"center"}>Medals</SmallTitle>
             </ScrollView>
          </View>
       </>
@@ -42,10 +43,16 @@ const HuntStatus = () => {
 
 const styles = StyleSheet.create({
    huntsContainer: {
-      alignSelf: 'flex-start',
+      paddingHorizontal: 30,
       alignItems: 'flex-start',
-      margin: 30
+      margin: 30,
+      height: 300,
+      width: '100%'
    },
+   scrollContainer: {
+      width: '100%'
+
+   }
 });
 
 export default HuntStatus;
