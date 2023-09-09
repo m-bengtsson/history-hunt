@@ -14,7 +14,12 @@ export const UserContext = createContext({
          finishHunt: (id) => { } */
 
 const UserContextProvider = ({ children }) => {
-   const [currentUser, setCurrentUser] = useState({ name: null, email: null, photoUrl: null });
+   const [currentUser, setCurrentUser] = useState(
+      {
+         name: null,
+         email: null,
+         photoUrl: null
+      });
    const [users, setUsers] = useState([]);
 
    useEffect(() => {
