@@ -3,27 +3,10 @@ import * as http from "../util/http"
 
 export const HuntContext = createContext({
    hunts: [],
-   activeHunts: [],
-   createdHunts: [],
-   addHunt: (name, estimatedTime, locations, invited, createdBy) => { },
-   addToActiveHunts: () => { },
-   addToCreatedHunts: () => { },
-   updateHunt: (id) => { },
-   finishHunt: (id) => { }
 });
 
 const HuntContextProvider = ({ children }) => {
    const [hunts, setHunts] = useState([]);
-   const [activeHunts, setActiveHunts] = useState([]);
-   const [createdHunts, setCreatedHunts] = useState([]);
-
-   /*    const huntsResp = await http.getHunts()
-      const huntsData = huntsResp.data;
-   
-      for (const huntId in huntsData) {
-         const hunt = huntsData[huntId];
-         huntCtx.addHunt(hunt)
-      } */
 
    useEffect(() => {
       const fetchHunts = async () => {
@@ -48,19 +31,9 @@ const HuntContextProvider = ({ children }) => {
    const addHunt = (hunt) => {
       setHunts(prevHunts => [...prevHunts, hunt]);
    }
-   const addToActiveHunts = (hunt) => {
-      setActiveHunts(prevHunts => [...prevHunts, hunt]);
-   }
-   const addToCreatedHunts = (hunt) => {
-      setCreatedHunts(prevHunts => [...prevHunts, hunt]);
-   }
 
    const value = {
       hunts,
-      activeHunts,
-      createdHunts,
-      addToActiveHunts,
-      addToCreatedHunts,
       addHunt
    }
 

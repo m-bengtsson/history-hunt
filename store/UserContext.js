@@ -8,6 +8,10 @@ export const UserContext = createContext({
    addUser: (name, email) => { },
 
 });
+/* addToActiveHunts: () => { },
+   addToCreatedHunts: () => { },
+      updateHunt: (id) => { },
+         finishHunt: (id) => { } */
 
 const UserContextProvider = ({ children }) => {
    const [currentUser, setCurrentUser] = useState({ name: null, email: null, photoUrl: null });
