@@ -20,8 +20,7 @@ const SignupScreen = () => {
       try {
          const token = await http.signupUser(email, password);
          authCtx.authenticate(token);
-
-         const resp = await http.updateUser(displayName, photoUrl, token);
+         await http.updateUser(displayName, photoUrl, token);
          await http.storeUsers({ name: displayName, email, photoUrl })
 
       } catch (error) {

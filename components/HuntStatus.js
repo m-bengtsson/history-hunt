@@ -17,10 +17,10 @@ const HuntStatus = () => {
    const huntsCreated = huntCtx.hunts.filter(
       (hunt) => hunt.createdBy === currentUser.email
    );
-   const huntsInvited = huntCtx.hunts.filter((hunt) => hunt.invited.find(invite => invite === currentUser.email));
-
-   /* setCreatedHunts(huntsCreated)
-   setInvitedHunts(huntsInvited) */
+   const huntsInvited = huntCtx.hunts.filter((hunt) => {
+      return Array.isArray(hunt.invited) && hunt.invited.includes(currentUser.email);
+   });
+   //console.log(huntsInvited)
 
 
    return (
@@ -28,12 +28,12 @@ const HuntStatus = () => {
          <View style={styles.huntsContainer}>
             <ScrollView style={styles.scrollContainer}>
                <SmallTitle color={Colors.darkerBlue} marginTop={10} >Active Hunts</SmallTitle>
-               {huntsInvited.map((hunt, key) => (
-                  <HuntItem name={hunt.name} estimatedTime={hunt.estimatedTime} />
+               {huntsInvited.map((hunt, index) => (
+                  <HuntItem key={index} name={hunt.name} estimatedTime={hunt.estimatedTime} />
                ))}
                <SmallTitle color={Colors.darkerBlue}>Created hunts</SmallTitle>
-               {huntsCreated.map((hunt, key) => (
-                  <HuntItem name={hunt.name} estimatedTime={hunt.estimatedTime} />
+               {huntsCreated.map((hunt, index) => (
+                  <HuntItem key={index} name={hunt.name} estimatedTime={hunt.estimatedTime} />
                ))}
 
                <SmallTitle color={Colors.darkerBlue} marginTop={20} alignSelf={"center"}>Medals</SmallTitle>

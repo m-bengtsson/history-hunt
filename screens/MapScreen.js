@@ -13,6 +13,7 @@ import SmallTitle from "../components/UI/SmallTitle";
 import * as http from "../util/http";
 import { UserContext } from "../store/UserContext";
 import { createLocationUrl } from "../util/location";
+import { HuntContext } from "../store/HuntContext";
 
 
 const MapScreen = () => {
@@ -21,7 +22,8 @@ const MapScreen = () => {
    const [invited, setInvited] = useState([])
    const [isModalVisible, setModalVisible] = useState(false);
 
-   const userCtx = useContext(UserContext)
+   const userCtx = useContext(UserContext);
+   const huntCtx = useContext(HuntContext);
 
    const navigation = useNavigation();
    const route = useRoute();
@@ -54,29 +56,24 @@ const MapScreen = () => {
       }
    }
 
-   /*    useEffect(() => {
-         if (pinnedLocation.length === 0) {
-            console.log('No new marker locations');
-         } else {
-            console.log('New marker locations:', pinnedLocation);
-         }
-      }, [pinnedLocation]); */
-
-
-   const confirmHunt = async () => {
+   const confirmHunt = () => {
+      const hunt = {
+         name: name,
+         estimatedTime: timeDuration,
+         locations: pinnedLocation,
+         invited: invited,
+         createdBy: userCtx.currentUser.email
+      }
       try {
-         await http.storeHunt({
-            name: name,
-            estimatedTime: timeDuration,
-            locations: pinnedLocation,
-            invited: invited,
-            createdBy: userCtx.currentUser.email
-         })
+         http.storeHunt(hunt)
+         huntCtx.addHunt(hunt)
          navigation.navigate('StartScreen')
       } catch (error) {
          console.log(error)
       }
    }
+
+
    const initialRegion = {
       latitude: 57.70486618888211,
       longitude: 11.967065748958134,

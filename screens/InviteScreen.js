@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, FlatList, SafeAreaView } from "react-native";
+import { View, Text, StyleSheet, FlatList, SafeAreaView, ScrollView } from "react-native";
 import { useContext, useState } from "react";
 
 import { UserContext } from "../store/UserContext";
@@ -37,8 +37,7 @@ const InviteScreen = () => {
 
    return (
       <View style={styles.container}>
-         <View>
-
+         <ScrollView>
             <Title>Invite Friends</Title>
             <SafeAreaView style={styles.safeArea}>
                <FlatList
@@ -50,7 +49,7 @@ const InviteScreen = () => {
                   numColumns={3}
                />
             </SafeAreaView>
-         </View>
+         </ScrollView>
          <View style={styles.buttonContainer}>
             <Button title='Continue' onPress={navigateToMapScreen} />
          </View>

@@ -78,5 +78,5 @@ export const storeHunt = (hunt) => {
 
 export const getHunts = async () => {
    const resp = await axios.get(`${rootUrl}/hunts.json`);
-   return resp;
+   return resp.data;
 }

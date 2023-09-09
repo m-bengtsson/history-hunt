@@ -1,7 +1,7 @@
 import { View, StyleSheet, Image } from "react-native";
 import { useContext, useEffect, useState } from "react";
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
 import { AuthContext } from "../store/AuthContext";
 import { UserContext } from "../store/UserContext";
@@ -31,16 +31,7 @@ const StartScreen = () => {
          // kollar att det är array med minst en sak
          if (Array.isArray(resp) && resp.length > 0) {
             const { displayName, email, photoUrl } = resp[0];
-
             userCtx.setCurrentUser({ name: displayName, email, photoUrl })
-            //setUserDataLoaded(true)
-         }
-         const huntsResp = await http.getHunts()
-         const huntsData = huntsResp.data;
-
-         for (const huntId in huntsData) {
-            const hunt = huntsData[huntId];
-            huntCtx.addHunt(hunt)
          }
 
       } catch (error) {
@@ -51,13 +42,11 @@ const StartScreen = () => {
       setUserDataLoaded(true);
    };
 
-
-
    useEffect(() => {
       if (!userDataLoaded) {
          fetchData();
       }
-   }, []);
+   }, [userCtx, authCtx, huntCtx.hunts]);
 
    const pressHandler = () => {
       navigation.navigate('CreateHuntScreen');
