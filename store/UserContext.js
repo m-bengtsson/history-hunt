@@ -31,11 +31,11 @@ const UserContextProvider = ({ children }) => {
       const fetchUsers = async () => {
          try {
             const userData = await http.getUserCollection();
-            const fetchedUsers = Object.values(userData).map(user => ({
+            /* const fetchedUsers = Object.values(userData).map(user => ({
                name: user.name,
                email: user.email,
-            }))
-            setUsers(fetchedUsers);
+            })) */
+            setUsers(userData);
          } catch (error) {
             console.error("Error fetching user collection data:", error);
          }

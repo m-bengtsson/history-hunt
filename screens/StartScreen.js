@@ -51,6 +51,7 @@ const StartScreen = () => {
    const pressHandler = () => {
       navigation.navigate('CreateHuntScreen');
    }
+   //console.log(userCtx.users)
 
    const toggleCamera = () => {
       setModalVisible(!isModalVisible);

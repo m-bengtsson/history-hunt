@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, ScrollView } from "react-native";
+import { View, StyleSheet, Text, ScrollView, Pressable } from "react-native";
 import { useContext, useEffect, useState, useLayoutEffect } from "react";
 
 import { HuntContext } from "../store/HuntContext";
@@ -6,11 +6,13 @@ import SmallTitle from "./UI/SmallTitle";
 import { UserContext } from "../store/UserContext";
 import HuntItem from "./HuntItem";
 import Colors from "../constants/Colors";
+import { useNavigation } from "@react-navigation/native";
 
 const HuntStatus = () => {
    const huntCtx = useContext(HuntContext);
    const userCtx = useContext(UserContext);
    const currentUser = userCtx.currentUser;
+   const navigation = useNavigation();
 
 
    const huntsCreated = huntCtx.hunts.filter(
@@ -25,7 +27,11 @@ const HuntStatus = () => {
       userCtx.setUserHunts({ created: huntsCreated, active: huntsInvited })
    }, [])
 
-   console.log(userCtx.userHunts)
+   //console.log(userCtx.userHunts)
+
+   const startHuntHandler = (hunt) => {
+      navigation.navigate('GameScreen', { hunt })
+   }
 
    return (
       <>
@@ -35,19 +41,23 @@ const HuntStatus = () => {
                   Active Hunts
                </SmallTitle>
                {huntsInvited.map((hunt, index) => (
-                  <HuntItem
-                     key={index}
-                     name={hunt.name}
-                     estimatedTime={hunt.estimatedTime}
-                  />
+                  <Pressable onPress={() => startHuntHandler(hunt)}>
+                     <HuntItem
+                        key={index}
+                        name={hunt.name}
+                        estimatedTime={hunt.estimatedTime}
+                     />
+                  </Pressable>
                ))}
                <SmallTitle color={Colors.darkerBlue}>Created hunts</SmallTitle>
                {huntsCreated.map((hunt, index) => (
-                  <HuntItem
-                     key={index}
-                     name={hunt.name}
-                     estimatedTime={hunt.estimatedTime}
-                  />
+                  <Pressable onPress={() => startHuntHandler(hunt)}>
+                     <HuntItem
+                        key={index}
+                        name={hunt.name}
+                        estimatedTime={hunt.estimatedTime}
+                     />
+                  </Pressable>
                ))}
 
                <SmallTitle

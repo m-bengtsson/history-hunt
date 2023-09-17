@@ -9,6 +9,7 @@ import { useContext, useEffect } from 'react';
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
 import StartScreen from './screens/StartScreen';
+import GameScreen from './screens/GameScreen';
 import CreateHuntScreen from './screens/CreateHuntScreen';
 import Colors from './constants/Colors';
 import AuthContextProvider, { AuthContext } from './store/AuthContext';
@@ -43,6 +44,7 @@ const AuthenticatedStack = () => {
          title: ''
       }}>
          <Stack.Screen name='StartScreen' component={StartScreen} />
+         <Stack.Screen name='GameScreen' component={GameScreen} />
          <Stack.Screen name='CreateHuntScreen' component={CreateHuntScreen} />
          <Stack.Screen name='InviteScreen' component={InviteScreen} />
          <Stack.Screen name='MapScreen' component={MapScreen} />
