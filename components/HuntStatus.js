@@ -12,6 +12,7 @@ const HuntStatus = () => {
    const userCtx = useContext(UserContext);
    const currentUser = userCtx.currentUser;
 
+
    const huntsCreated = huntCtx.hunts.filter(
       (hunt) => hunt.createdBy === currentUser.email
    );
@@ -20,6 +21,11 @@ const HuntStatus = () => {
          Array.isArray(hunt.invited) && hunt.invited.includes(currentUser.email)
       );
    });
+   useEffect(() => {
+      userCtx.setUserHunts({ created: huntsCreated, active: huntsInvited })
+   }, [])
+
+   console.log(userCtx.userHunts)
 
    return (
       <>

@@ -6,6 +6,8 @@ export const UserContext = createContext({
    currentUser: { name: null, email: null, photoUrl: null },
    setCurrentUser: (name, email, photoUrl) => { },
    addUser: (name, email) => { },
+   setUserHunts: ([]) => { },
+   userHunts: []
 
 });
 /* addToActiveHunts: () => { },
@@ -18,8 +20,11 @@ const UserContextProvider = ({ children }) => {
       {
          name: null,
          email: null,
-         photoUrl: null
+         photoUrl: null,
+         hunts: []
       });
+
+   const [userHunts, setUserHunts] = useState([]);
    const [users, setUsers] = useState([]);
 
    useEffect(() => {
@@ -45,6 +50,7 @@ const UserContextProvider = ({ children }) => {
       }
    };
 
+
    const updatePhotoUrl = (photoUrl) => {
       setCurrentUser(prevUser => ({ ...prevUser, photoUrl }));
    };
@@ -55,6 +61,8 @@ const UserContextProvider = ({ children }) => {
       setCurrentUser,
       addUser,
       updatePhotoUrl,
+      setUserHunts,
+      userHunts
    };
    return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 }
