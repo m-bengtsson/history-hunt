@@ -5,15 +5,9 @@ export const UserContext = createContext({
    users: [],
    currentUser: { name: null, email: null, photoUrl: null },
    setCurrentUser: (name, email, photoUrl) => { },
-   addUser: (name, email) => { },
    setUserHunts: ([]) => { },
    userHunts: []
-
 });
-/* addToActiveHunts: () => { },
-   addToCreatedHunts: () => { },
-      updateHunt: (id) => { },
-         finishHunt: (id) => { } */
 
 const UserContextProvider = ({ children }) => {
    const [currentUser, setCurrentUser] = useState(
@@ -45,13 +39,6 @@ const UserContextProvider = ({ children }) => {
       fetchUsers();
    }, []);
 
-   const addUser = (name, email) => {
-      if (!users.some(user => user.email === email)) {
-         setUsers(prevUsers => [...prevUsers, { name, email }]);
-      }
-   };
-
-
    const updatePhotoUrl = (photoUrl) => {
       setCurrentUser(prevUser => ({ ...prevUser, photoUrl }));
    };
@@ -60,7 +47,6 @@ const UserContextProvider = ({ children }) => {
       users,
       currentUser,
       setCurrentUser,
-      addUser,
       updatePhotoUrl,
       setUserHunts,
       userHunts
