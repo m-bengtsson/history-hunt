@@ -75,7 +75,6 @@ export const storeHunt = (hunt) => {
    axios.post(`${rootUrl}/hunts.json`, hunt);
 }
 
-
 export const getHunts = async () => {
    const resp = await axios.get(`${rootUrl}/hunts.json`);
    return resp.data;

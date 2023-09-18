@@ -27,7 +27,6 @@ const HuntStatus = () => {
       userCtx.setUserHunts({ created: huntsCreated, active: huntsInvited })
    }, [])
 
-   //console.log(userCtx.userHunts)
 
    const startHuntHandler = (hunt) => {
       navigation.navigate('GameScreen', { hunt })
