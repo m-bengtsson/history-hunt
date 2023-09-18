@@ -12,13 +12,15 @@ const HuntContextProvider = ({ children }) => {
       const fetchHunts = async () => {
          try {
             const resp = await http.getHunts();
-            const huntsData = Object.values(resp).map(hunt => ({
+            const huntsData = Object.entries(resp).map(([huntId, hunt]) => ({
+               id: huntId,
                name: hunt.name,
                estimatedTime: hunt.estimatedTime,
                locations: hunt.locations,
                invited: hunt.invited,
                createdBy: hunt.createdBy
             }))
+            console.log('huntsdata here: ', huntsData)
             setHunts(huntsData)
          } catch (error) {
             console.error("Error fetching user collection data:", error);

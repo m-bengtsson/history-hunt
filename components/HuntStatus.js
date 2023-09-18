@@ -23,6 +23,7 @@ const HuntStatus = () => {
          Array.isArray(hunt.invited) && hunt.invited.includes(currentUser.email)
       );
    });
+
    useEffect(() => {
       userCtx.setUserHunts({ created: huntsCreated, active: huntsInvited })
    }, [])
@@ -39,20 +40,20 @@ const HuntStatus = () => {
                <SmallTitle color={Colors.darkerBlue} marginTop={10}>
                   Active Hunts
                </SmallTitle>
-               {huntsInvited.map((hunt, index) => (
+               {huntsInvited.map(hunt => (
                   <Pressable onPress={() => startHuntHandler(hunt)}>
                      <HuntItem
-                        key={index}
+                        key={hunt.id}
                         name={hunt.name}
                         estimatedTime={hunt.estimatedTime}
                      />
                   </Pressable>
                ))}
                <SmallTitle color={Colors.darkerBlue}>Created hunts</SmallTitle>
-               {huntsCreated.map((hunt, index) => (
+               {huntsCreated.map(hunt => (
                   <Pressable onPress={() => startHuntHandler(hunt)}>
                      <HuntItem
-                        key={index}
+                        key={hunt.id}
                         name={hunt.name}
                         estimatedTime={hunt.estimatedTime}
                      />
