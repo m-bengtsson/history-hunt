@@ -15,6 +15,7 @@ import LoadingOverlay from "../components/UI/LoadingOverlay";
 import SmallTitle from "../components/UI/SmallTitle";
 import CameraModal from "../components/CameraModal";
 import HuntStatus from "../components/HuntStatus";
+import { ScrollView } from "react-native-gesture-handler";
 
 const StartScreen = () => {
    const authCtx = useContext(AuthContext);
@@ -72,40 +73,41 @@ const StartScreen = () => {
    };
 
    return (
-      <View style={styles.container}>
-         <View style={styles.iconContainer}>
-            <IconButton
-               icon='log-out-outline'
-               color={Colors.darkerBlue}
-               size={35}
-               onPress={authCtx.logout}
+      <ScrollView>
+         <View style={styles.container}>
+            <View style={styles.iconContainer}>
+               <IconButton
+                  icon='log-out-outline'
+                  color={Colors.darkerBlue}
+                  size={35}
+                  onPress={authCtx.logout}
+               />
+            </View>
+            {userCtx.currentUser.photoUrl ? (
+               <Image source={{ uri: userCtx.currentUser.photoUrl }} style={styles.pictureContainer} />
+            ) :
+               <View style={styles.pictureContainer} />
+            }
+            <View style={{ backgroundColor: Colors.darkOrange, padding: 6, borderRadius: 100, position: 'absolute', top: 190, right: 120 }}>
+               <MaterialIcons name="edit" size={30} color={Colors.chocolate} onPress={toggleCamera} />
+
+            </View>
+            <View style={styles.nameAndEdit}>
+               <SmallTitle >{userCtx.currentUser.name}</SmallTitle>
+            </View>
+            <View style={styles.buttonWrapper}>
+               <Button title='Create Hunt' onPress={pressHandler} />
+            </View>
+            <CameraModal
+               isVisible={isModalVisible}
+               toggleCamera={toggleCamera}
+               setPhoto={setPhoto}
+               photo={photo}
+               updatePhotoHandler={updatePhotoHandler}
             />
+            <HuntStatus name={userCtx.currentUser.name} />
          </View>
-         {userCtx.currentUser.photoUrl ? (
-            <Image source={{ uri: userCtx.currentUser.photoUrl }} style={styles.pictureContainer} />
-         ) :
-            <View style={styles.pictureContainer} />
-         }
-         <View style={{ backgroundColor: Colors.darkOrange, padding: 6, borderRadius: 100, position: 'absolute', top: 190, right: 120 }}>
-            <MaterialIcons name="edit" size={30} color={Colors.chocolate} onPress={toggleCamera} />
-
-         </View>
-         <View style={styles.nameAndEdit}>
-            <SmallTitle >{userCtx.currentUser.name}</SmallTitle>
-         </View>
-         <View style={styles.buttonWrapper}>
-            <Button title='Create Hunt' onPress={pressHandler} />
-         </View>
-         <CameraModal
-            isVisible={isModalVisible}
-            toggleCamera={toggleCamera}
-            setPhoto={setPhoto}
-            photo={photo}
-            updatePhotoHandler={updatePhotoHandler}
-         />
-         <HuntStatus name={userCtx.currentUser.name} />
-
-      </View>
+      </ScrollView>
    )
 }
 

@@ -1,12 +1,12 @@
-import { View, StyleSheet, Text, ScrollView, Pressable } from "react-native";
-import { useContext, useEffect, useState, useLayoutEffect } from "react";
+import { useContext, useEffect } from "react";
+import { View, StyleSheet, ScrollView, Pressable } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { HuntContext } from "../store/HuntContext";
-import SmallTitle from "./UI/SmallTitle";
 import { UserContext } from "../store/UserContext";
 import HuntItem from "./HuntItem";
+import SmallTitle from "./UI/SmallTitle";
 import Colors from "../constants/Colors";
-import { useNavigation } from "@react-navigation/native";
 
 const HuntStatus = () => {
    const huntCtx = useContext(HuntContext);
@@ -14,62 +14,54 @@ const HuntStatus = () => {
    const currentUser = userCtx.currentUser;
    const navigation = useNavigation();
 
-
    const huntsCreated = huntCtx.hunts.filter(
       (hunt) => hunt.createdBy === currentUser.email
    );
-   const huntsInvited = huntCtx.hunts.filter((hunt) => {
-      return (
+   const huntsInvited = huntCtx.hunts.filter(
+      (hunt) =>
          Array.isArray(hunt.invited) && hunt.invited.includes(currentUser.email)
-      );
-   });
+   );
 
    useEffect(() => {
-      userCtx.setUserHunts({ created: huntsCreated, active: huntsInvited })
-   }, [])
-
+      userCtx.setUserHunts({ created: huntsCreated, active: huntsInvited });
+   }, []);
 
    const startHuntHandler = (hunt) => {
-      navigation.navigate('GameScreen', { hunt })
-   }
+      navigation.navigate("GameScreen", { hunt });
+   };
 
    return (
-      <>
-         <View style={styles.huntsContainer}>
-            <ScrollView style={styles.scrollContainer}>
-               <SmallTitle color={Colors.darkerBlue} marginTop={10}>
-                  Active Hunts
-               </SmallTitle>
-               {huntsInvited.map(hunt => (
-                  <Pressable onPress={() => startHuntHandler(hunt)}>
-                     <HuntItem
-                        key={hunt.id}
-                        name={hunt.name}
-                        estimatedTime={hunt.estimatedTime}
-                     />
-                  </Pressable>
-               ))}
-               <SmallTitle color={Colors.darkerBlue}>Created hunts</SmallTitle>
-               {huntsCreated.map(hunt => (
-                  <Pressable onPress={() => startHuntHandler(hunt)}>
-                     <HuntItem
-                        key={hunt.id}
-                        name={hunt.name}
-                        estimatedTime={hunt.estimatedTime}
-                     />
-                  </Pressable>
-               ))}
-
-               <SmallTitle
-                  color={Colors.darkerBlue}
-                  marginTop={20}
-                  alignSelf={"center"}
-               >
-                  Medals
-               </SmallTitle>
-            </ScrollView>
+      <View style={styles.huntsContainer}>
+         <View style={styles.scrollContainer}>
+            <SmallTitle color={Colors.darkerBlue} marginTop={10}>
+               Active Hunts
+            </SmallTitle>
+            {huntsInvited.map((hunt) => (
+               <Pressable key={hunt.id} onPress={() => startHuntHandler(hunt)}>
+                  <HuntItem
+                     name={hunt.name}
+                     estimatedTime={hunt.estimatedTime}
+                  />
+               </Pressable>
+            ))}
+            <SmallTitle color={Colors.darkerBlue}>Created hunts</SmallTitle>
+            {huntsCreated.map((hunt) => (
+               <Pressable key={hunt.id} onPress={() => startHuntHandler(hunt)}>
+                  <HuntItem
+                     name={hunt.name}
+                     estimatedTime={hunt.estimatedTime}
+                  />
+               </Pressable>
+            ))}
+            <SmallTitle
+               color={Colors.darkerBlue}
+               marginTop={20}
+               alignSelf={"center"}
+            >
+               Medals
+            </SmallTitle>
          </View>
-      </>
+      </View>
    );
 };
 
