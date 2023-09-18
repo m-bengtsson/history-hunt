@@ -103,7 +103,7 @@ const StartScreen = () => {
                toggleCamera={toggleCamera}
                setPhoto={setPhoto}
                photo={photo}
-               updatePhotoHandler={updatePhotoHandler}
+               pressHandler={updatePhotoHandler}
             />
             <HuntStatus name={userCtx.currentUser.name} />
          </View>

@@ -18,7 +18,7 @@ import { HuntContext } from "../store/HuntContext";
 
 const MapScreen = () => {
    const [pinnedLocation, setPinnedLocation] = useState([]);
-   const [permission, requestPermission] = Location.useForegroundPermissions();
+   //const [permission, requestPermission] = Location.useForegroundPermissions();
    const [invited, setInvited] = useState([])
    const [isModalVisible, setModalVisible] = useState(false);
 

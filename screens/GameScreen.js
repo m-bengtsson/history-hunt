@@ -1,27 +1,43 @@
-import { useState, useEffect, useContext } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { useState, useEffect, Text } from "react";
+import { View, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import * as Location from 'expo-location';
-import Modal from "react-native-modal";
-import Title from "../components/UI/Title";
-
+import LoadingOverlay from "../components/UI/LoadingOverlay";
+import CameraModal from "../components/CameraModal";
 
 
 const GameScreen = () => {
-
    const navigation = useNavigation();
    const route = useRoute();
    const { hunt } = route.params;
 
    const [pinnedLocation, setPinnedLocation] = useState([]);
    const [permission, requestPermission] = Location.useForegroundPermissions();
+   const [currentLocation, setCurrentLocation] = useState(null);
+   const [errorMsg, setErrorMsg] = useState(null);
    const [isModalVisible, setModalVisible] = useState(false);
+   const [photo, setPhoto] = useState();
 
+   useEffect(() => {
+      const getCurrentLocation = async () => {
+         const location = await Location.getCurrentPositionAsync();
+         setCurrentLocation({
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421
+         })
+      }
+      getCurrentLocation();
+   }, [])
 
-   const toggleModal = () => {
+   if (!currentLocation) {
+      return <LoadingOverlay message="Loading user location.." />
+   }
+   const toggleCamera = () => {
       setModalVisible(!isModalVisible);
-   };
+   }
 
    const markerHandler = (event) => {
       const latitude = event.nativeEvent.coordinate.latitude;
@@ -30,33 +46,21 @@ const GameScreen = () => {
       // filtrera existerande pins
       const indexAlreadyExists = pinnedLocation.findIndex(loc => loc.latitude === latitude && loc.longitude === longitude);
 
-      if (indexAlreadyExists !== -1) {
-         // ta bort pin
-         const updatePinnedLocations = pinnedLocation.filter((pin, index) => index !== indexAlreadyExists);
-         setPinnedLocation(updatePinnedLocations);
-      } else {
-         // add pin
-         setPinnedLocation(prev => [...prev, { latitude, longitude }])
-      }
+      toggleCamera()
    }
 
-   const confirmHunt = () => {
-
-   }
-
-
-   const initialRegion = {
-      latitude: 57.70486618888211,
-      longitude: 11.967065748958134,
-      latitudeDelta: 0.0422,
-      longitudeDelta: 0.0121
+   const confirmPhoto = () => {
+      console.log(photo)
+      toggleCamera();
    }
 
    return (
       <View style={styles.container}>
+         <View >
+         </View>
          <MapView
             style={styles.map}
-            initialRegion={initialRegion}
+            initialRegion={currentLocation}
             onPress={markerHandler}
          >
             {hunt.locations.map((location, index) => (
@@ -67,7 +71,19 @@ const GameScreen = () => {
                   title={`Pinned location ${index + 1}`}
                />
             ))}
+            <Marker
+               pinColor="blue"
+               coordinate={currentLocation}
+               title={`Your location`}
+            />
          </MapView>
+         <CameraModal
+            isVisible={isModalVisible}
+            toggleCamera={toggleCamera}
+            setPhoto={setPhoto}
+            photo={photo}
+            pressHandler={confirmPhoto}
+         />
       </View>
    )
 }
