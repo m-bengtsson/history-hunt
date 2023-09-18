@@ -1,19 +1,17 @@
 import { ScrollView, Alert } from "react-native";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 import AuthContent from "../components/Auth/AuthContent";
 import * as http from "../util/http";
 import LoadingOverlay from "../components/UI/LoadingOverlay";
 import { AuthContext } from "../store/AuthContext";
-import { UserContext } from "../store/UserContext";
 
 
 const SignupScreen = () => {
 
    const [isAuthenticating, setIsAuthenticating] = useState(false);
    const authCtx = useContext(AuthContext);
-   const userCtx = useContext(UserContext);
-   const photoUrl = 'placeholder';
+   const photoUrl = '';
 
    const authenticationHandler = async ({ displayName, email, password }) => {
       setIsAuthenticating(true);
@@ -21,7 +19,7 @@ const SignupScreen = () => {
          const token = await http.signupUser(email, password);
          authCtx.authenticate(token);
          await http.updateUser(displayName, photoUrl, token);
-         await http.storeUsers({ name: displayName, email, photoUrl })
+         await http.storeUsers({ name: displayName, email, photoUrl: photoUrl })
 
       } catch (error) {
          console.log(error)
