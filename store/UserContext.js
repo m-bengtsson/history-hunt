@@ -31,19 +31,19 @@ const UserContextProvider = ({ children }) => {
       const fetchUsers = async () => {
          try {
             const userData = await http.getUserCollection();
-            /* const fetchedUsers = Object.values(userData).map(user => (console.log(user))) */
-            setUsers(userData);
+            const usersArray = Object.entries(userData).map(([userId, user]) => ({
+               id: userId,
+               name: user.name,
+               email: user.email
+
+            }))
+            setUsers(usersArray);
          } catch (error) {
             console.error("Error fetching user collection data:", error);
          }
       };
       fetchUsers();
    }, []);
-
-
-   //Object.values((users.map(user => console.log(user))))
-
-
 
    const addUser = (name, email) => {
       if (!users.some(user => user.email === email)) {
