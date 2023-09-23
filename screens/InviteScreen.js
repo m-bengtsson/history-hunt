@@ -37,7 +37,7 @@ const InviteScreen = () => {
 
    return (
       <View style={styles.container}>
-         <ScrollView>
+         <View>
             <Title>Invite Friends</Title>
             <SafeAreaView style={styles.safeArea}>
                <FlatList
@@ -49,7 +49,7 @@ const InviteScreen = () => {
                   numColumns={3}
                />
             </SafeAreaView>
-         </ScrollView>
+         </View>
          <View style={styles.buttonContainer}>
             <Button title='Continue' onPress={navigateToMapScreen} />
          </View>
