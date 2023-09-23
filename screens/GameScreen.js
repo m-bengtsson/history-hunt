@@ -1,3 +1,14 @@
+
+// filtrera existerande pins
+/*  const indexAlreadyExists = hunt.locations.findIndex(loc => loc.latitude === latitude && loc.longitude === longitude); */
+
+/*    useEffect(() => {
+      confirmedPhoto 
+      
+      if (confirmedPhoto.length === hunt.locations.length) {
+         navigation.goBack('StartScreen')
+      }
+   }, []) */
 import { useState, useEffect, Text } from "react";
 import { View, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
@@ -5,6 +16,11 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import * as Location from 'expo-location';
 import LoadingOverlay from "../components/UI/LoadingOverlay";
 import CameraModal from "../components/CameraModal";
+import Modal from "react-native-modal";
+import SmallTitle from "../components/UI/SmallTitle";
+import Button from "../components/UI/Button";
+import Title from "../components/UI/Title";
+
 
 
 const GameScreen = () => {
@@ -12,12 +28,20 @@ const GameScreen = () => {
    const route = useRoute();
    const { hunt } = route.params;
 
-   const [pinnedLocation, setPinnedLocation] = useState([]);
-   const [permission, requestPermission] = Location.useForegroundPermissions();
+   //const [permission, requestPermission] = Location.useForegroundPermissions();
+   //const [errorMsg, setErrorMsg] = useState(null);
    const [currentLocation, setCurrentLocation] = useState(null);
-   const [errorMsg, setErrorMsg] = useState(null);
-   const [isModalVisible, setModalVisible] = useState(false);
+   const [isCameraModalVisible, setCameraModalVisible] = useState(false);
    const [locationPhoto, setLocationPhoto] = useState();
+   const [confirmedPhoto, setConfirmedPhoto] = useState([]);
+   const [isModalVisible, setModalVisible] = useState(false);
+
+   const toggleModal = () => {
+      setModalVisible(!isModalVisible);
+   };
+   const toggleCamera = () => {
+      setCameraModalVisible(!isCameraModalVisible);
+   }
 
    useEffect(() => {
       const getCurrentLocation = async () => {
@@ -29,28 +53,34 @@ const GameScreen = () => {
             longitudeDelta: 0.0421
          })
       }
+      setTimeout(() => {
+         if (confirmedPhoto.length === hunt.locations.length) {
+            console.log('SAMMA LÄNGD')
+            setModalVisible(!isModalVisible);
+         }
+      }, 1000)
+
       getCurrentLocation();
-   }, [])
+   }, [confirmedPhoto, hunt.locations])
+
 
    if (!currentLocation) {
       return <LoadingOverlay message="Loading user location.." />
    }
-   const toggleCamera = () => {
-      setModalVisible(!isModalVisible);
-   }
 
    const markerHandler = (event) => {
-      const latitude = event.nativeEvent.coordinate.latitude;
-      const longitude = event.nativeEvent.coordinate.longitude;
-
-      // filtrera existerande pins
-      const indexAlreadyExists = pinnedLocation.findIndex(loc => loc.latitude === latitude && loc.longitude === longitude);
+      // const latitude = event.nativeEvent.coordinate.latitude;
+      // const longitude = event.nativeEvent.coordinate.longitude;
       toggleCamera()
    }
 
    const confirmPhoto = () => {
-
+      setConfirmedPhoto([...confirmedPhoto, locationPhoto]);
       toggleCamera();
+   }
+
+   const navigateToStartScreen = () => {
+      navigation.goBack('StartScreen')
    }
 
    return (
@@ -59,8 +89,8 @@ const GameScreen = () => {
          </View>
          <MapView
             style={styles.map}
-            initialRegion={currentLocation}
-            showsUserLocation={true}
+         /* initialRegion={currentLocation}
+         showsUserLocation={true} */
          >
             {hunt.locations.map((location, index) => (
                <Marker
@@ -72,14 +102,26 @@ const GameScreen = () => {
 
                />
             ))}
-            <Marker
+            {/*             <Marker
                pinColor="blue"
                coordinate={currentLocation}
                title={`Your location`}
-            />
+            /> */}
          </MapView>
+         <Modal isVisible={isModalVisible}>
+            <View >
+               <View style={styles.modalContainer}>
+                  <Title>Congratulations! </Title>
+                  <View>
+                     <SmallTitle>You have succefully finished </SmallTitle>
+                     <Title>{hunt.name} </Title>
+                  </View>
+               </View>
+               <Button title='Go to Home' onPress={navigateToStartScreen} />
+            </View>
+         </Modal>
          <CameraModal
-            isVisible={isModalVisible}
+            isVisible={isCameraModalVisible}
             toggleCamera={toggleCamera}
             setPhoto={setLocationPhoto}
             photo={locationPhoto}
@@ -101,10 +143,18 @@ const styles = StyleSheet.create({
       height: 1000,
 
    },
-   mapImage: {
-      width: '100%',
-      height: 200
-   }
+   buttonContainer: {
+      padding: 20
+
+   },
+   modalContainer: {
+      height: 500,
+      backgroundColor: Colors.trueBlue,
+      borderRadius: 30,
+      padding: 20,
+   },
+
+
 });
 
 export default GameScreen;

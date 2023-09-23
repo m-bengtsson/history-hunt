@@ -22,6 +22,9 @@ const HuntStatus = () => {
       (hunt) =>
          Array.isArray(hunt.invited) && hunt.invited.includes(currentUser.email)
    );
+   /*  const huntsFinished = huntCtx.hunts.filter(
+       (hunt) => hunt.finishedBy === currentUser.email
+    ); */
 
    useEffect(() => {
       userCtx.setUserHunts({ created: huntsCreated, active: huntsInvited });
@@ -31,31 +34,34 @@ const HuntStatus = () => {
       navigation.navigate("GameScreen", { hunt });
    };
 
-   const finishedBy = 'matilda';
-
    return (
-      <View style={styles.huntsContainer}>
+      <View style={styles.container}>
          <View style={styles.scrollContainer}>
             <SmallTitle color={Colors.darkerBlue} marginTop={10}>
                Active Hunts
             </SmallTitle>
-            {huntsInvited.map((hunt) => (
-               <Pressable key={hunt.id} onPress={() => startHuntHandler(hunt)}>
-                  <HuntItem
-                     name={hunt.name}
-                     estimatedTime={hunt.estimatedTime}
-                  />
-               </Pressable>
-            ))}
+            <View style={styles.huntsContainer}>
+               {huntsInvited.map((hunt) => (
+                  <Pressable key={hunt.id} onPress={() => startHuntHandler(hunt)}>
+                     <HuntItem
+                        name={hunt.name}
+                        estimatedTime={hunt.estimatedTime}
+                     />
+                  </Pressable>
+               ))}
+            </View>
+
             <SmallTitle color={Colors.darkerBlue}>Created hunts</SmallTitle>
-            {huntsCreated.map((hunt) => (
-               <Pressable key={hunt.id} onPress={() => startHuntHandler(hunt)}>
-                  <HuntItem
-                     name={hunt.name}
-                     estimatedTime={hunt.estimatedTime}
-                  />
-               </Pressable>
-            ))}
+            <View style={styles.huntsContainer}>
+               {huntsCreated.map((hunt) => (
+                  <Pressable key={hunt.id} onPress={() => startHuntHandler(hunt)}>
+                     <HuntItem
+                        name={hunt.name}
+                        estimatedTime={hunt.estimatedTime}
+                     />
+                  </Pressable>
+               ))}
+            </View>
             <SmallTitle
                color={Colors.darkerBlue}
                marginTop={20}
@@ -64,14 +70,13 @@ const HuntStatus = () => {
                Medals
             </SmallTitle>
             <View style={styles.medals}>
-               {huntsCreated.map((hunt) => (
+               {/* {huntsFinished.map((hunt) => (
                   <Pressable key={hunt.id} onPress={() => startHuntHandler(hunt)}>
                      <Medal
                         name={hunt.name}
-                        estimatedTime={hunt.estimatedTime}
                      />
                   </Pressable>
-               ))}
+               ))} */}
             </View>
          </View>
       </View>
@@ -84,7 +89,7 @@ const styles = StyleSheet.create({
       flexWrap: 'wrap',
       alignSelf: 'center'
    },
-   huntsContainer: {
+   container: {
       paddingHorizontal: 30,
       alignItems: "flex-start",
       margin: 30,
@@ -93,6 +98,10 @@ const styles = StyleSheet.create({
    scrollContainer: {
       width: "100%",
    },
+   huntsContainer: {
+      flexDirection: 'column-reverse'
+   }
+
 });
 
 export default HuntStatus;

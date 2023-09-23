@@ -36,6 +36,7 @@ const ImagePicker = ({ photo, setPhoto }) => {
          }
          )
          setPhoto(takenPhoto)
+
       }
    }
 
@@ -62,7 +63,6 @@ const ImagePicker = ({ photo, setPhoto }) => {
             </View>
          </Camera>
          {photo && <Image source={{ uri: photo.uri }} style={styles.photo}></Image>}<View style={styles.preview}></View>
-
       </View>
    )
 }

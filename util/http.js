@@ -53,7 +53,7 @@ export const getUser = async (idToken) => {
       const resp = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`, payload);
       return resp.data.users;
    } catch (error) {
-      console.error("Error fetching user data:", error.response?.data || error.message);
+      //console.error("Error fetching user data:", error.response?.data || error.message);
       throw error;
    }
 };

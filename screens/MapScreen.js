@@ -106,8 +106,7 @@ const MapScreen = () => {
                <View >
                   <MaterialIcons name="cancel" size={44} color="black" onPress={toggleModal} />
                   <View style={styles.modalContainer}>
-                     <SmallTitle>You picked: {name}</SmallTitle>
-                     <Image style={styles.mapImage} source={{ uri: createLocationUrl({ centerLat: initialRegion.latitude, centerLng: initialRegion.longitude }, pinnedLocation) }} />
+                     <SmallTitle>You picked</SmallTitle>
                      <SmallTitle>Here is the route you will be taking:</SmallTitle>
                      <SmallTitle>This should take approximately: {timeDuration}</SmallTitle>
                   </View>
