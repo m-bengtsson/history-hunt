@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { HuntContext } from "../store/HuntContext";
 import { UserContext } from "../store/UserContext";
 import HuntItem from "./HuntItem";
+import Medal from "./Medal";
 import SmallTitle from "./UI/SmallTitle";
 import Colors from "../constants/Colors";
 
@@ -29,6 +30,8 @@ const HuntStatus = () => {
    const startHuntHandler = (hunt) => {
       navigation.navigate("GameScreen", { hunt });
    };
+
+   const finishedBy = 'matilda';
 
    return (
       <View style={styles.huntsContainer}>
@@ -60,12 +63,27 @@ const HuntStatus = () => {
             >
                Medals
             </SmallTitle>
+            <View style={styles.medals}>
+               {huntsCreated.map((hunt) => (
+                  <Pressable key={hunt.id} onPress={() => startHuntHandler(hunt)}>
+                     <Medal
+                        name={hunt.name}
+                        estimatedTime={hunt.estimatedTime}
+                     />
+                  </Pressable>
+               ))}
+            </View>
          </View>
       </View>
    );
 };
 
 const styles = StyleSheet.create({
+   medals: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      alignSelf: 'center'
+   },
    huntsContainer: {
       paddingHorizontal: 30,
       alignItems: "flex-start",
