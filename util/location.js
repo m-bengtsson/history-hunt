@@ -1,7 +1,7 @@
 const GOOGLE_API_KEY = "AIzaSyBcZET5wKbIYGhaarszcjYhoj5HbpXfXSg";
 
 
-const googleApi = "https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=YOUR_API_KEY"
+/* const googleApi = "https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=YOUR_API_KEY" */
 
 // URI för Image
 export const createLocationUrl = ({ centerLat, centerLng }, pinnedLocation) => {

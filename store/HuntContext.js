@@ -20,7 +20,7 @@ const HuntContextProvider = ({ children }) => {
                invited: hunt.invited,
                createdBy: hunt.createdBy
             }))
-            console.log('huntsdata here: ', huntsData)
+            //console.log('huntsdata here: ', huntsData)
             setHunts(huntsData)
          } catch (error) {
             console.error("Error fetching user collection data:", error);

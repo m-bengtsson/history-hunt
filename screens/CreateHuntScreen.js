@@ -13,7 +13,6 @@ const CreateHuntScreen = () => {
 
    const navigation = useNavigation()
 
-
    const inputHandler = (inputType, enteredValue) => {
       switch (inputType) {
          case 'hunt-name':

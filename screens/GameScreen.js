@@ -17,7 +17,7 @@ const GameScreen = () => {
    const [currentLocation, setCurrentLocation] = useState(null);
    const [errorMsg, setErrorMsg] = useState(null);
    const [isModalVisible, setModalVisible] = useState(false);
-   const [photo, setPhoto] = useState();
+   const [locationPhoto, setLocationPhoto] = useState();
 
    useEffect(() => {
       const getCurrentLocation = async () => {
@@ -45,12 +45,11 @@ const GameScreen = () => {
 
       // filtrera existerande pins
       const indexAlreadyExists = pinnedLocation.findIndex(loc => loc.latitude === latitude && loc.longitude === longitude);
-
       toggleCamera()
    }
 
    const confirmPhoto = () => {
-      console.log(photo)
+
       toggleCamera();
    }
 
@@ -61,7 +60,7 @@ const GameScreen = () => {
          <MapView
             style={styles.map}
             initialRegion={currentLocation}
-            onPress={markerHandler}
+            showsUserLocation={true}
          >
             {hunt.locations.map((location, index) => (
                <Marker
@@ -69,6 +68,8 @@ const GameScreen = () => {
                   pinColor="red"
                   coordinate={location}
                   title={`Pinned location ${index + 1}`}
+                  onPress={markerHandler}
+
                />
             ))}
             <Marker
@@ -80,8 +81,8 @@ const GameScreen = () => {
          <CameraModal
             isVisible={isModalVisible}
             toggleCamera={toggleCamera}
-            setPhoto={setPhoto}
-            photo={photo}
+            setPhoto={setLocationPhoto}
+            photo={locationPhoto}
             pressHandler={confirmPhoto}
          />
       </View>

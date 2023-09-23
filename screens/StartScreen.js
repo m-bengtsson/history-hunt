@@ -36,7 +36,9 @@ const StartScreen = () => {
          }
 
       } catch (error) {
-         console.error("Error fetching user data:", error.response?.data || error.message);
+         <LoadingOverlay message="Loading..." />
+
+         //console.error("Error fetching user data:", error.response?.data || error.message);
          //set athentication här för att logga ut vid invalid token
          authCtx.logout()
       }
