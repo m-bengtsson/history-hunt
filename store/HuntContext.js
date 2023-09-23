@@ -3,6 +3,8 @@ import * as http from "../util/http"
 
 export const HuntContext = createContext({
    hunts: [],
+   addHunt: () => { },
+   updateHunts: () => { }
 });
 
 const HuntContextProvider = ({ children }) => {
@@ -13,6 +15,8 @@ const HuntContextProvider = ({ children }) => {
          try {
             const resp = await http.getHunts();
             const huntsData = Object.entries(resp).map(([huntId, hunt]) => {
+               const finishedByArray = hunt.finishedBy ? Object.values(hunt.finishedBy) : [];
+               const emailAddresses = finishedByArray.map((obj) => obj.email);
 
                return ({
                   id: huntId,
@@ -21,11 +25,10 @@ const HuntContextProvider = ({ children }) => {
                   locations: hunt.locations,
                   invited: hunt.invited,
                   createdBy: hunt.createdBy,
-                  finishedBy: hunt.finishedBy ? hunt.finishedBy : [],
+                  finishedBy: emailAddresses,
                })
             })
             setHunts(huntsData)
-
          } catch (error) {
             console.error("Error fetching hunt collection data:", error);
          }
@@ -48,23 +51,28 @@ const HuntContextProvider = ({ children }) => {
    }
 
 
-   /*    const updateHunt = (huntId, email) => {
-         const updatedHunts = hunts.map(hunt => {
-            if (hunt.id === huntId) {
-               return { ...hunt, finishedBy: [...hunt.finishedBy, email] };
+   const updateHunts = (huntId, email) => {
+      const updatedHunts = hunts.map((hunt) => {
+         if (hunt.id === huntId) {
+            const finishedBy = hunt.finishedBy || [];
+
+            if (!finishedBy.includes(email)) {
+               finishedBy.push(email);
             }
-            return hunt;
-         });
-   
-         setHunts(updatedHunts);
-   
-   
-      } */
+
+            return { ...hunt, finishedBy: finishedBy };
+         }
+         return hunt;
+      });
+
+      setHunts(updatedHunts);
+   };
+
 
    const value = {
       hunts,
       addHunt,
-      //updateHunt
+      updateHunts
    }
 
    return (

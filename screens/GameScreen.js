@@ -60,7 +60,7 @@ const GameScreen = () => {
       setTimeout(() => {
          if (confirmedPhoto.length === hunt.locations.length) {
             setModalVisible(!isModalVisible);
-            //huntCtx.updateHunt(hunt.id, currentUser.email);
+            huntCtx.updateHunts(hunt.id, currentUser.email);
             http.updateHunt(hunt.id, currentUser.email)
          }
       }, 1000)

@@ -15,24 +15,20 @@ const HuntStatus = () => {
    const currentUser = userCtx.currentUser;
    const navigation = useNavigation();
 
-   const huntsCreated = huntCtx.hunts.filter((hunt) => {
-      return (
-         hunt.createdBy === currentUser.email &&
-         !Object.values(hunt.finishedBy).some((value) => value.email === currentUser.email)
-      );
-   });
+   const huntsCreated = huntCtx.hunts.filter(
+      (hunt) => hunt.createdBy === currentUser.email && !hunt.finishedBy.includes(currentUser.email)
+   );
 
-   const huntsInvited = huntCtx.hunts.filter((hunt) => {
-      return (
+   const huntsInvited = huntCtx.hunts.filter(
+      (hunt) =>
          Array.isArray(hunt.invited) &&
          hunt.invited.includes(currentUser.email) &&
-         !Object.values(hunt.finishedBy).some((value) => value.email === currentUser.email)
-      );
-   });
+         !hunt.finishedBy.includes(currentUser.email)
+   );
 
-   const huntsFinished = huntCtx.hunts.filter((hunt) => {
-      return Object.values(hunt.finishedBy).some((value) => value.email === currentUser.email);
-   });
+   const huntsFinished = huntCtx.hunts.filter(
+      (hunt) => hunt.finishedBy.includes(currentUser.email)
+   );
 
 
 
