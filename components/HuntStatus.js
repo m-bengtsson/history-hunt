@@ -15,16 +15,26 @@ const HuntStatus = () => {
    const currentUser = userCtx.currentUser;
    const navigation = useNavigation();
 
-   const huntsCreated = huntCtx.hunts.filter(
-      (hunt) => hunt.createdBy === currentUser.email
-   );
-   const huntsInvited = huntCtx.hunts.filter(
-      (hunt) =>
-         Array.isArray(hunt.invited) && hunt.invited.includes(currentUser.email)
-   );
-   /*  const huntsFinished = huntCtx.hunts.filter(
-       (hunt) => hunt.finishedBy === currentUser.email
-    ); */
+   const huntsCreated = huntCtx.hunts.filter((hunt) => {
+      return (
+         hunt.createdBy === currentUser.email &&
+         !Object.values(hunt.finishedBy).some((value) => value.email === currentUser.email)
+      );
+   });
+
+   const huntsInvited = huntCtx.hunts.filter((hunt) => {
+      return (
+         Array.isArray(hunt.invited) &&
+         hunt.invited.includes(currentUser.email) &&
+         !Object.values(hunt.finishedBy).some((value) => value.email === currentUser.email)
+      );
+   });
+
+   const huntsFinished = huntCtx.hunts.filter((hunt) => {
+      return Object.values(hunt.finishedBy).some((value) => value.email === currentUser.email);
+   });
+
+
 
    useEffect(() => {
       userCtx.setUserHunts({ created: huntsCreated, active: huntsInvited });
@@ -34,6 +44,8 @@ const HuntStatus = () => {
       navigation.navigate("GameScreen", { hunt });
    };
 
+
+   //   console.log(huntCtx.hunts)
    return (
       <View style={styles.container}>
          <View style={styles.scrollContainer}>
@@ -70,13 +82,13 @@ const HuntStatus = () => {
                Medals
             </SmallTitle>
             <View style={styles.medals}>
-               {/* {huntsFinished.map((hunt) => (
+               {huntsFinished.map((hunt) => (
                   <Pressable key={hunt.id} onPress={() => startHuntHandler(hunt)}>
                      <Medal
                         name={hunt.name}
                      />
                   </Pressable>
-               ))} */}
+               ))}
             </View>
          </View>
       </View>

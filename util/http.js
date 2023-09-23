@@ -74,6 +74,17 @@ export const storeUsers = (user) => {
 export const storeHunt = (hunt) => {
    axios.post(`${rootUrl}/hunts.json`, hunt);
 }
+export const updateHunt = async (huntId, email) => {
+   //console.log({ huntId })
+   try {
+      const resp = await axios.post(`${rootUrl}/hunts/${huntId}/finishedBy.json`, { email });
+      return resp.data;
+   } catch (error) {
+      // Handle the error appropriately
+      console.error('Error updating hunt:', error);
+      throw error;
+   }
+};
 
 export const getHunts = async () => {
    const resp = await axios.get(`${rootUrl}/hunts.json`);

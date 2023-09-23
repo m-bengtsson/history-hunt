@@ -1,7 +1,7 @@
 import { View, StyleSheet, Image } from "react-native";
 import { useContext, useEffect, useState } from "react";
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import { MaterialIcons } from '@expo/vector-icons';
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { AuthContext } from "../store/AuthContext";
 import { UserContext } from "../store/UserContext";
@@ -25,6 +25,7 @@ const StartScreen = () => {
    const [userDataLoaded, setUserDataLoaded] = useState(false);
    const [isModalVisible, setModalVisible] = useState(false);
    const [photo, setPhoto] = useState();
+   const route = useRoute()
 
    const fetchData = async () => {
       try {
@@ -49,13 +50,11 @@ const StartScreen = () => {
       if (!userDataLoaded) {
          fetchData();
       }
-   }, [userCtx, authCtx, huntCtx.hunts]);
+   }, [userCtx, authCtx, huntCtx.hunts, route.params]);
 
    const pressHandler = () => {
       navigation.navigate('CreateHuntScreen');
    }
-   //console.log(userCtx.users)
-
    const toggleCamera = () => {
       setModalVisible(!isModalVisible);
    }

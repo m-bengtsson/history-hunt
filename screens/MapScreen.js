@@ -62,7 +62,7 @@ const MapScreen = () => {
          estimatedTime: timeDuration,
          locations: pinnedLocation,
          invited: invited,
-         createdBy: userCtx.currentUser.email
+         createdBy: userCtx.currentUser.email,
       }
       try {
          http.storeHunt(hunt)

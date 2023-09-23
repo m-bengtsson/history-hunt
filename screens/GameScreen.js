@@ -9,7 +9,7 @@
          navigation.goBack('StartScreen')
       }
    }, []) */
-import { useState, useEffect, Text } from "react";
+import { useState, useEffect, useContext } from "react";
 import { View, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -20,14 +20,18 @@ import Modal from "react-native-modal";
 import SmallTitle from "../components/UI/SmallTitle";
 import Button from "../components/UI/Button";
 import Title from "../components/UI/Title";
-
-
+import { HuntContext } from "../store/HuntContext";
+import { UserContext } from "../store/UserContext";
+import * as http from "../util/http"
 
 const GameScreen = () => {
+   const huntCtx = useContext(HuntContext)
+   const { currentUser } = useContext(UserContext)
+
    const navigation = useNavigation();
    const route = useRoute();
    const { hunt } = route.params;
-
+   //console.log('hunt: ', hunt)
    //const [permission, requestPermission] = Location.useForegroundPermissions();
    //const [errorMsg, setErrorMsg] = useState(null);
    const [currentLocation, setCurrentLocation] = useState(null);
@@ -55,8 +59,9 @@ const GameScreen = () => {
       }
       setTimeout(() => {
          if (confirmedPhoto.length === hunt.locations.length) {
-            console.log('SAMMA LÄNGD')
             setModalVisible(!isModalVisible);
+            //huntCtx.updateHunt(hunt.id, currentUser.email);
+            http.updateHunt(hunt.id, currentUser.email)
          }
       }, 1000)
 
