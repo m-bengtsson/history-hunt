@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
       borderRadius: 25,
       padding: 12,
       marginTop: 12,
-
    },
    pressed: {
       opacity: 0.7
