@@ -16,6 +16,7 @@ import SmallTitle from "../components/UI/SmallTitle";
 import CameraModal from "../components/CameraModal";
 import HuntStatus from "../components/HuntStatus";
 import { ScrollView } from "react-native-gesture-handler";
+import LogoButton from "../components/UI/LogoButton";
 
 const StartScreen = () => {
    const authCtx = useContext(AuthContext);
@@ -37,7 +38,6 @@ const StartScreen = () => {
          }
       } catch (error) {
          <LoadingOverlay message="Loading..." />;
-
          //console.error("Error fetching user data:", error.response?.data || error.message);
          //set athentication här för att logga ut vid invalid token
          authCtx.logout();
@@ -78,7 +78,7 @@ const StartScreen = () => {
                <IconButton
                   icon="log-out-outline"
                   color={Colors.darkerBlue}
-                  size={35}
+                  size={40}
                   onPress={authCtx.logout}
                />
             </View>
@@ -153,7 +153,9 @@ const styles = StyleSheet.create({
       justifyContent: "flex-end",
    },
    iconContainer: {
-      alignSelf: "flex-end",
+      alignItems: 'flex-start',
+      width: "100%",
+      padding: 5
    },
    title: {
       fontSize: 20,

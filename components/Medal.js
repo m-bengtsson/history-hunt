@@ -29,16 +29,17 @@ const styles = StyleSheet.create({
    title: {
       fontFamily: "nerko",
       color: Colors.mainWhite,
-      fontSize: 21
+      fontSize: 21,
+      textAlign: 'center'
+
    },
    text: {
       fontFamily: "Arial",
       color: Colors.mainWhite,
-      fontSize: 16
+      fontSize: 16,
    },
    huntIcon: {
       margin: 8,
-      //rbackgroundColor: "#405ba0",
       borderRadius: 100,
       alignItems: 'center',
       justifyContent: 'center',

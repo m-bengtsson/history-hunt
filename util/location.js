@@ -6,12 +6,11 @@ const GOOGLE_API_KEY = "AIzaSyBcZET5wKbIYGhaarszcjYhoj5HbpXfXSg";
 export const createLocationUrl = (pinnedLocation) => {
    const firstLocation = pinnedLocation[0];
    const stringFirstLocation = `${firstLocation?.latitude}, ${firstLocation?.longitude}`
-   console.log('FIRST LOCATION: ', firstLocation)
 
    const markers = pinnedLocation.map(
       (location) => `${location.latitude},${location.longitude}`
    );
    const markersString = markers.join("|");
 
-   return `https://maps.googleapis.com/maps/api/staticmap?center=${stringFirstLocation}&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7Clabel:S%7C${markersString}&key=${GOOGLE_API_KEY}`;
+   return `https://maps.googleapis.com/maps/api/staticmap?center=${stringFirstLocation}&zoom=12&size=400x200&maptype=roadmap&markers=color:red%7Clabel:S%7C${markersString}&key=${GOOGLE_API_KEY}`;
 };

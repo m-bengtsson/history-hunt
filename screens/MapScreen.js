@@ -12,6 +12,8 @@ import { UserContext } from "../store/UserContext";
 import { HuntContext } from "../store/HuntContext";
 import LoadingOverlay from "../components/UI/LoadingOverlay";
 import MapModal from "../components/MapModal";
+import Logo from "../components/UI/Logo";
+import LogoButton from "../components/UI/LogoButton";
 
 const MapScreen = () => {
    const [pinnedLocation, setPinnedLocation] = useState([]);
@@ -99,7 +101,6 @@ const MapScreen = () => {
 
    return (
       <View style={styles.container}>
-         <Title>Choose Location</Title>
          <MapView
             style={styles.map}
             initialRegion={currentLocation}
@@ -163,7 +164,7 @@ const styles = StyleSheet.create({
       bottom: 30
    },
    map: {
-      height: 750,
+      height: 800,
    },
    mapImage: {
       width: "100%",

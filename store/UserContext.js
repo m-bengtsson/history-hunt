@@ -31,9 +31,10 @@ const UserContextProvider = ({ children }) => {
             }));
             setUsers(usersArray);
          } catch (error) {
-            console.error("Error fetching user collection data:", error);
+            //console.error("Error fetching user collection data:", error);
          }
       };
+
       fetchUsers();
    }, []);
 

@@ -24,6 +24,8 @@ const InviteScreen = () => {
    const filteredUsers = userCtx.users.filter(
       (user) => user.email !== userCtx.currentUser.email
    );
+   console.log(userCtx.users)
+
 
    const renderFriend = (itemData) => {
       const friend = itemData.item;

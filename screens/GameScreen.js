@@ -13,6 +13,8 @@ import SmallTitle from "../components/UI/SmallTitle";
 import Button from "../components/UI/Button";
 import Title from "../components/UI/Title";
 import * as http from "../util/http";
+import Colors from "../constants/Colors";
+import Logo from "../components/UI/Logo";
 
 const GameScreen = () => {
    const huntCtx = useContext(HuntContext);
@@ -97,7 +99,8 @@ const GameScreen = () => {
                <View style={styles.modalContainer}>
                   <Title>Congratulations! </Title>
                   <View>
-                     <SmallTitle>You have succefully finished </SmallTitle>
+                     <Logo />
+                     <SmallTitle color={Colors.darkerBlue}>You have succefully finished: </SmallTitle>
                      <Title>{hunt.name} </Title>
                   </View>
                </View>
@@ -130,6 +133,7 @@ const styles = StyleSheet.create({
    },
    modalContainer: {
       height: 500,
+      alignItems: 'center',
       backgroundColor: Colors.trueBlue,
       borderRadius: 30,
       padding: 20,

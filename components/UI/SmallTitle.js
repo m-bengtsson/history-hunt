@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
       fontFamily: "nerko",
       fontSize: 30,
       color: Colors.mainWhite,
+      textAlign: 'center'
    },
 });
 

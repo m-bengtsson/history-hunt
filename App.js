@@ -50,13 +50,29 @@ const AuthenticatedStack = () => {
             headerShown: true,
             contentStyle: { backgroundColor: Colors.trueBlue },
             title: "",
+            headerTintColor: Colors.darkerBlue,
+            headerTitleStyle: {
+               fontWeight: 'bold',
+               fontSize: 30,
+               fontFamily: "nerko",
+               color: Colors.mainWhite,
+            },
          }}
       >
          <Stack.Screen name="StartScreen" component={StartScreen} />
          <Stack.Screen name="GameScreen" component={GameScreen} />
          <Stack.Screen name="CreateHuntScreen" component={CreateHuntScreen} />
          <Stack.Screen name="InviteScreen" component={InviteScreen} />
-         <Stack.Screen name="MapScreen" component={MapScreen} />
+         <Stack.Screen name="MapScreen" component={MapScreen} options={{
+            title: 'Choose location',
+            headerTintColor: Colors.darkerBlue,
+            headerTitleStyle: {
+               fontWeight: 'bold',
+               fontSize: 40,
+               fontFamily: "nerko",
+               color: Colors.mainWhite,
+            },
+         }} />
       </Stack.Navigator>
    );
 };

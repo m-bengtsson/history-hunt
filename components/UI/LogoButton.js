@@ -1,14 +1,15 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
-const Logo = () => {
+import Colors from "../../constants/Colors";
+const LogoButton = ({ onPress }) => {
    return (
-      <View style={styles.iconContainer}>
-         <MaterialCommunityIcons name="compass-rose" size={200} color={Colors.darkerBlue} />
+      <Pressable onPress={onPress} style={styles.iconContainer}>
+         <MaterialCommunityIcons name="compass-rose" size={70} color={Colors.darkerBlue} />
          <View style={styles.textOnTop}>
             <Text style={styles.history}>History</Text>
             <Text style={styles.hunt}>Hunt</Text>
          </View>
-      </View>
+      </Pressable>
    );
 };
 
@@ -16,33 +17,33 @@ const styles = StyleSheet.create({
    textOnTop: {
       position: "absolute",
       alignItems: "center",
-      left: 10,
-      top: 40
+      justifyContent: 'center',
+      left: 7,
+      top: 24
 
    },
    history: {
       fontFamily: "nerko",
-      fontSize: 60,
-      letterSpacing: 2,
+      fontSize: 30,
       color: Colors.mainWhite,
-      margin: 0,
-      padding: 0
-
    },
    hunt: {
       fontFamily: "nerko",
       color: Colors.darkOrange,
-      fontSize: 70,
+      fontSize: 35,
       position: "absolute",
-      top: 40
+      top: 18,
 
    },
    iconContainer: {
       alignSelf: "center",
-      color: Colors.mainWhite,
       fontFamily: "nerko",
-      fontSize: 38,
+      alignItems: 'center',
+      fontSize: 18,
+      //backgroundColor: Colors.darkOrange,
+      padding: 15,
+      borderRadius: 100
    },
 });
 
-export default Logo;
+export default LogoButton;

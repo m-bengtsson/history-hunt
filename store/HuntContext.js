@@ -32,7 +32,7 @@ const HuntContextProvider = ({ children }) => {
             });
             setHunts(huntsData);
          } catch (error) {
-            console.error("Error fetching hunt collection data:", error);
+            //console.error("Error fetching hunt collection data:", error);
          }
       };
       fetchHunts();

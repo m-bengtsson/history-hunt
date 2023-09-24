@@ -17,13 +17,14 @@ const MapModal = ({ isModalVisible, name, timeDuration, confirmHunt, pinnedLocat
                onPress={toggleModal}
             />
             <View style={styles.modalContainer}>
-               <SmallTitle>You picked:</SmallTitle>
-               <Text>{name}</Text>
-               <SmallTitle>Here is the route you will be taking:</SmallTitle>
+               <SmallTitle color={Colors.darkerBlue}>You picked:</SmallTitle>
+               <Text style={styles.name}>{name}</Text>
+               <SmallTitle color={Colors.darkerBlue} fontSize={24} margin={10}>Here is the route you will be taking:</SmallTitle>
                <Image style={styles.mapImage} source={{ uri: createLocationUrl(pinnedLocation) }} />
-               <SmallTitle>
-                  This should take approximately: {timeDuration}
+               <SmallTitle color={Colors.darkerBlue} fontSize={24} marginTop={10}>
+                  This should take approximately:
                </SmallTitle>
+               <Text style={styles.name}>{timeDuration}</Text>
             </View>
             <View style={styles.buttonContainer}>
                <Button title="Confirm Hunt" onPress={confirmHunt} />
@@ -38,14 +39,19 @@ const styles = StyleSheet.create({
       alignContent: 'center',
       justifyContent: 'center'
    },
+   name: {
+      color: Colors.mainWhite,
+      fontFamily: "nerko",
+      fontSize: 36
+   },
    buttonContainer: {
       padding: 20,
    },
    modalContainer: {
-      height: 500,
+      height: 550,
       backgroundColor: Colors.trueBlue,
-      borderRadius: 30,
-      padding: 20,
+      borderRadius: 15,
+      padding: 10,
       alignItems: 'center'
    },
    map: {
@@ -53,7 +59,7 @@ const styles = StyleSheet.create({
    },
    mapImage: {
       width: "100%",
-      height: 200,
+      height: 250,
    },
 });
 
