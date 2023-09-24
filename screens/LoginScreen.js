@@ -1,6 +1,7 @@
-import { View, Alert } from "react-native";
+import { View, Alert, ScrollView, KeyboardAvoidingView } from "react-native";
 import { useContext } from "react";
 import { useState } from "react";
+
 
 import AuthContent from "../components/Auth/AuthContent";
 import * as http from "../util/http";
@@ -28,9 +29,14 @@ const LoginScreen = () => {
    }
 
    return (
-      <View >
-         <AuthContent isLogin onAuthenticate={authenticationHandler} />
-      </View>
+      <ScrollView >
+         <KeyboardAvoidingView
+            style={styles.keyboardViewContainer}
+            behavior={Platform.OS === 'ios' ? 'padding' : null}
+         >
+            <AuthContent isLogin onAuthenticate={authenticationHandler} />
+         </KeyboardAvoidingView>
+      </ScrollView>
    )
 }
 
