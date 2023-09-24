@@ -4,15 +4,15 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { UserContext } from "../store/UserContext";
 import InviteCard from "../components/InviteCard";
-import Title from "../components/UI/Title"
-import Button from "../components/UI/Button"
+import Title from "../components/UI/Title";
+import Button from "../components/UI/Button";
 
 const InviteScreen = () => {
    const userCtx = useContext(UserContext);
    const [selectedFriendEmails, setSelectedFriendEmails] = useState([]);
 
-   const navigation = useNavigation()
-   const route = useRoute()
+   const navigation = useNavigation();
+   const route = useRoute();
 
    const toggleSelectedFriend = (email) => {
       setSelectedFriendEmails((prevSelected) =>
@@ -20,19 +20,31 @@ const InviteScreen = () => {
             ? prevSelected.filter((selectedEmail) => selectedEmail !== email)
             : [...prevSelected, email]
       );
-   }
-   const filteredUsers = userCtx.users.filter(user => user.email !== userCtx.currentUser.email);
+   };
+   const filteredUsers = userCtx.users.filter(
+      (user) => user.email !== userCtx.currentUser.email
+   );
 
    const renderFriend = (itemData) => {
       const friend = itemData.item;
       const isSelected = selectedFriendEmails.includes(friend.email);
-      return <InviteCard {...friend} isSelected={isSelected} onSelect={toggleSelectedFriend} />;
+      return (
+         <InviteCard
+            {...friend}
+            isSelected={isSelected}
+            onSelect={toggleSelectedFriend}
+         />
+      );
    };
 
    const navigateToMapScreen = () => {
       const { name, timeDuration } = route.params;
-      navigation.navigate('MapScreen', { invitedFriends: selectedFriendEmails, name, timeDuration });
-   }
+      navigation.navigate("MapScreen", {
+         invitedFriends: selectedFriendEmails,
+         name,
+         timeDuration,
+      });
+   };
 
    return (
       <View style={styles.container}>
@@ -43,28 +55,28 @@ const InviteScreen = () => {
                   columnWrapperStyle={styles.wrapper}
                   data={filteredUsers}
                   renderItem={renderFriend}
-                  keyExtractor={item => item.email}
+                  keyExtractor={(item) => item.email}
                   horizontal={false}
                   numColumns={3}
                />
             </SafeAreaView>
          </View>
          <View style={styles.buttonContainer}>
-            <Button title='Continue' onPress={navigateToMapScreen} />
+            <Button title="Continue" onPress={navigateToMapScreen} />
          </View>
       </View>
    );
-}
+};
 
 const styles = StyleSheet.create({
    container: {
       flex: 1,
-      justifyContent: 'space-between',
-      flexDirection: 'column'
+      justifyContent: "space-between",
+      flexDirection: "column",
    },
    wrapper: {
-      flexWrap: 'wrap',
-      margin: 10
+      flexWrap: "wrap",
+      margin: 10,
    },
    buttonContainer: {
       padding: 40,
@@ -72,7 +84,7 @@ const styles = StyleSheet.create({
    text: {
       color: Colors.mainWhite,
       fontSize: 40,
-   }
-})
+   },
+});
 
 export default InviteScreen;

@@ -2,9 +2,9 @@ import { useState, useEffect, useContext } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import * as Location from 'expo-location';
+import * as Location from "expo-location";
 import Modal from "react-native-modal";
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons } from "@expo/vector-icons";
 
 import Button from "../components/UI/Button";
 import Colors from "../constants/Colors";
@@ -15,11 +15,10 @@ import { UserContext } from "../store/UserContext";
 import { createLocationUrl } from "../util/location";
 import { HuntContext } from "../store/HuntContext";
 
-
 const MapScreen = () => {
    const [pinnedLocation, setPinnedLocation] = useState([]);
    //const [permission, requestPermission] = Location.useForegroundPermissions();
-   const [invited, setInvited] = useState([])
+   const [invited, setInvited] = useState([]);
    const [isModalVisible, setModalVisible] = useState(false);
 
    const userCtx = useContext(UserContext);
@@ -35,26 +34,30 @@ const MapScreen = () => {
 
    useEffect(() => {
       if (route.params?.invitedFriends) {
-         setInvited(prev => [...prev, ...route.params.invitedFriends])
+         setInvited((prev) => [...prev, ...route.params.invitedFriends]);
       }
-   }, [route])
+   }, [route]);
 
    const markerHandler = (event) => {
       const latitude = event.nativeEvent.coordinate.latitude;
       const longitude = event.nativeEvent.coordinate.longitude;
 
       // filtrera existerande pins
-      const indexAlreadyExists = pinnedLocation.findIndex(loc => loc.latitude === latitude && loc.longitude === longitude);
+      const indexAlreadyExists = pinnedLocation.findIndex(
+         (loc) => loc.latitude === latitude && loc.longitude === longitude
+      );
 
       if (indexAlreadyExists !== -1) {
          // ta bort pin
-         const updatePinnedLocations = pinnedLocation.filter((pin, index) => index !== indexAlreadyExists);
+         const updatePinnedLocations = pinnedLocation.filter(
+            (pin, index) => index !== indexAlreadyExists
+         );
          setPinnedLocation(updatePinnedLocations);
       } else {
          // add pin
-         setPinnedLocation(prev => [...prev, { latitude, longitude }])
+         setPinnedLocation((prev) => [...prev, { latitude, longitude }]);
       }
-   }
+   };
 
    const confirmHunt = () => {
       const hunt = {
@@ -63,27 +66,26 @@ const MapScreen = () => {
          locations: pinnedLocation,
          invited: invited,
          createdBy: userCtx.currentUser.email,
-      }
+      };
       try {
-         http.storeHunt(hunt)
-         huntCtx.addHunt(hunt)
-         navigation.navigate('StartScreen')
+         http.storeHunt(hunt);
+         huntCtx.addHunt(hunt);
+         navigation.navigate("StartScreen");
       } catch (error) {
-         console.log(error)
+         console.log(error);
       }
-   }
-
+   };
 
    const initialRegion = {
       latitude: 57.70486618888211,
       longitude: 11.967065748958134,
       latitudeDelta: 0.0422,
-      longitudeDelta: 0.0121
-   }
+      longitudeDelta: 0.0121,
+   };
 
    return (
       <View style={styles.container}>
-         <Title >Choose Location</Title>
+         <Title>Choose Location</Title>
          <MapView
             style={styles.map}
             initialRegion={initialRegion}
@@ -99,41 +101,44 @@ const MapScreen = () => {
             ))}
          </MapView>
          <View style={styles.buttonContainer}>
-            <Button title='Confirm' onPress={toggleModal} />
+            <Button title="Confirm" onPress={toggleModal} />
          </View>
          <View style={styles.modalWrapper}>
             <Modal isVisible={isModalVisible}>
-               <View >
-                  <MaterialIcons name="cancel" size={44} color="black" onPress={toggleModal} />
+               <View>
+                  <MaterialIcons
+                     name="cancel"
+                     size={44}
+                     color="black"
+                     onPress={toggleModal}
+                  />
                   <View style={styles.modalContainer}>
                      <SmallTitle>You picked</SmallTitle>
                      <SmallTitle>Here is the route you will be taking:</SmallTitle>
-                     <SmallTitle>This should take approximately: {timeDuration}</SmallTitle>
+                     <SmallTitle>
+                        This should take approximately: {timeDuration}
+                     </SmallTitle>
                   </View>
-                  <Button title='Confirm Hunt' onPress={confirmHunt} />
+                  <Button title="Confirm Hunt" onPress={confirmHunt} />
                </View>
             </Modal>
          </View>
       </View>
-   )
-}
-
+   );
+};
 
 const styles = StyleSheet.create({
    container: {
       flex: 1,
-
    },
    buttonContainer: {
-      padding: 20
-
+      padding: 20,
    },
    modalWrapper: {
       /*      flex: 1,
-           justifyContent: 'space-between',
-           flexDirection: 'column',
-           borderRadius: 24, */
-
+             justifyContent: 'space-between',
+             flexDirection: 'column',
+             borderRadius: 24, */
    },
    modalContainer: {
       height: 500,
@@ -143,15 +148,11 @@ const styles = StyleSheet.create({
    },
    map: {
       height: 650,
-
    },
    mapImage: {
-      width: '100%',
-      height: 200
-   }
+      width: "100%",
+      height: 200,
+   },
 });
 
 export default MapScreen;
-
-
-

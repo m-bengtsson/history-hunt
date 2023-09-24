@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react"
+import { createContext, useEffect, useState } from "react";
 import * as http from "../util/http";
 
 export const UserContext = createContext({
@@ -6,17 +6,16 @@ export const UserContext = createContext({
    currentUser: { name: null, email: null, photoUrl: null },
    setCurrentUser: (name, email, photoUrl) => { },
    setUserHunts: ([]) => { },
-   userHunts: []
+   userHunts: [],
 });
 
 const UserContextProvider = ({ children }) => {
-   const [currentUser, setCurrentUser] = useState(
-      {
-         name: null,
-         email: null,
-         photoUrl: null,
-         hunts: []
-      });
+   const [currentUser, setCurrentUser] = useState({
+      name: null,
+      email: null,
+      photoUrl: null,
+      hunts: [],
+   });
 
    const [userHunts, setUserHunts] = useState([]);
    const [users, setUsers] = useState([]);
@@ -28,9 +27,8 @@ const UserContextProvider = ({ children }) => {
             const usersArray = Object.entries(userData).map(([userId, user]) => ({
                id: userId,
                name: user.name,
-               email: user.email
-
-            }))
+               email: user.email,
+            }));
             setUsers(usersArray);
          } catch (error) {
             console.error("Error fetching user collection data:", error);
@@ -40,7 +38,7 @@ const UserContextProvider = ({ children }) => {
    }, []);
 
    const updatePhotoUrl = (photoUrl) => {
-      setCurrentUser(prevUser => ({ ...prevUser, photoUrl }));
+      setCurrentUser((prevUser) => ({ ...prevUser, photoUrl }));
    };
 
    const value = {
@@ -49,8 +47,8 @@ const UserContextProvider = ({ children }) => {
       setCurrentUser,
       updatePhotoUrl,
       setUserHunts,
-      userHunts
+      userHunts,
    };
-   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
-}
+   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
+};
 export default UserContextProvider;

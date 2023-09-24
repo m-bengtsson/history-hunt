@@ -5,18 +5,18 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { HuntContext } from "../store/HuntContext";
 import { UserContext } from "../store/UserContext";
-import * as Location from 'expo-location';
+import * as Location from "expo-location";
 import LoadingOverlay from "../components/UI/LoadingOverlay";
 import CameraModal from "../components/CameraModal";
 import Modal from "react-native-modal";
 import SmallTitle from "../components/UI/SmallTitle";
 import Button from "../components/UI/Button";
 import Title from "../components/UI/Title";
-import * as http from "../util/http"
+import * as http from "../util/http";
 
 const GameScreen = () => {
-   const huntCtx = useContext(HuntContext)
-   const { currentUser } = useContext(UserContext)
+   const huntCtx = useContext(HuntContext);
+   const { currentUser } = useContext(UserContext);
 
    const navigation = useNavigation();
    const route = useRoute();
@@ -34,7 +34,7 @@ const GameScreen = () => {
    };
    const toggleCamera = () => {
       setCameraModalVisible(!isCameraModalVisible);
-   }
+   };
 
    useEffect(() => {
       const getCurrentLocation = async () => {
@@ -43,48 +43,46 @@ const GameScreen = () => {
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
             latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421
-         })
-      }
+            longitudeDelta: 0.0421,
+         });
+      };
       setTimeout(() => {
          if (confirmedPhoto.length === hunt.locations.length) {
             setModalVisible(!isModalVisible);
             huntCtx.updateHunts(hunt.id, currentUser.email);
-            http.updateHunt(hunt.id, currentUser.email)
+            http.updateHunt(hunt.id, currentUser.email);
          }
-      }, 1000)
+      }, 1000);
 
       getCurrentLocation();
-   }, [confirmedPhoto, hunt.locations])
-
+   }, [confirmedPhoto, hunt.locations]);
 
    if (!currentLocation) {
-      return <LoadingOverlay message="Loading user location.." />
+      return <LoadingOverlay message="Loading user location.." />;
    }
 
    const markerHandler = (event) => {
       // const latitude = event.nativeEvent.coordinate.latitude;
       // const longitude = event.nativeEvent.coordinate.longitude;
-      toggleCamera()
-   }
+      toggleCamera();
+   };
 
    const confirmPhoto = () => {
       setConfirmedPhoto([...confirmedPhoto, locationPhoto]);
       toggleCamera();
-   }
+   };
 
    const navigateToStartScreen = () => {
-      navigation.goBack('StartScreen')
-   }
+      navigation.goBack("StartScreen");
+   };
 
    return (
       <View style={styles.container}>
-         <View >
-         </View>
+         <View></View>
          <MapView
             style={styles.map}
          /* initialRegion={currentLocation}
-         showsUserLocation={true} */
+          showsUserLocation={true} */
          >
             {hunt.locations.map((location, index) => (
                <Marker
@@ -93,7 +91,6 @@ const GameScreen = () => {
                   coordinate={location}
                   title={`Pinned location ${index + 1}`}
                   onPress={markerHandler}
-
                />
             ))}
             {/*             <Marker
@@ -103,7 +100,7 @@ const GameScreen = () => {
             /> */}
          </MapView>
          <Modal isVisible={isModalVisible}>
-            <View >
+            <View>
                <View style={styles.modalContainer}>
                   <Title>Congratulations! </Title>
                   <View>
@@ -111,7 +108,7 @@ const GameScreen = () => {
                      <Title>{hunt.name} </Title>
                   </View>
                </View>
-               <Button title='Go to Home' onPress={navigateToStartScreen} />
+               <Button title="Go to Home" onPress={navigateToStartScreen} />
             </View>
          </Modal>
          <CameraModal
@@ -122,24 +119,21 @@ const GameScreen = () => {
             pressHandler={confirmPhoto}
          />
       </View>
-   )
-}
-
+   );
+};
 
 const styles = StyleSheet.create({
    container: {
       flex: 1,
    },
    buttonContainer: {
-      padding: 20
+      padding: 20,
    },
    map: {
       height: 1000,
-
    },
    buttonContainer: {
-      padding: 20
-
+      padding: 20,
    },
    modalContainer: {
       height: 500,
@@ -147,8 +141,6 @@ const styles = StyleSheet.create({
       borderRadius: 30,
       padding: 20,
    },
-
-
 });
 
 export default GameScreen;

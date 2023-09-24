@@ -6,16 +6,15 @@ import Input from "../components/Auth/Input";
 import Button from "../components/UI/Button";
 import Title from "../components/UI/Title";
 
-
 const CreateHuntScreen = () => {
    const [enteredHuntName, setEnteredHuntName] = useState("");
    const [enteredTimeDuration, setEnteredTimeDuration] = useState("");
 
-   const navigation = useNavigation()
+   const navigation = useNavigation();
 
    const inputHandler = (inputType, enteredValue) => {
       switch (inputType) {
-         case 'hunt-name':
+         case "hunt-name":
             setEnteredHuntName(enteredValue);
             break;
          case "time-duration":
@@ -24,44 +23,45 @@ const CreateHuntScreen = () => {
       }
    };
    const navigateToInviteScreen = () => {
-
-      navigation.navigate('InviteScreen', { name: enteredHuntName, timeDuration: enteredTimeDuration })
-   }
+      navigation.navigate("InviteScreen", {
+         name: enteredHuntName,
+         timeDuration: enteredTimeDuration,
+      });
+   };
 
    return (
       <View style={styles.container}>
          <Title>Customize</Title>
          <Input
-            label='What do you want to call your hunt?'
+            label="What do you want to call your hunt?"
             textInputConfig={{
-               keyboardType: 'default',
-               onChangeText: inputHandler.bind(this, 'hunt-name'),
+               keyboardType: "default",
+               onChangeText: inputHandler.bind(this, "hunt-name"),
                value: enteredHuntName,
                //isInvalid: huntNameIsInvalid,
-               autoCapitalize: 'none'
-
-            }} />
+               autoCapitalize: "none",
+            }}
+         />
          <Input
-            label='How long should it be?'
+            label="How long should it be?"
             textInputConfig={{
-               keyboardType: 'default',
-               onChangeText: inputHandler.bind(this, 'time-duration'),
+               keyboardType: "default",
+               onChangeText: inputHandler.bind(this, "time-duration"),
                value: enteredTimeDuration,
                //isInvalid: huntNameIsInvalid,
-               autoCapitalize: 'none'
-
-            }} />
-         <Button title={'Invite friends'} onPress={navigateToInviteScreen} />
+               autoCapitalize: "none",
+            }}
+         />
+         <Button title={"Invite friends"} onPress={navigateToInviteScreen} />
       </View>
-   )
-}
+   );
+};
 
 const styles = StyleSheet.create({
    container: {
       marginTop: 70,
-      padding: 40
-   }
-
-})
+      padding: 40,
+   },
+});
 
 export default CreateHuntScreen;
