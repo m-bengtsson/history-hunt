@@ -1,4 +1,4 @@
-import { ScrollView, Alert } from "react-native";
+import { ScrollView, Alert, KeyboardAvoidingView } from "react-native";
 import { useContext, useState } from "react";
 
 import AuthContent from "../components/Auth/AuthContent";
@@ -34,7 +34,12 @@ const SignupScreen = () => {
 
    return (
       <ScrollView>
-         <AuthContent onAuthenticate={authenticationHandler} />
+         <KeyboardAvoidingView
+            style={styles.keyboardViewContainer}
+            behavior={Platform.OS === 'ios' ? 'padding' : null}
+         >
+            <AuthContent onAuthenticate={authenticationHandler} />
+         </KeyboardAvoidingView>
       </ScrollView>
    )
 }

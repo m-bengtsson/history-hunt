@@ -5,7 +5,14 @@ import Colors from '../../constants/Colors';
 export default function Button(props) {
    const { onPress, title } = props;
    return (
-      <Pressable style={styles.container} onPress={onPress}>
+      <Pressable
+         style={({ pressed }) =>
+            pressed
+               ? [styles.container, styles.pressed]
+               : styles.container
+         }
+         onPress={onPress}
+      >
          <Text style={styles.text}>{title}</Text>
       </Pressable>
    );
@@ -18,6 +25,9 @@ const styles = StyleSheet.create({
       padding: 12,
       marginTop: 12,
 
+   },
+   pressed: {
+      opacity: 0.7
    },
    text: {
       fontFamily: 'nerko',
