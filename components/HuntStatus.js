@@ -88,11 +88,11 @@ const HuntStatus = () => {
 
 const styles = StyleSheet.create({
    medals: {
-      flexDirection: 'row',
+      flexDirection: 'row-reverse',
       flexWrap: 'wrap',
       alignSelf: 'center',
       width: "100%",
-      justifyContent: 'center'
+      justifyContent: 'center',
    },
    container: {
       paddingHorizontal: 30,

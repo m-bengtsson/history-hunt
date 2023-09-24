@@ -62,8 +62,6 @@ const GameScreen = () => {
    }
 
    const markerHandler = (event) => {
-      // const latitude = event.nativeEvent.coordinate.latitude;
-      // const longitude = event.nativeEvent.coordinate.longitude;
       toggleCamera();
    };
 
@@ -81,8 +79,8 @@ const GameScreen = () => {
          <View></View>
          <MapView
             style={styles.map}
-         /* initialRegion={currentLocation}
-          showsUserLocation={true} */
+            initialRegion={currentLocation}
+            showsUserLocation={true}
          >
             {hunt.locations.map((location, index) => (
                <Marker
@@ -93,11 +91,6 @@ const GameScreen = () => {
                   onPress={markerHandler}
                />
             ))}
-            {/*             <Marker
-               pinColor="blue"
-               coordinate={currentLocation}
-               title={`Your location`}
-            /> */}
          </MapView>
          <Modal isVisible={isModalVisible}>
             <View>

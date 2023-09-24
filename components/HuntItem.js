@@ -4,11 +4,11 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 const HuntItem = ({ name, estimatedTime }) => {
    return (
-      <View style={{ flexDirection: "row" }}>
+      <View style={styles.container}>
          <View style={styles.huntIcon}>
             <Ionicons name="compass-outline" size={40} color={Colors.chocolate} />
          </View>
-         <View style={styles.container}>
+         <View style={styles.textContainer}>
             <Text style={styles.title}>{name}</Text>
             <Text style={styles.text}>{estimatedTime}</Text>
          </View>
@@ -18,6 +18,12 @@ const HuntItem = ({ name, estimatedTime }) => {
 
 const styles = StyleSheet.create({
    container: {
+      flexDirection: "row",
+      backgroundColor: "#577bc3",
+      borderRadius: 12,
+      marginVertical: 4
+   },
+   textContainer: {
       flexDirection: "column",
       marginVertical: 5,
       marginHorizontal: 20,
