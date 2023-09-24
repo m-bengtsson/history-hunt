@@ -3,6 +3,7 @@ import * as http from "../util/http";
 
 export const UserContext = createContext({
    users: [],
+   addUser: (name, email,) => { },
    currentUser: { name: null, email: null, photoUrl: null },
    setCurrentUser: (name, email, photoUrl) => { },
    setUserHunts: ([]) => { },
@@ -37,6 +38,9 @@ const UserContextProvider = ({ children }) => {
 
       fetchUsers();
    }, []);
+   const addUser = (name, email) => {
+      setUsers(prev => [...prev, { name, email }])
+   }
 
    const updatePhotoUrl = (photoUrl) => {
       setCurrentUser((prevUser) => ({ ...prevUser, photoUrl }));
@@ -49,6 +53,7 @@ const UserContextProvider = ({ children }) => {
       updatePhotoUrl,
       setUserHunts,
       userHunts,
+      addUser,
    };
    return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

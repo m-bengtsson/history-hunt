@@ -14,6 +14,9 @@ const InviteScreen = () => {
    const navigation = useNavigation();
    const route = useRoute();
 
+   const filteredUsers = userCtx.users.filter(
+      (user) => user.email !== userCtx.currentUser.email
+   );
    const toggleSelectedFriend = (email) => {
       setSelectedFriendEmails((prevSelected) =>
          prevSelected.includes(email)
@@ -21,9 +24,6 @@ const InviteScreen = () => {
             : [...prevSelected, email]
       );
    };
-   const filteredUsers = userCtx.users.filter(
-      (user) => user.email !== userCtx.currentUser.email
-   );
    console.log(userCtx.users)
 
 
