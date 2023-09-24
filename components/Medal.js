@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text } from "react-native";
 import Colors from "../constants/Colors";
-import { Ionicons, MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
 
 
 const Medal = ({ name }) => {

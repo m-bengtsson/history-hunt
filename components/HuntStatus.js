@@ -93,6 +93,9 @@ const styles = StyleSheet.create({
       alignSelf: 'center',
       width: "100%",
       justifyContent: 'center',
+      borderTopWidth: 4,
+      borderTopColor: Colors.darkerBlue_2,
+      borderTopRadius: 6,
    },
    container: {
       paddingHorizontal: 30,

@@ -1,11 +1,12 @@
 import { View, Text, StyleSheet, Alert } from "react-native";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 import AuthFormUser from "./AuthFormUser";
 import Colors from "../../constants/Colors";
 import TextButton from "../UI/TextButton";
+import Logo from "../UI/Logo";
 
 const AuthContent = ({ isLogin, onAuthenticate }) => {
    const navigate = useNavigation();
@@ -60,10 +61,7 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
 
    return (
       <View style={[styles.authContent, !isLogin && styles.authContentSignup]}>
-         <View style={styles.iconContainer}>
-            <Ionicons name="ios-earth" size={150} color={Colors.darkerBlue} />
-         </View>
-         <Text style={styles.iconContainer}>History Hunt</Text>
+         <Logo />
          <AuthFormUser
             isLogin={isLogin}
             onSubmit={submitHandler}
@@ -87,12 +85,6 @@ const styles = StyleSheet.create({
    },
    authContentSignup: {
       marginTop: 80,
-   },
-   iconContainer: {
-      alignSelf: "center",
-      color: Colors.mainWhite,
-      fontFamily: "nerko",
-      fontSize: 38,
    },
    buttons: {
       marginTop: 8,
