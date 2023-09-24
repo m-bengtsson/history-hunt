@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { View, StyleSheet, Pressable } from "react-native";
+import { View, StyleSheet, Pressable, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { HuntContext } from "../store/HuntContext";
@@ -25,6 +25,7 @@ const HuntStatus = () => {
          hunt.invited.includes(currentUser.email) &&
          !hunt.finishedBy?.includes(currentUser.email)
    );
+   console.log(huntsInvited)
 
    const huntsFinished = huntCtx.hunts.filter(
       (hunt) => hunt.finishedBy?.includes(currentUser.email)
@@ -41,29 +42,33 @@ const HuntStatus = () => {
    return (
       <View style={styles.container}>
          <View style={styles.scrollContainer}>
-            <SmallTitle color={Colors.darkerBlue} marginTop={10}>
-               Active Hunts
-            </SmallTitle>
-            <View style={styles.huntsContainer}>
-               {huntsInvited?.map((hunt) => (
-                  <Pressable key={hunt.id} onPress={() => startHuntHandler(hunt)}>
-                     <HuntItem
-                        name={hunt.name}
-                        estimatedTime={hunt.estimatedTime}
-                     />
-                  </Pressable>
-               ))}
+            <View style={styles.wrapper}>
+               <SmallTitle color={Colors.darkerBlue} marginTop={10} textAlign={"left"}>
+                  Active Hunts
+               </SmallTitle>
+               <View style={styles.huntsContainer}>
+                  {huntsInvited.length >= 1 ? (huntsInvited.map((hunt) => (
+                     <Pressable key={hunt.id} onPress={() => startHuntHandler(hunt)}>
+                        <HuntItem
+                           name={hunt.name}
+                           estimatedTime={hunt.estimatedTime}
+                        />
+                     </Pressable>
+                  ))) : <SmallTitle textAlign="left" fontSize={22}>No active hunts yet!</SmallTitle>}
+               </View>
             </View>
-            <SmallTitle color={Colors.darkerBlue}>Created hunts</SmallTitle>
-            <View style={styles.huntsContainer}>
-               {huntsCreated?.map((hunt) => (
-                  <Pressable key={hunt.id * Math.random()} onPress={() => startHuntHandler(hunt)}>
-                     <HuntItem
-                        name={hunt.name}
-                        estimatedTime={hunt.estimatedTime}
-                     />
-                  </Pressable>
-               ))}
+            <View style={styles.wrapper}>
+               <SmallTitle color={Colors.darkerBlue} textAlign={"left"}>Created hunts</SmallTitle>
+               <View style={styles.huntsContainer}>
+                  {huntsCreated.length >= 1 ? (huntsCreated.map((hunt) => (
+                     <Pressable key={hunt.id * Math.random()} onPress={() => startHuntHandler(hunt)}>
+                        <HuntItem
+                           name={hunt.name}
+                           estimatedTime={hunt.estimatedTime}
+                        />
+                     </Pressable>
+                  ))) : (<SmallTitle color={Colors.darkerBlue}>No created hunts yet!</SmallTitle>)}
+               </View>
             </View>
             <SmallTitle
                color={Colors.darkerBlue}
@@ -82,11 +87,14 @@ const HuntStatus = () => {
                ))}
             </View>
          </View>
-      </View>
+      </View >
    );
 };
 
 const styles = StyleSheet.create({
+   wrapper: {
+      marginVertical: 10
+   },
    medals: {
       flexDirection: 'row-reverse',
       flexWrap: 'wrap',
@@ -107,7 +115,7 @@ const styles = StyleSheet.create({
       width: "100%",
    },
    huntsContainer: {
-      flexDirection: 'column-reverse'
+      flexDirection: 'column-reverse',
    },
 });
 

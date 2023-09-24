@@ -96,8 +96,8 @@ const StartScreen = () => {
                   padding: 6,
                   borderRadius: 100,
                   position: "absolute",
-                  top: 190,
-                  right: 120,
+                  top: 200,
+                  right: 110,
                }}
             >
                <MaterialIcons
