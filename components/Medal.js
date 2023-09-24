@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text } from "react-native";
 import Colors from "../constants/Colors";
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { Ionicons, MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 
 
 const Medal = ({ name }) => {
@@ -8,7 +8,7 @@ const Medal = ({ name }) => {
       <View style={styles.container}>
          <View style={styles.innerContainer}>
             <View style={styles.huntIcon}>
-               <Ionicons name="medal" size={40} color={Colors.chocolate} />
+               <FontAwesome5 name="medal" size={40} color={Colors.darkOrange} />
             </View>
 
             <Text style={styles.title} >{name}</Text>
@@ -40,12 +40,11 @@ const styles = StyleSheet.create({
    },
    huntIcon: {
       margin: 8,
-      backgroundColor: Colors.darkOrange,
+      //rbackgroundColor: "#405ba0",
       borderRadius: 100,
       alignItems: 'center',
       justifyContent: 'center',
-      height: 45,
-      width: 45,
+      padding: 10
    },
 
 });

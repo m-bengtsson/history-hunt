@@ -1,11 +1,11 @@
-import { View, Text, StyleSheet, FlatList, SafeAreaView, ScrollView } from "react-native";
+import { View, StyleSheet, FlatList, SafeAreaView } from "react-native";
 import { useContext, useState } from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { UserContext } from "../store/UserContext";
 import InviteCard from "../components/InviteCard";
 import Title from "../components/UI/Title"
 import Button from "../components/UI/Button"
-import { useNavigation, useRoute } from "@react-navigation/native";
 
 const InviteScreen = () => {
    const userCtx = useContext(UserContext);
@@ -31,7 +31,6 @@ const InviteScreen = () => {
 
    const navigateToMapScreen = () => {
       const { name, timeDuration } = route.params;
-      //console.log('hunt: ', name, timeDuration)
       navigation.navigate('MapScreen', { invitedFriends: selectedFriendEmails, name, timeDuration });
    }
 

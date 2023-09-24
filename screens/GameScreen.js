@@ -1,18 +1,10 @@
-
-// filtrera existerande pins
-/*  const indexAlreadyExists = hunt.locations.findIndex(loc => loc.latitude === latitude && loc.longitude === longitude); */
-
-/*    useEffect(() => {
-      confirmedPhoto 
-      
-      if (confirmedPhoto.length === hunt.locations.length) {
-         navigation.goBack('StartScreen')
-      }
-   }, []) */
 import { useState, useEffect, useContext } from "react";
 import { View, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { useNavigation, useRoute } from "@react-navigation/native";
+
+import { HuntContext } from "../store/HuntContext";
+import { UserContext } from "../store/UserContext";
 import * as Location from 'expo-location';
 import LoadingOverlay from "../components/UI/LoadingOverlay";
 import CameraModal from "../components/CameraModal";
@@ -20,8 +12,6 @@ import Modal from "react-native-modal";
 import SmallTitle from "../components/UI/SmallTitle";
 import Button from "../components/UI/Button";
 import Title from "../components/UI/Title";
-import { HuntContext } from "../store/HuntContext";
-import { UserContext } from "../store/UserContext";
 import * as http from "../util/http"
 
 const GameScreen = () => {
@@ -31,7 +21,6 @@ const GameScreen = () => {
    const navigation = useNavigation();
    const route = useRoute();
    const { hunt } = route.params;
-   //console.log('hunt: ', hunt)
    //const [permission, requestPermission] = Location.useForegroundPermissions();
    //const [errorMsg, setErrorMsg] = useState(null);
    const [currentLocation, setCurrentLocation] = useState(null);
