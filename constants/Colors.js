@@ -5,6 +5,6 @@ export default Colors = {
    darkerBlue_2: '#3959a3',
    darkOrange: '#f58f29',
    chocolate: '#7d4600',
-   mainWhite: '#FFFDF2'
+   mainWhite: '#fcf4de'
 
 }

@@ -1,49 +1,46 @@
 import { StyleSheet, View, Text } from "react-native";
 import Colors from "../constants/Colors";
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 const HuntItem = ({ name, estimatedTime }) => {
    return (
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{ flexDirection: "row" }}>
          <View style={styles.huntIcon}>
             <Ionicons name="compass-outline" size={40} color={Colors.chocolate} />
          </View>
          <View style={styles.container}>
-            <Text style={styles.title} >{name}</Text>
+            <Text style={styles.title}>{name}</Text>
             <Text style={styles.text}>{estimatedTime}</Text>
          </View>
       </View>
-   )
-}
-
+   );
+};
 
 const styles = StyleSheet.create({
    container: {
-      flexDirection: 'column',
+      flexDirection: "column",
       marginVertical: 5,
-      marginHorizontal: 20
+      marginHorizontal: 20,
    },
    title: {
       fontFamily: "nerko",
       color: Colors.mainWhite,
-      fontSize: 21
+      fontSize: 21,
    },
    text: {
       fontFamily: "Arial",
       color: Colors.mainWhite,
-      fontSize: 16
+      fontSize: 16,
    },
    huntIcon: {
       margin: 8,
       backgroundColor: Colors.darkOrange,
       borderRadius: 100,
-      alignItems: 'center',
-      justifyContent: 'center',
+      alignItems: "center",
+      justifyContent: "center",
       height: 45,
       width: 45,
    },
-
 });
 
 export default HuntItem;

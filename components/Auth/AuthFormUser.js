@@ -1,9 +1,9 @@
-import { View, StyleSheet } from 'react-native';
-import { useState } from 'react';
+import { View, StyleSheet } from "react-native";
+import { useState } from "react";
 
-import Input from './Input.js';
-import Button from '../UI/Button.js';
-import Colors from '../../constants/Colors.js';
+import Input from "./Input.js";
+import Button from "../UI/Button.js";
+import Colors from "../../constants/Colors.js";
 
 const AuthFormUser = ({ onSubmit, isLogin, credentialsValidity }) => {
    const [enteredName, setEnteredName] = useState("");
@@ -20,10 +20,9 @@ const AuthFormUser = ({ onSubmit, isLogin, credentialsValidity }) => {
       confirmPassword: passwordsDontMatch,
    } = credentialsValidity;
 
-
    const inputHandler = (inputType, enteredValue) => {
       switch (inputType) {
-         case 'name':
+         case "name":
             setEnteredName(enteredValue);
             break;
          case "email":
@@ -57,69 +56,73 @@ const AuthFormUser = ({ onSubmit, isLogin, credentialsValidity }) => {
             <Input
                label="Name"
                textInputConfig={{
-                  keyboardType: 'default',
-                  onChangeText: inputHandler.bind(this, 'name'),
+                  keyboardType: "default",
+                  onChangeText: inputHandler.bind(this, "name"),
                   value: enteredName,
                   isInvalid: displayNameIsInvalid,
-                  autoCapitalize: 'words',
+                  autoCapitalize: "words",
                }}
             />
          )}
 
          <Input
-            label='Email'
+            label="Email"
             textInputConfig={{
-               keyboardType: 'email-address',
-               onChangeText: inputHandler.bind(this, 'email'),
+               keyboardType: "email-address",
+               onChangeText: inputHandler.bind(this, "email"),
                value: enteredEmail,
                isInvalid: emailIsInvalid,
-               autoCapitalize: 'none'
-
-            }} />
-         {!isLogin && (<Input
-            label='Confirm Email Adress'
-            textInputConfig={{
-               keyboardType: 'email-address',
-               onChangeText: inputHandler.bind(this, 'confirmEmail'),
-               value: enteredConfirmEmail,
-               isInvalid: emailsDontMatch,
-
-            }} />)}
+               autoCapitalize: "none",
+            }}
+         />
+         {!isLogin && (
+            <Input
+               label="Confirm Email Adress"
+               textInputConfig={{
+                  keyboardType: "email-address",
+                  onChangeText: inputHandler.bind(this, "confirmEmail"),
+                  value: enteredConfirmEmail,
+                  isInvalid: emailsDontMatch,
+               }}
+            />
+         )}
          <Input
-            label='Password'
+            label="Password"
             textInputConfig={{
-               keyboardType: 'default',
-               onChangeText: inputHandler.bind(this, 'password'),
+               keyboardType: "default",
+               onChangeText: inputHandler.bind(this, "password"),
                value: enteredPassword,
                isInvalid: passwordIsInvalid,
-               // secureTextEntry: true
+               secureTextEntry: true,
+            }}
+         />
 
-            }} />
-
-         {!isLogin && (<Input
-            label='Confirm Password'
-            textInputConfig={{
-               keyboardType: 'default',
-               onChangeText: inputHandler.bind(this, 'confirmPassword'),
-               value: enteredConfirmPassword,
-               isInvalid: passwordsDontMatch,
-               // secureTextEntry: true
-
-            }} />)}
+         {!isLogin && (
+            <Input
+               label="Confirm Password"
+               textInputConfig={{
+                  keyboardType: "default",
+                  onChangeText: inputHandler.bind(this, "confirmPassword"),
+                  value: enteredConfirmPassword,
+                  isInvalid: passwordsDontMatch,
+                  secureTextEntry: true,
+               }}
+            />
+         )}
          <View style={styles.buttons}>
-            <Button onPress={submitHandler}
-               title={isLogin ? "Log In" : "Sign Up"}>
-            </Button>
+            <Button
+               onPress={submitHandler}
+               title={isLogin ? "Log In" : "Sign Up"}
+            ></Button>
          </View>
       </View>
-   )
-}
+   );
+};
 
 const styles = StyleSheet.create({
    authContainer: {
       marginTop: 14,
       backgroundColor: Colors.trueBlue,
    },
-})
+});
 export default AuthFormUser;
-

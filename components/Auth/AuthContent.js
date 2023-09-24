@@ -7,12 +7,10 @@ import AuthFormUser from "./AuthFormUser";
 import Colors from "../../constants/Colors";
 import TextButton from "../UI/TextButton";
 
-
 const AuthContent = ({ isLogin, onAuthenticate }) => {
    const navigate = useNavigation();
 
    const [credentialsValidity, setCredentialsValidity] = useState({
-      // Single state handling multiple properties (user credentials)
       displayName: false,
       email: false,
       confirmEmail: false,
@@ -22,20 +20,15 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
 
    const switchAuthMode = () => {
       if (isLogin) {
-         navigate.replace('SignupScreen');
+         navigate.replace("SignupScreen");
       } else {
-         navigate.replace('LoginScreen');
+         navigate.replace("LoginScreen");
       }
    };
-   // Submit handling user credentials
+   // Submit user credentials
    const submitHandler = (credentials) => {
-      // Destrukturera credentials
-      // Implement validering såsom trimmning, tomma fält osv
-      // Kolla om epost och lösen matchar
-      // onAuthenticate({ email, password })
-      // setCredentialsValidity
-      let { displayName, email, confirmEmail, password, confirmPassword } = credentials;
-      // Trim email and password inputs
+      let { displayName, email, confirmEmail, password, confirmPassword } =
+         credentials;
       email = email.trim();
       password = password.trim();
 
@@ -51,10 +44,8 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
          !emailIsValid ||
          !passwordIsValid ||
          (!isLogin && (!emailsAreEqual || !passwordsAreEqual))
-      ) {/////////////// ÄNDRING :TODO ÄNDRA TILL NÅGOT ANNAT Än ALERT
+      ) {
          Alert.alert("Invalid input", "Please check your entered credentials.");
-
-         // Update credentialsInvalid state to reflect invalid inputs
          setCredentialsValidity({
             displayName: displayNameIsValid,
             email: !emailIsValid,
@@ -62,31 +53,31 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
             password: !passwordIsValid,
             confirmPassword: !passwordIsValid || !passwordsAreEqual,
          });
-
-         // Exit the function
          return;
       }
       onAuthenticate({ displayName, email, password });
    };
 
-
    return (
       <View style={[styles.authContent, !isLogin && styles.authContentSignup]}>
          <View style={styles.iconContainer}>
-            <Ionicons name='ios-earth' size={150} color={Colors.darkerBlue} />
+            <Ionicons name="ios-earth" size={150} color={Colors.darkerBlue} />
          </View>
          <Text style={styles.iconContainer}>History Hunt</Text>
          <AuthFormUser
             isLogin={isLogin}
             onSubmit={submitHandler}
-            credentialsValidity={credentialsValidity} />
+            credentialsValidity={credentialsValidity}
+         />
          <View>
-            <TextButton onPress={switchAuthMode} title={isLogin ? "Create new account" : "Log in instead"} />
+            <TextButton
+               onPress={switchAuthMode}
+               title={isLogin ? "Create new account" : "Log in instead"}
+            />
          </View>
       </View>
-   )
-
-}
+   );
+};
 
 const styles = StyleSheet.create({
    authContent: {
@@ -95,13 +86,13 @@ const styles = StyleSheet.create({
       backgroundColor: Colors.trueBlue,
    },
    authContentSignup: {
-      marginTop: 80
+      marginTop: 80,
    },
    iconContainer: {
-      alignSelf: 'center',
+      alignSelf: "center",
       color: Colors.mainWhite,
-      fontFamily: 'nerko',
-      fontSize: 38
+      fontFamily: "nerko",
+      fontSize: 38,
    },
    buttons: {
       marginTop: 8,

@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { View, StyleSheet, ScrollView, Pressable } from "react-native";
+import { View, StyleSheet, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { HuntContext } from "../store/HuntContext";
@@ -30,8 +30,6 @@ const HuntStatus = () => {
       (hunt) => hunt.finishedBy.includes(currentUser.email)
    );
 
-
-
    useEffect(() => {
       userCtx.setUserHunts({ created: huntsCreated, active: huntsInvited });
    }, []);
@@ -40,8 +38,6 @@ const HuntStatus = () => {
       navigation.navigate("GameScreen", { hunt });
    };
 
-
-   //   console.log(huntCtx.hunts)
    return (
       <View style={styles.container}>
          <View style={styles.scrollContainer}>
@@ -58,7 +54,6 @@ const HuntStatus = () => {
                   </Pressable>
                ))}
             </View>
-
             <SmallTitle color={Colors.darkerBlue}>Created hunts</SmallTitle>
             <View style={styles.huntsContainer}>
                {huntsCreated.map((hunt) => (
@@ -79,11 +74,11 @@ const HuntStatus = () => {
             </SmallTitle>
             <View style={styles.medals}>
                {huntsFinished.map((hunt) => (
-                  <Pressable key={hunt.id} onPress={() => startHuntHandler(hunt)}>
+                  <View key={hunt.id}>
                      <Medal
                         name={hunt.name}
                      />
-                  </Pressable>
+                  </View>
                ))}
             </View>
          </View>
@@ -95,7 +90,9 @@ const styles = StyleSheet.create({
    medals: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      alignSelf: 'center'
+      alignSelf: 'center',
+      width: "100%",
+      justifyContent: 'center'
    },
    container: {
       paddingHorizontal: 30,
@@ -108,8 +105,7 @@ const styles = StyleSheet.create({
    },
    huntsContainer: {
       flexDirection: 'column-reverse'
-   }
-
+   },
 });
 
 export default HuntStatus;

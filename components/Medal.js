@@ -10,20 +10,18 @@ const Medal = ({ name }) => {
             <View style={styles.huntIcon}>
                <FontAwesome5 name="medal" size={40} color={Colors.darkOrange} />
             </View>
-
             <Text style={styles.title} >{name}</Text>
-
          </View>
       </View>
    )
 }
 
-
 const styles = StyleSheet.create({
    container: {
       marginVertical: 5,
       marginHorizontal: 10,
-      width: 100,
+      width: 90,
+      alignSelf: 'center'
    },
    innerContainer: {
       alignItems: 'center',
