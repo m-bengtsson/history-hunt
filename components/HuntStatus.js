@@ -57,7 +57,7 @@ const HuntStatus = () => {
             <SmallTitle color={Colors.darkerBlue}>Created hunts</SmallTitle>
             <View style={styles.huntsContainer}>
                {huntsCreated.map((hunt) => (
-                  <Pressable key={hunt.id} onPress={() => startHuntHandler(hunt)}>
+                  <Pressable key={hunt.id + 1} onPress={() => startHuntHandler(hunt)}>
                      <HuntItem
                         name={hunt.name}
                         estimatedTime={hunt.estimatedTime}
@@ -74,7 +74,7 @@ const HuntStatus = () => {
             </SmallTitle>
             <View style={styles.medals}>
                {huntsFinished.map((hunt) => (
-                  <View key={hunt.id}>
+                  <View key={hunt.id + 2}>
                      <Medal
                         name={hunt.name}
                      />

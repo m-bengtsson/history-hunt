@@ -3,7 +3,7 @@ import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 const Logo = () => {
    return (
       <View style={styles.iconContainer}>
-         <MaterialCommunityIcons name="compass-outline" size={200} color={Colors.darkerBlue} />
+         <MaterialCommunityIcons name="compass-rose" size={200} color={Colors.darkerBlue} />
          <View style={styles.textOnTop}>
             <Text style={styles.history}>History</Text>
             <Text style={styles.hunt}>Hunt</Text>

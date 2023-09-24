@@ -1,20 +1,17 @@
 import { useState, useEffect, useContext } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import * as Location from "expo-location";
-import Modal from "react-native-modal";
-import { MaterialIcons } from "@expo/vector-icons";
 
 import Button from "../components/UI/Button";
 import Colors from "../constants/Colors";
 import Title from "../components/UI/Title";
-import SmallTitle from "../components/UI/SmallTitle";
 import * as http from "../util/http";
 import { UserContext } from "../store/UserContext";
-import { createLocationUrl } from "../util/location";
 import { HuntContext } from "../store/HuntContext";
 import LoadingOverlay from "../components/UI/LoadingOverlay";
+import MapModal from "../components/MapModal";
 
 const MapScreen = () => {
    const [pinnedLocation, setPinnedLocation] = useState([]);
@@ -122,7 +119,16 @@ const MapScreen = () => {
             <Button title="Confirm" onPress={toggleModal} />
          </View>
          <View style={styles.modalWrapper}>
-            <Modal isVisible={isModalVisible}>
+            <MapModal
+               isModalVisible={isModalVisible}
+               confirmHunt={confirmHunt}
+               pinnedLocation={pinnedLocation}
+               timeDuration={timeDuration}
+               name={name}
+               toggleModal={toggleModal}
+
+            />
+            {/*             <Modal isVisible={isModalVisible}>
                <View>
                   <MaterialIcons
                      name="cancel"
@@ -140,7 +146,7 @@ const MapScreen = () => {
                   </View>
                   <Button title="Confirm Hunt" onPress={confirmHunt} />
                </View>
-            </Modal>
+            </Modal> */}
          </View>
       </View>
    );
@@ -151,22 +157,13 @@ const styles = StyleSheet.create({
       flex: 1,
    },
    buttonContainer: {
-      padding: 20,
-   },
-   modalWrapper: {
-      /*      flex: 1,
-             justifyContent: 'space-between',
-             flexDirection: 'column',
-             borderRadius: 24, */
-   },
-   modalContainer: {
-      height: 500,
-      backgroundColor: Colors.trueBlue,
-      borderRadius: 30,
-      padding: 20,
+      position: "absolute",
+      width: "60%",
+      alignSelf: 'center',
+      bottom: 30
    },
    map: {
-      height: 650,
+      height: 750,
    },
    mapImage: {
       width: "100%",
