@@ -16,18 +16,18 @@ const HuntStatus = () => {
    const navigation = useNavigation();
 
    const huntsCreated = huntCtx.hunts.filter(
-      (hunt) => hunt.createdBy === currentUser.email && !hunt.finishedBy.includes(currentUser.email)
+      (hunt) => hunt.createdBy === currentUser.email && !hunt.finishedBy?.includes(currentUser.email)
    );
 
    const huntsInvited = huntCtx.hunts.filter(
       (hunt) =>
          Array.isArray(hunt.invited) &&
          hunt.invited.includes(currentUser.email) &&
-         !hunt.finishedBy.includes(currentUser.email)
+         !hunt.finishedBy?.includes(currentUser.email)
    );
 
    const huntsFinished = huntCtx.hunts.filter(
-      (hunt) => hunt.finishedBy.includes(currentUser.email)
+      (hunt) => hunt.finishedBy?.includes(currentUser.email)
    );
 
    useEffect(() => {

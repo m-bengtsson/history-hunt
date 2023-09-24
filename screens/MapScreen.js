@@ -14,10 +14,13 @@ import * as http from "../util/http";
 import { UserContext } from "../store/UserContext";
 import { createLocationUrl } from "../util/location";
 import { HuntContext } from "../store/HuntContext";
+import LoadingOverlay from "../components/UI/LoadingOverlay";
 
 const MapScreen = () => {
    const [pinnedLocation, setPinnedLocation] = useState([]);
    //const [permission, requestPermission] = Location.useForegroundPermissions();
+   const [currentLocation, setCurrentLocation] = useState(null);
+
    const [invited, setInvited] = useState([]);
    const [isModalVisible, setModalVisible] = useState(false);
 
@@ -31,12 +34,26 @@ const MapScreen = () => {
    const toggleModal = () => {
       setModalVisible(!isModalVisible);
    };
-
    useEffect(() => {
+      const getCurrentLocation = async () => {
+         const location = await Location.getCurrentPositionAsync();
+         setCurrentLocation({
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+         });
+      };
       if (route.params?.invitedFriends) {
          setInvited((prev) => [...prev, ...route.params.invitedFriends]);
       }
+
+      getCurrentLocation();
    }, [route]);
+
+   if (!currentLocation) {
+      return <LoadingOverlay message="Loading user location.." />;
+   }
 
    const markerHandler = (event) => {
       const latitude = event.nativeEvent.coordinate.latitude;
@@ -88,8 +105,9 @@ const MapScreen = () => {
          <Title>Choose Location</Title>
          <MapView
             style={styles.map}
-            initialRegion={initialRegion}
+            initialRegion={currentLocation}
             onPress={markerHandler}
+            showsUserLocation={true}
          >
             {pinnedLocation.map((location, index) => (
                <Marker
@@ -115,6 +133,7 @@ const MapScreen = () => {
                   <View style={styles.modalContainer}>
                      <SmallTitle>You picked</SmallTitle>
                      <SmallTitle>Here is the route you will be taking:</SmallTitle>
+                     <Image style={styles.mapImage} source={{ uri: createLocationUrl({ centerLat: initialRegion.latitude, centerLng: initialRegion.longitude }, pinnedLocation) }} />
                      <SmallTitle>
                         This should take approximately: {timeDuration}
                      </SmallTitle>
